@@ -1,4 +1,4 @@
-const imgChatGptImageJan102026021202Am2 = "/chat-gpt-image.png";
+const imgBgFlowers = "/chat-gpt-image.png";
 const imgOrangeSun = "/orange-sun.svg";
 const imgArrowUp = "/arrow-up.svg";
 
@@ -13,7 +13,7 @@ export default function AboutSection() {
             <p className="mb-0 text-[#2a2a2a]">Building feels different in summer.</p>
             <p className="mb-0">&nbsp;</p>
             <p className="font-['Maison_Neue:Book',sans-serif] mb-0">
-              <span className="text-[#2a2a2a]">Time moves more slowly. Ideas have space to brea</span>
+              <span className="text-[#2a2a2a]">Time moves more slowly. Ideas have space to breathe.</span>
               <span className="text-[#ffcf98]">the. Conversation stretches beyond the screen. SummerHacks is a thoughtfully designed hackathon that takes place outdoors, shaped by the rhythm and openness of the season.</span>
             </p>
             <p className="mb-0">&nbsp;</p>
@@ -42,24 +42,24 @@ function BackgroundImages() {
       <div className="absolute flex items-center justify-center left-[-297px] size-[717px] top-[-388px]" style={{ "--transform-inner-width": "0", "--transform-inner-height": "0" } as React.CSSProperties}>
         <div className="flex-none rotate-[90deg]">
           <div className="relative size-[717px]">
-            <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover opacity-30 pointer-events-none size-full" src={imgChatGptImageJan102026021202Am2} />
+            <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover opacity-30 pointer-events-none size-full" src={imgBgFlowers} />
           </div>
         </div>
       </div>
       <div className="absolute right-[-77px] size-[717px] top-[-287px]">
-        <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover opacity-30 pointer-events-none size-full" src={imgChatGptImageJan102026021202Am2} />
+        <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover opacity-30 pointer-events-none size-full" src={imgBgFlowers} />
       </div>
       <div className="absolute flex items-center justify-center right-[-311px] size-[717px] top-[644px]" style={{ "--transform-inner-width": "0", "--transform-inner-height": "0" } as React.CSSProperties}>
         <div className="flex-none rotate-[270deg]">
           <div className="relative size-[717px]">
-            <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover opacity-30 pointer-events-none size-full" src={imgChatGptImageJan102026021202Am2} />
+            <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover opacity-30 pointer-events-none size-full" src={imgBgFlowers} />
           </div>
         </div>
       </div>
       <div className="absolute bottom-[-503px] flex items-center justify-center left-[-380px] size-[717px]" style={{ "--transform-inner-width": "0", "--transform-inner-height": "0" } as React.CSSProperties}>
         <div className="flex-none rotate-[270deg]">
           <div className="relative size-[717px]">
-            <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover opacity-30 pointer-events-none size-full" src={imgChatGptImageJan102026021202Am2} />
+            <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover opacity-30 pointer-events-none size-full" src={imgBgFlowers} />
           </div>
         </div>
       </div>
