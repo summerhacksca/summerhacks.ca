@@ -1,6 +1,15 @@
+import { splitText } from "animejs";
+
 const imgBgFlowers = "/chat-gpt-image.png";
 const imgOrangeSun = "/orange-sun.svg";
 const imgArrowUp = "/arrow-up.svg";
+
+const paragraphs = [
+  "Building feels different in summer.",
+  "Time moves more slowly. Ideas have space to breathe. Conversation stretches beyond the screen. SummerHacks is a thoughtfully designed hackathon that takes place outdoors, shaped by the rhythm and openness of the season.",
+  "At its core, SummerHacks is about creating something lasting. Not only the projects that are built, but the memory of building them. Outdoors, together, during a fleeting moment of summer.",
+  "Let's build in golden hours.",
+];
 
 export default function AboutSection() {
   return (
@@ -11,23 +20,19 @@ export default function AboutSection() {
         
         <div className="content-stretch flex flex-col gap-[48px] items-start relative shrink-0 w-full">
           <div className="flex flex-col font-['Maison_Neue:Medium',sans-serif] justify-end leading-[1.2] min-w-full not-italic relative shrink-0 text-[#ffcf98] text-[32px] text-justify tracking-[-0.64px] w-[min-content]">
+            {/* paragraph 0 */}
             <p className="mb-0 text-[#2a2a2a]">Building feels different in summer. </p>
             <p className="mb-0">&nbsp;</p>
+            {/* paragraph 1 */}
             <p className="font-['Maison_Neue:Book',sans-serif] mb-0">
-              <span className="text-[#2a2a2a]">Time moves more slowly. Ideas have space to breathe.</span>
-              <span className="text-[#ffcf98]">Conversation stretches beyond the screen. SummerHacks is a thoughtfully designed hackathon that takes place outdoors, shaped by the rhythm and openness of the season.</span>
+              <span className="text-[#ffcf98]">Time moves more slowly. Ideas have space to breathe. Conversation stretches beyond the screen. SummerHacks is a thoughtfully designed hackathon that takes place outdoors, shaped by the rhythm and openness of the season.</span>
             </p>
+            {/* paragraph 2 */}
             <p className="mb-0">&nbsp;</p>
             <p className="font-['Maison_Neue:Book',sans-serif]">At its core, SummerHacks is about creating something lasting. Not only the projects that are built, but the memory of building them. Outdoors, together, during a fleeting moment of summer.</p>
-          </div>
-          
-          <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
-            <div className="flex flex-col font-['Maison_Neue:Book',sans-serif] justify-end leading-[0] not-italic relative shrink-0 text-[#ffcf98] text-[32px] text-justify text-nowrap tracking-[-0.64px]">
-              <p className="leading-[1.2]">Let's build in golden hours.<span className="text-4xl text-[#FDB869]">●</span></p>
-            </div>
-            {/* <div className="relative shrink-0 size-[16px]">
-              <img alt="" className="block max-w-none size-full" src={imgOrangeSun} />
-            </div> */}
+            {/* paragraph 3 */}
+            <p className="mb-0">&nbsp;</p>
+            <p className="leading-[1.2]">Let's build in golden hours.<span className="text-4xl text-[#FDB869]">●</span></p>
           </div>
         </div>
         
