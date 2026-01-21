@@ -5,7 +5,7 @@ const imgFrame70 = "/frame-70.png";
 
 export default function InfoSection() {
   return (
-    <div className="bg-white content-stretch flex items-start overflow-clip p-[12px] relative shrink-0 w-full z-[2]">
+    <div id="info" className="bg-white content-stretch flex items-start overflow-clip p-[12px] relative shrink-0 w-full z-[2]">
       <LeftPanel />
       <RightPanel />
     </div>
