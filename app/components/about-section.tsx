@@ -1,4 +1,7 @@
+"use client";
+
 import { splitText } from "animejs";
+import { useRef, useEffect, useState } from "react";
 
 const imgBgFlowers = "/chat-gpt-image.png";
 const imgOrangeSun = "/orange-sun.svg";
@@ -12,6 +15,29 @@ const paragraphs = [
 ];
 
 export default function AboutSection() {
+  const [paragraphHeights, setParagraphHeights] = useState<number[]>([]);
+  const paragraphRefs = useRef<(HTMLParagraphElement | null)[]>([]);
+  const textWrapperRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const heights = paragraphRefs.current.map(ref => ref?.offsetHeight || 0);
+    setParagraphHeights(heights);
+    console.log('First paragraph height:', heights[2]);
+    const textWidth = textWrapperRef.current?.clientWidth || 0;
+    console.log('Text wrapper width:', textWidth);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const height = paragraphRefs.current[2]?.offsetHeight || 0;
+      const textWidth = textWrapperRef.current?.clientWidth || 0;
+      console.log('First paragraph height on resize:', height);
+      console.log('Text wrapper width on resize:', textWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   return (
     <div id="about" className="relative w-full" style={{ height: 'calc(100vh + 3600px)' }}>
       <div className="sticky top-0 content-stretch flex flex-col items-start p-[12px] shrink-0 w-full h-screen z-[3]">
@@ -19,20 +45,20 @@ export default function AboutSection() {
         <BackgroundImages />
         
         <div className="content-stretch flex flex-col gap-[48px] items-start relative shrink-0 w-full">
-          <div className="flex flex-col font-['Maison_Neue:Medium',sans-serif] justify-end leading-[1.2] min-w-full not-italic relative shrink-0 text-[#ffcf98] text-[32px] text-justify tracking-[-0.64px] w-[min-content]">
+          <div ref={textWrapperRef} className="flex flex-col font-['Maison_Neue:Medium',sans-serif] justify-end leading-[1.2] min-w-full not-italic relative shrink-0 text-[#ffcf98] text-[32px] text-justify tracking-[-0.64px] w-[min-content]">
             {/* paragraph 0 */}
-            <p className="mb-0 text-[#2a2a2a]">Building feels different in summer. </p>
+            <p ref={el => { paragraphRefs.current[0] = el }} className="mb-0 text-[#2a2a2a]">Building feels different in summer. </p>
             <p className="mb-0">&nbsp;</p>
             {/* paragraph 1 */}
-            <p className="font-['Maison_Neue:Book',sans-serif] mb-0">
+            <p ref={el => { paragraphRefs.current[1] = el }} className="font-['Maison_Neue:Book',sans-serif] mb-0">
               <span className="text-[#ffcf98]">Time moves more slowly. Ideas have space to breathe. Conversation stretches beyond the screen. SummerHacks is a thoughtfully designed hackathon that takes place outdoors, shaped by the rhythm and openness of the season.</span>
             </p>
             {/* paragraph 2 */}
             <p className="mb-0">&nbsp;</p>
-            <p className="font-['Maison_Neue:Book',sans-serif]">At its core, SummerHacks is about creating something lasting. Not only the projects that are built, but the memory of building them. Outdoors, together, during a fleeting moment of summer.</p>
+            <p ref={el => { paragraphRefs.current[2] = el }} className="font-['Maison_Neue:Book',sans-serif]">At its core, SummerHacks is about creating something lasting. Not only the projects that are built, but the memory of building them. Outdoors, together, during a fleeting moment of summer.</p>
             {/* paragraph 3 */}
             <p className="mb-0">&nbsp;</p>
-            <p className="leading-[1.2]">Let's build in golden hours.<span className="text-4xl text-[#FDB869]">●</span></p>
+            <p ref={el => { paragraphRefs.current[3] = el }} className="leading-[1.2]">Let's build in golden hours.<span className="text-4xl text-[#FDB869]">●</span></p>
           </div>
         </div>
         
