@@ -16,30 +16,72 @@ const paragraphs = [
 
 export default function AboutSection() {
   const [paragraphHeights, setParagraphHeights] = useState<number[]>([]);
+  const [paragraphOffsets, setParagraphOffsets] = useState<number[]>([]);
+  const [textWidth, setTextWidth] = useState<number>(0);
+  const [overlayOpacity, setOverlayOpacity] = useState<number>(0);
   const paragraphRefs = useRef<(HTMLParagraphElement | null)[]>([]);
   const textWrapperRef = useRef<HTMLDivElement | null>(null);
+  const aboutRef = useRef<HTMLDivElement | null>(null);
+  const rainbowColors = [
+    '#ff0000', // red
+    '#ff7f00', // orange
+    '#ffff00', // yellow
+    '#00ff00', // green
+    '#0000ff', // blue
+    '#4b0082', // indigo
+    '#8b00ff', // violet
+  ];
+
+  const measureLayout = () => {
+    const heights = paragraphRefs.current.map(ref => ref?.offsetHeight || 0);
+    const wrapperRect = textWrapperRef.current?.getBoundingClientRect();
+    const offsets = paragraphRefs.current.map(ref => {
+      if (!ref || !wrapperRect) return 0;
+      const rect = ref.getBoundingClientRect();
+      return rect.top - wrapperRect.top;
+    });
+    const width = textWrapperRef.current?.clientWidth || 0;
+
+    setParagraphHeights(heights);
+    setParagraphOffsets(offsets);
+    setTextWidth(width);
+
+    console.log('First paragraph height:', heights[0]);
+    console.log('Text wrapper width:', width);
+  };
 
   useEffect(() => {
-    const heights = paragraphRefs.current.map(ref => ref?.offsetHeight || 0);
-    setParagraphHeights(heights);
-    console.log('First paragraph height:', heights[2]);
-    const textWidth = textWrapperRef.current?.clientWidth || 0;
-    console.log('Text wrapper width:', textWidth);
+    measureLayout();
   }, []);
 
   useEffect(() => {
     const handleResize = () => {
-      const height = paragraphRefs.current[2]?.offsetHeight || 0;
-      const textWidth = textWrapperRef.current?.clientWidth || 0;
-      console.log('First paragraph height on resize:', height);
-      console.log('Text wrapper width on resize:', textWidth);
+      measureLayout();
     };
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  useEffect(() => {
+    const clamp = (val: number, min: number, max: number) => Math.min(max, Math.max(min, val));
+
+    const handleScroll = () => {
+      if (!aboutRef.current) return;
+      const sectionTop = aboutRef.current.offsetTop;
+      const sectionHeight = aboutRef.current.offsetHeight;
+      const start = sectionTop - window.innerHeight;
+      const end = sectionTop + sectionHeight;
+      const raw = (window.scrollY - start) / (end - start);
+      setOverlayOpacity(clamp(raw, 0, 1));
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   return (
-    <div id="about" className="relative w-full" style={{ height: 'calc(100vh + 3600px)' }}>
+    <div ref={aboutRef} id="about" className="relative w-full" style={{ height: 'calc(100vh + 3600px)' }}>
       <div className="sticky top-0 content-stretch flex flex-col items-start p-[12px] shrink-0 w-full h-screen z-[3]">
         <div className="bg-[#fffbf6] content-stretch flex flex-col gap-[64px] items-center justify-center overflow-clip pb-[128px] pt-[164px] px-[128px] relative shrink-0 w-full h-[calc(100dvh-24px)]">
         <BackgroundImages />
@@ -59,6 +101,31 @@ export default function AboutSection() {
             {/* paragraph 3 */}
             <p className="mb-0">&nbsp;</p>
             <p ref={el => { paragraphRefs.current[3] = el }} className="leading-[1.2]">Let's build in golden hours.<span className="text-4xl text-[#FDB869]">●</span></p>
+
+            <div className="pointer-events-none absolute inset-0 z-10">
+              {paragraphHeights.map((height, idx) => {
+                if (!height) return null;
+                const segments = Math.max(1, Math.round(height / 38.4));
+                const segmentHeight = height / segments;
+                const topBase = paragraphOffsets[idx] ?? 0;
+
+                return Array.from({ length: segments }).map((_, segmentIdx) => (
+                  <div
+                    key={`${idx}-${segmentIdx}`}
+                    style={{
+                      position: 'absolute',
+                      left: 0,
+                      width: `${textWidth}px`,
+                      height: `${segmentHeight}px`,
+                      top: `${topBase + segmentHeight * segmentIdx}px`,
+                      backgroundColor: rainbowColors[(idx + segmentIdx) % rainbowColors.length],
+                      opacity: overlayOpacity,
+                      transition: 'opacity 120ms linear',
+                    }}
+                  />
+                ));
+              })}
+            </div>
           </div>
         </div>
         
