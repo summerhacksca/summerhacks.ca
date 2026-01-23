@@ -1,6 +1,28 @@
 import { NextResponse, NextRequest } from 'next/server'
-// Import the basic client constructor
-import { createClient } from '@supabase/supabase-js' 
+import { createClient } from '@supabase/supabase-js'
+import validDomainsArray from '@/public/university-domains.json'
+
+const validDomains = new Set<string>(validDomainsArray);
+
+function getBaseDomain(email: string): string {
+  const parts = email.split('@');
+  if (parts.length !== 2) return '';
+  
+  const domain = parts[1].toLowerCase();
+  const domainParts = domain.split('.');
+  
+  const secondLevelTLDs = ['ac', 'edu', 'gov', 'co'];
+  
+  if (domainParts.length >= 3 && secondLevelTLDs.includes(domainParts[domainParts.length - 2])) {
+    return domainParts.slice(-3).join('.');
+  }
+  
+  if (domainParts.length >= 2) {
+    return domainParts.slice(-2).join('.');
+  }
+  
+  return domain;
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,8 +38,23 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid email format' }, { status: 400 })
     }
 
-    // FIX: Create a Supabase client with the SERVICE ROLE key
-    // This client bypasses all RLS policies (Admin mode)
+    const baseDomain = getBaseDomain(email);
+    
+    if (!baseDomain) {
+      return NextResponse.json(
+        { error: 'Could not extract domain from email' },
+        { status: 400 }
+      )
+    }
+
+    if (!validDomains.has(baseDomain)) {
+      return NextResponse.json(
+        { error: 'Must use a university email address' },
+        { status: 400 }
+      )
+    }
+
+    // Create Supabase client with SERVICE ROLE key
     const supabaseAdmin = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -26,7 +63,7 @@ export async function POST(request: NextRequest) {
     const { data, error } = await supabaseAdmin
       .from('waitlist')
       .insert({ email: email.toLowerCase().trim() })
-      .select() // This will now work because admin can select anything
+      .select()
       .single()
 
     if (error) {
