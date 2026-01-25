@@ -51,61 +51,74 @@ function LeftPanel() {
         </div>
       </div>
 
-      {/* About Section */}
-      <div className="content-stretch flex flex-col gap-[28px] items-start relative shrink-0 w-full">
-        <div className="flex flex-col font-['Maison_Neue',sans-serif] font-normal justify-end leading-none not-italic relative shrink-0 text-[32px] text-[#2a2a2a] tracking-[-0.64px] whitespace-nowrap">
-          <p className="leading-none mb-0">About</p>
-        </div>
-        <div className="font-['Maison_Neue',sans-serif] font-normal leading-normal not-italic relative shrink-0 text-[14px] text-[#2a2a2a]">
-          <p className="leading-normal mb-0">Participants will spend a weekend in mid-June building projects under open skies, surrounded by greenery, camp-like activities, and a close-knit community.</p>
-          <p className="leading-normal mb-0">&nbsp;</p>
-          <p className="mb-0">
-            <span className="leading-normal">We are looking to admit</span>
-            <span className="font-semibold leading-normal">{` ~150 hackers.`}</span>
-            <span className="leading-normal">{` Make sure to reserve a spot on the waitlist.`}</span>
+      <AboutSection />
+      <FAQSection faqs={faqs} openIndex={openIndex} setOpenIndex={setOpenIndex} />
+    </div>
+  );
+}
+
+function AboutSection() {
+  return (
+    <div className="content-stretch flex flex-col gap-[28px] items-start relative shrink-0 w-full">
+      <div className="flex flex-col font-['Maison_Neue',sans-serif] font-normal justify-end leading-none not-italic relative shrink-0 text-[32px] text-[#2a2a2a] tracking-[-0.64px] whitespace-nowrap">
+        <p className="leading-none mb-0">About</p>
+      </div>
+      <div className="font-['Maison_Neue',sans-serif] font-normal leading-normal not-italic relative shrink-0 text-[14px] text-[#2a2a2a]">
+        <p className="leading-normal mb-0">Participants will spend a weekend in mid-June building projects under open skies, surrounded by greenery, camp-like activities, and a close-knit community.</p>
+        <p className="leading-normal mb-0">&nbsp;</p>
+        <p className="mb-0">
+          <span className="leading-normal">We are looking to admit</span>
+          <span className="font-semibold leading-normal">{` ~150 hackers.`}</span>
+          <span className="leading-normal">{` Make sure to reserve a spot on the waitlist.`}</span>
+        </p>
+      </div>
+      <div className="content-stretch flex flex-col items-start justify-end relative shrink-0">
+        <button className="backdrop-blur-[1px] bg-[#ffefdd] content-stretch flex gap-[10px] h-[52px] items-center overflow-clip px-[16px] relative rounded-[100px] shrink-0 cursor-pointer hover:bg-[#ffe5cd] transition-colors">
+          <div className="relative shrink-0 size-[20px]">
+            <img alt="" className="block max-w-none size-full" src={imgArrowUp} />
+          </div>
+          <p className="font-['Maison_Neue',sans-serif] font-medium leading-normal not-italic relative shrink-0 text-[#b07f46] text-[14px] text-center tracking-[-0.28px]">
+            Join the waitlist
           </p>
-        </div>
-        <div className="content-stretch flex flex-col items-start justify-end relative shrink-0">
-          <button className="backdrop-blur-[1px] bg-[#ffefdd] content-stretch flex gap-[10px] h-[52px] items-center overflow-clip px-[16px] relative rounded-[100px] shrink-0 cursor-pointer hover:bg-[#ffe5cd] transition-colors">
-            <div className="relative shrink-0 size-[20px]">
-              <img alt="" className="block max-w-none size-full" src={imgArrowUp} />
-            </div>
-            <p className="font-['Maison_Neue',sans-serif] font-medium leading-normal not-italic relative shrink-0 text-[#b07f46] text-[14px] text-center tracking-[-0.28px]">
-              Join the waitlist
-            </p>
-          </button>
-        </div>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function FAQSection({ faqs, openIndex, setOpenIndex }: { 
+  faqs: Array<{ question: string; answer: string }>; 
+  openIndex: number | null; 
+  setOpenIndex: (index: number | null) => void;
+}) {
+  return (
+    <div className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full">
+      <div className="flex flex-col font-['Maison_Neue',sans-serif] font-normal justify-end leading-none not-italic relative shrink-0 text-[32px] text-[#2a2a2a] tracking-[-0.64px]">
+        <p className="leading-none mb-0">Frequently Asked Questions</p>
       </div>
 
-      {/* FAQ Section */}
-      <div className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full">
-        <div className="flex flex-col font-['Maison_Neue',sans-serif] font-normal justify-end leading-none not-italic relative shrink-0 text-[32px] text-[#2a2a2a] tracking-[-0.64px]">
-          <p className="leading-none mb-0">Frequently Asked Questions</p>
-        </div>
-
-        {/* FAQ Items */}
-        <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full">
-          {faqs.map((faq, index) => (
-            <div key={index} className="content-stretch flex flex-col border-b border-[#e5e5e5] pb-[16px] relative shrink-0 w-full">
-              <button
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="content-stretch flex items-center justify-between relative shrink-0 w-full cursor-pointer bg-transparent border-none p-0 text-left"
-              >
-                <p className="font-['Maison_Neue',sans-serif] font-normal leading-normal not-italic text-[16px] text-[#2a2a2a]">
-                  {faq.question}
-                </p>
-                <span className="text-[24px] text-[#2a2a2a] shrink-0">
-                  {openIndex === index ? '×' : '+'}
-                </span>
-              </button>
-              {openIndex === index && (
-                <div className="mt-[12px] font-['Maison_Neue',sans-serif] font-normal leading-normal not-italic text-[14px] text-[#2a2a2a]">
-                  {faq.answer}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+      {/* FAQ Items */}
+      <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full">
+        {faqs.map((faq, index) => (
+          <div key={index} className="content-stretch flex flex-col border-b border-[#e5e5e5] pb-[16px] relative shrink-0 w-full">
+            <button
+              onClick={() => setOpenIndex(openIndex === index ? null : index)}
+              className="content-stretch flex items-center justify-between relative shrink-0 w-full cursor-pointer bg-transparent border-none p-0 text-left"
+            >
+              <p className="font-['Maison_Neue',sans-serif] font-normal leading-normal not-italic text-[16px] text-[#2a2a2a]">
+                {faq.question}
+              </p>
+              <span className="text-[24px] text-[#2a2a2a] shrink-0">
+                {openIndex === index ? '×' : '+'}
+              </span>
+            </button>
+            {openIndex === index && (
+              <div className="mt-[12px] font-['Maison_Neue',sans-serif] font-normal leading-normal not-italic text-[14px] text-[#2a2a2a]">
+                {faq.answer}
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );
