@@ -1,6 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 const imgOrangeSun = "/orange-sun.svg";
 const imgBlueSun = "/blue-sun.svg";
@@ -9,7 +14,7 @@ const imgArrowUp = "/arrow-up.svg";
 
 export default function InfoSection() {
   return (
-    <div id="info" className="bg-white content-stretch flex items-start overflow-clip p-[12px] relative shrink-0 w-full z-[2]">
+    <div id="info" className="bg-white content-stretch flex items-start overflow-clip p-[12px] relative shrink-0 w-full h-screen z-[2]">
       <LeftPanel />
       <RightPanel />
     </div>
@@ -17,8 +22,6 @@ export default function InfoSection() {
 }
 
 function LeftPanel() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
   const faqs = [
     {
       question: "How many tents are there?",
@@ -52,7 +55,7 @@ function LeftPanel() {
       </div>
 
       <AboutSection />
-      <FAQSection faqs={faqs} openIndex={openIndex} setOpenIndex={setOpenIndex} />
+      <FAQSection faqs={faqs} />
     </div>
   );
 }
@@ -73,7 +76,11 @@ function AboutSection() {
         </p>
       </div>
       <div className="content-stretch flex flex-col items-start justify-end relative shrink-0">
-        <button className="backdrop-blur-[1px] bg-[#ffefdd] content-stretch flex gap-[10px] h-[52px] items-center overflow-clip px-[16px] relative rounded-[100px] shrink-0 cursor-pointer hover:bg-[#ffe5cd] transition-colors">
+        <button 
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className="backdrop-blur-[1px] bg-[#ffefdd] content-stretch flex gap-[10px] h-[52px] items-center overflow-clip px-[16px] relative rounded-[100px] shrink-0 cursor-pointer hover:bg-[#ffe5cd] transition-colors">
           <div className="relative shrink-0 size-[20px]">
             <img alt="" className="block max-w-none size-full" src={imgArrowUp} />
           </div>
@@ -86,10 +93,8 @@ function AboutSection() {
   );
 }
 
-function FAQSection({ faqs, openIndex, setOpenIndex }: { 
+function FAQSection({ faqs }: { 
   faqs: Array<{ question: string; answer: string }>; 
-  openIndex: number | null; 
-  setOpenIndex: (index: number | null) => void;
 }) {
   return (
     <div className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full">
@@ -98,35 +103,25 @@ function FAQSection({ faqs, openIndex, setOpenIndex }: {
       </div>
 
       {/* FAQ Items */}
-      <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full">
+      <Accordion type="single" collapsible className="w-full">
         {faqs.map((faq, index) => (
-          <div key={index} className="content-stretch flex flex-col border-b border-[#e5e5e5] pb-[16px] relative shrink-0 w-full">
-            <button
-              onClick={() => setOpenIndex(openIndex === index ? null : index)}
-              className="content-stretch flex items-center justify-between relative shrink-0 w-full cursor-pointer bg-transparent border-none p-0 text-left"
-            >
-              <p className="font-['Maison_Neue',sans-serif] font-normal leading-normal not-italic text-[16px] text-[#2a2a2a]">
-                {faq.question}
-              </p>
-              <span className="text-[24px] text-[#2a2a2a] shrink-0">
-                {openIndex === index ? '×' : '+'}
-              </span>
-            </button>
-            {openIndex === index && (
-              <div className="mt-[12px] font-['Maison_Neue',sans-serif] font-normal leading-normal not-italic text-[14px] text-[#2a2a2a]">
-                {faq.answer}
-              </div>
-            )}
-          </div>
+          <AccordionItem key={index} value={`item-${index}`} className="border-b border-[#e5e5e5]">
+            <AccordionTrigger className="font-['Maison_Neue',sans-serif] font-normal text-[16px] text-[#2a2a2a] hover:no-underline">
+              {faq.question}
+            </AccordionTrigger>
+            <AccordionContent className="font-['Maison_Neue',sans-serif] font-normal text-[14px] text-[#2a2a2a]">
+              {faq.answer}
+            </AccordionContent>
+          </AccordionItem>
         ))}
-      </div>
+      </Accordion>
     </div>
   );
 }
 
 function RightPanel() {
   return (
-    <div className="basis-0 content-stretch flex flex-col grow h-[805px] items-start justify-between min-h-px min-w-px overflow-clip p-[36px] relative shrink-0">
+    <div className="basis-0 content-stretch flex flex-col grow h-full items-start justify-between min-h-px min-w-px overflow-clip p-[36px] relative shrink-0">
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 overflow-hidden">
           <img alt="" className="absolute inset-0 w-full h-full object-cover" src={imgFrame70} />
