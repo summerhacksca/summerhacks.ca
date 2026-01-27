@@ -100,7 +100,7 @@ export default function AboutSection() {
             <p ref={el => { paragraphRefs.current[2] = el }} className="font-['Maison_Neue:Book',sans-serif]">At its core, SummerHacks is about creating something lasting. Not only the projects that are built, but the memory of building them. Outdoors, together, during a fleeting moment of summer.</p>
             {/* paragraph 3 */}
             <p className="mb-0">&nbsp;</p>
-            <p ref={el => { paragraphRefs.current[3] = el }} className="leading-[1.2]">Let's build in golden hours.<span className="text-4xl text-[#FDB869]">●</span></p>
+            <p ref={el => { paragraphRefs.current[3] = el }} className="leading-[1.2]">Let&apos;s build in golden hours.<span className="text-4xl text-[#FDB869]">●</span></p>
 
             <div className="pointer-events-none absolute inset-0 z-10">
               {paragraphHeights.map((height, idx) => {
