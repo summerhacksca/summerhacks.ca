@@ -1,3 +1,7 @@
+'use client'
+
+import { useState } from 'react'
+
 // to be replaced with videos
 const imgFrame53 = "/frame-53.png";
 const imgFrame54 = "/frame-54.png";
@@ -68,8 +72,54 @@ function EmailSignup() {
   const imgOrangeSun = "/orange-sun.svg";
   const imgArrowUp = "/arrow-up.svg";
 
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+
+  const getPlaceholder = () => {
+    switch (status) {
+      case 'success':
+        return 'saved!'
+      case 'error':
+        return 'error, try again...'
+      case 'loading':
+        return 'saving...'
+      default:
+        return 'your email...'
+    }
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!email) {
+      setStatus('error')
+      return
+    }
+
+    setStatus('loading')
+
+    try {
+      const response = await fetch('/api/email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      })
+
+      if (response.ok) {
+        setStatus('success')
+        setEmail('')
+      } else {
+        setStatus('error')
+      }
+    } catch (error) {
+      setStatus('error')
+    }
+  }
+
   return (
-    <div className="bg-[var(--base\/0,white)] content-stretch flex gap-[24px] h-[56px] items-center overflow-clip pl-[16px] pr-[2px] py-[2px] relative rounded-[4px] shadow-[0px_20px_50px_0px_rgba(0,0,0,0.25)] shrink-0">
+    <form onSubmit={handleSubmit} className="bg-[var(--base\/0,white)] content-stretch flex gap-[24px] h-[56px] items-center overflow-clip pl-[16px] pr-[2px] py-[2px] relative rounded-[4px] shadow-[0px_20px_50px_0px_rgba(0,0,0,0.25)] shrink-0">
       <div className="content-stretch flex gap-2 items-center relative shrink-0">
         <div className="relative shrink-0 size-2.5">
           <div className="absolute inset-0" style={{ "--fill-0": "rgba(253, 184, 105, 1)" } as React.CSSProperties}>
@@ -82,11 +132,33 @@ function EmailSignup() {
       </div>
       <div className="content-stretch flex gap-0.5 h-full items-center relative shrink-0">
         <div className="border border-[var(--primary\/sun\/100,#ffefdd)] border-solid content-stretch flex h-full items-center overflow-clip px-[20px] py-0 relative rounded-[100px] shrink-0 w-[290px]">
-          <p className="font-['Maison_Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-[color:var(--primary\/sun\/300,#fdb869)] text-nowrap tracking-[-0.56px]">
-            your email...
-          </p>
+          {status === 'success' ? (
+            <p className="font-['Maison_Neue:Book',sans-serif] leading-[normal] not-italic text-[14px] text-[#fdb869] tracking-[-0.56px]">
+              added to waitlist!
+            </p>
+          ) : (
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value)
+                if (status === 'error') setStatus('idle')
+              }}
+              placeholder={getPlaceholder()}
+              disabled={status === 'loading'}
+              className={`font-['Maison_Neue:Book',sans-serif] leading-[normal] not-italic w-full bg-transparent outline-none text-[14px] text-[#fdb869] tracking-[-0.56px] disabled:opacity-50 ${
+                status === 'error' 
+                  ? 'placeholder:text-red-400' 
+                  : 'placeholder:text-[#fdb869]'
+              }`}
+            />
+          )}
         </div>
-        <div className="aspect-[54/54] bg-[var(--primary\/sun\/100,#ffefdd)] content-stretch flex h-full items-center justify-center overflow-clip relative rounded-[100px] shrink-0">
+        <button
+          type="submit"
+          disabled={status === 'loading'}
+          className="aspect-[54/54] bg-[var(--primary\/sun\/100,#ffefdd)] content-stretch flex h-full items-center justify-center overflow-clip relative rounded-[100px] shrink-0 hover:bg-[var(--primary\/sun\/200,#fde4c8)] transition-colors disabled:opacity-50 cursor-pointer"
+        >
           <div className="flex items-center justify-center relative shrink-0 size-[20px]" style={{ "--transform-inner-width": "0", "--transform-inner-height": "0" } as React.CSSProperties}>
             <div className="flex-none rotate-[90deg]">
               <div className="relative size-[20px]">
@@ -94,9 +166,9 @@ function EmailSignup() {
               </div>
             </div>
           </div>
-        </div>
+        </button>
       </div>
-    </div>
+    </form>
   );
 }
 
