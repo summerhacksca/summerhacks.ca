@@ -79,11 +79,9 @@ export default function AboutSection() {
 
     const handleScroll = () => {
       if (!aboutRef.current) return;
-      const sectionTop = aboutRef.current.offsetTop;
-      const sectionHeight = aboutRef.current.offsetHeight;
-      const start = sectionTop - window.innerHeight;
-      const end = sectionTop + sectionHeight;
-      const raw = (window.scrollY - start) / (end - start);
+      const rect = aboutRef.current.getBoundingClientRect();
+      const denom = Math.max(1, rect.height - window.innerHeight);
+      const raw = (0 - rect.top) / denom;
       setOverlayProgress(clamp(raw, 0, 1));
     };
 
