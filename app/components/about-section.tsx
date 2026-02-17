@@ -1,7 +1,7 @@
 "use client";
 
 import { splitText } from "animejs";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useId } from "react";
 
 const imgBgFlowers = "/chat-gpt-image.png";
 const imgOrangeSun = "/orange-sun.svg";
@@ -18,20 +18,13 @@ export default function AboutSection() {
   const [paragraphHeights, setParagraphHeights] = useState<number[]>([]);
   const [paragraphOffsets, setParagraphOffsets] = useState<number[]>([]);
   const [textWidth, setTextWidth] = useState<number>(0);
+  const [textHeight, setTextHeight] = useState<number>(0);
   const [overlayProgress, setOverlayProgress] = useState<number>(0);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const paragraphRefs = useRef<(HTMLParagraphElement | null)[]>([]);
   const textWrapperRef = useRef<HTMLDivElement | null>(null);
   const aboutRef = useRef<HTMLDivElement | null>(null);
-  const rainbowColors = [
-    '#ff0000', // red
-    '#ff7f00', // orange
-    '#ffff00', // yellow
-    '#00ff00', // green
-    '#0000ff', // blue
-    '#4b0082', // indigo
-    '#8b00ff', // violet
-  ];
+  const maskId = useId();
 
   const measureLayout = () => {
     const heights = paragraphRefs.current.map(ref => ref?.offsetHeight || 0);
@@ -42,10 +35,12 @@ export default function AboutSection() {
       return rect.top - wrapperRect.top;
     });
     const width = textWrapperRef.current?.clientWidth || 0;
+    const height = textWrapperRef.current?.clientHeight || 0;
 
     setParagraphHeights(heights);
     setParagraphOffsets(offsets);
     setTextWidth(width);
+    setTextHeight(height);
 
     console.log('First paragraph height:', heights[0]);
     console.log('Text wrapper width:', width);
@@ -89,6 +84,46 @@ export default function AboutSection() {
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+  const segmentUnit = isMobile ? 29 : 38.4;
+  const paragraphSegments = paragraphHeights.map(height =>
+    height ? Math.max(1, Math.round(height / segmentUnit)) : 0
+  );
+  const paragraphWidths = paragraphSegments.map(segments => segments * textWidth);
+  const totalWidth = paragraphWidths.reduce((sum, width) => sum + width, 0);
+  const progressWidth = overlayProgress * totalWidth;
+  let runningWidth = 0;
+  const maskRects: Array<{ x: number; y: number; width: number; height: number }> = [];
+
+  paragraphHeights.forEach((height, idx) => {
+    if (!height) {
+      runningWidth += paragraphWidths[idx] || 0;
+      return;
+    }
+    const segments = paragraphSegments[idx];
+    const segmentHeight = height / Math.max(1, segments);
+    const topBase = paragraphOffsets[idx] ?? 0;
+    const paragraphWidth = paragraphWidths[idx] || 0;
+    const localProgressWidth = Math.min(
+      paragraphWidth,
+      Math.max(0, progressWidth - runningWidth)
+    );
+    runningWidth += paragraphWidth;
+
+    for (let segmentIdx = 0; segmentIdx < segments; segmentIdx += 1) {
+      const filledWidth = Math.min(
+        textWidth,
+        Math.max(0, localProgressWidth - segmentIdx * textWidth)
+      );
+      if (filledWidth <= 0) continue;
+      maskRects.push({
+        x: 0,
+        y: topBase + segmentHeight * segmentIdx,
+        width: filledWidth,
+        height: segmentHeight,
+      });
+    }
+  });
+
   return (
     <div ref={aboutRef} id="about" className="relative w-full" style={{ height: 'calc(100vh + 3600px)' }}>
       <div className="sticky top-0 content-stretch flex flex-col items-start p-[12px] shrink-0 w-full h-screen z-[3]">
@@ -110,53 +145,48 @@ export default function AboutSection() {
             {/* paragraph 3 */}
             <p className="mb-0">&nbsp;</p>
             <p ref={el => { paragraphRefs.current[3] = el }} className="leading-[1.2]">Let&apos;s build in golden hours.<span className="text-4xl text-[#FDB869]">●</span></p>
-
-            <div className="pointer-events-none absolute inset-0 z-10">
-              {(() => {
-                const segmentUnit = isMobile ? 29 : 38.4;
-                const paragraphSegments = paragraphHeights.map(height =>
-                  height ? Math.max(1, Math.round(height / segmentUnit)) : 0
-                );
-                const paragraphWidths = paragraphSegments.map(segments => segments * textWidth);
-                const totalWidth = paragraphWidths.reduce((sum, width) => sum + width, 0);
-                const progressWidth = overlayProgress * totalWidth;
-                let runningWidth = 0;
-
-                return paragraphHeights.map((height, idx) => {
-                  if (!height) return null;
-                  const segments = paragraphSegments[idx];
-                  const segmentHeight = height / segments;
-                  const topBase = paragraphOffsets[idx] ?? 0;
-                  const paragraphWidth = paragraphWidths[idx];
-                  const localProgressWidth = Math.min(
-                    paragraphWidth,
-                    Math.max(0, progressWidth - runningWidth)
-                  );
-                  runningWidth += paragraphWidth;
-
-                  return Array.from({ length: segments }).map((_, segmentIdx) => {
-                    const filledWidth = Math.min(
-                      textWidth,
-                      Math.max(0, localProgressWidth - segmentIdx * textWidth)
-                    );
-                    return (
-                      <div
-                        key={`${idx}-${segmentIdx}`}
-                        style={{
-                          position: 'absolute',
-                          left: 0,
-                          width: `${filledWidth}px`,
-                          height: `${segmentHeight}px`,
-                          top: `${topBase + segmentHeight * segmentIdx}px`,
-                          backgroundColor: rainbowColors[(idx + segmentIdx) % rainbowColors.length],
-                          transition: 'width 120ms linear',
-                        }}
+            {textWidth > 0 && textHeight > 0 && (
+              <svg
+                className="pointer-events-none absolute inset-0 z-10"
+                width={textWidth}
+                height={textHeight}
+                viewBox={`0 0 ${textWidth} ${textHeight}`}
+                preserveAspectRatio="none"
+              >
+                <defs>
+                  <mask id={maskId} maskUnits="userSpaceOnUse">
+                    <rect x="0" y="0" width={textWidth} height={textHeight} fill="black" />
+                    {maskRects.map((rect, idx) => (
+                      <rect
+                        key={`${rect.x}-${rect.y}-${idx}`}
+                        x={rect.x}
+                        y={rect.y}
+                        width={rect.width}
+                        height={rect.height}
+                        fill="white"
                       />
-                    );
-                  });
-                });
-              })()}
-            </div>
+                    ))}
+                  </mask>
+                </defs>
+                <foreignObject x="0" y="0" width={textWidth} height={textHeight} mask={`url(#${maskId})`}>
+                  <div className="flex flex-col font-['Maison Neue:Medium',sans-serif] justify-end leading-[1.2] min-w-full not-italic px-[24px] md:px-0 text-black text-[24px] md:text-[32px] text-justify tracking-[-0.64px] w-[min-content]">
+                    {/* paragraph 0 */}
+                    <p className="mb-0 text-black">Building feels different in summer. </p>
+                    <p className="mb-0">&nbsp;</p>
+                    {/* paragraph 1 */}
+                    <p className="font-['Maison Neue:Book',sans-serif] mb-0">
+                      <span className="text-black">Time moves more slowly. Ideas have space to breathe. Conversation stretches beyond the screen. SummerHacks is a thoughtfully designed hackathon that takes place outdoors, shaped by the rhythm and openness of the season.</span>
+                    </p>
+                    {/* paragraph 2 */}
+                    <p className="mb-0">&nbsp;</p>
+                    <p className="font-['Maison Neue:Book',sans-serif]">At its core, SummerHacks is about creating something lasting. Not only the projects that are built, but the memory of building them. Outdoors, together, during a fleeting moment of summer.</p>
+                    {/* paragraph 3 */}
+                    <p className="mb-0">&nbsp;</p>
+                    <p className="leading-[1.2]">Let&apos;s build in golden hours.<span className="text-4xl text-black">●</span></p>
+                  </div>
+                </foreignObject>
+              </svg>
+            )}
           </div>
         </div>
         
