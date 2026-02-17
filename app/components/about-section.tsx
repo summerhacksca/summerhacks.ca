@@ -18,7 +18,7 @@ export default function AboutSection() {
   const [paragraphHeights, setParagraphHeights] = useState<number[]>([]);
   const [paragraphOffsets, setParagraphOffsets] = useState<number[]>([]);
   const [textWidth, setTextWidth] = useState<number>(0);
-  const [overlayOpacity, setOverlayOpacity] = useState<number>(0);
+  const [overlayProgress, setOverlayProgress] = useState<number>(0);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const paragraphRefs = useRef<(HTMLParagraphElement | null)[]>([]);
   const textWrapperRef = useRef<HTMLDivElement | null>(null);
@@ -84,7 +84,7 @@ export default function AboutSection() {
       const start = sectionTop - window.innerHeight;
       const end = sectionTop + sectionHeight;
       const raw = (window.scrollY - start) / (end - start);
-      setOverlayOpacity(clamp(raw, 0, 1));
+      setOverlayProgress(clamp(raw, 0, 1));
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -114,29 +114,50 @@ export default function AboutSection() {
             <p ref={el => { paragraphRefs.current[3] = el }} className="leading-[1.2]">Let&apos;s build in golden hours.<span className="text-4xl text-[#FDB869]">●</span></p>
 
             <div className="pointer-events-none absolute inset-0 z-10">
-              {paragraphHeights.map((height, idx) => {
-                if (!height) return null;
+              {(() => {
                 const segmentUnit = isMobile ? 29 : 38.4;
-                const segments = Math.max(1, Math.round(height / segmentUnit));
-                const segmentHeight = height / segments;
-                const topBase = paragraphOffsets[idx] ?? 0;
+                const paragraphSegments = paragraphHeights.map(height =>
+                  height ? Math.max(1, Math.round(height / segmentUnit)) : 0
+                );
+                const paragraphWidths = paragraphSegments.map(segments => segments * textWidth);
+                const totalWidth = paragraphWidths.reduce((sum, width) => sum + width, 0);
+                const progressWidth = overlayProgress * totalWidth;
+                let runningWidth = 0;
 
-                return Array.from({ length: segments }).map((_, segmentIdx) => (
-                  <div
-                    key={`${idx}-${segmentIdx}`}
-                    style={{
-                      position: 'absolute',
-                      left: 0,
-                      width: `${textWidth}px`,
-                      height: `${segmentHeight}px`,
-                      top: `${topBase + segmentHeight * segmentIdx}px`,
-                      backgroundColor: rainbowColors[(idx + segmentIdx) % rainbowColors.length],
-                      opacity: overlayOpacity,
-                      transition: 'opacity 120ms linear',
-                    }}
-                  />
-                ));
-              })}
+                return paragraphHeights.map((height, idx) => {
+                  if (!height) return null;
+                  const segments = paragraphSegments[idx];
+                  const segmentHeight = height / segments;
+                  const topBase = paragraphOffsets[idx] ?? 0;
+                  const paragraphWidth = paragraphWidths[idx];
+                  const localProgressWidth = Math.min(
+                    paragraphWidth,
+                    Math.max(0, progressWidth - runningWidth)
+                  );
+                  runningWidth += paragraphWidth;
+
+                  return Array.from({ length: segments }).map((_, segmentIdx) => {
+                    const filledWidth = Math.min(
+                      textWidth,
+                      Math.max(0, localProgressWidth - segmentIdx * textWidth)
+                    );
+                    return (
+                      <div
+                        key={`${idx}-${segmentIdx}`}
+                        style={{
+                          position: 'absolute',
+                          left: 0,
+                          width: `${filledWidth}px`,
+                          height: `${segmentHeight}px`,
+                          top: `${topBase + segmentHeight * segmentIdx}px`,
+                          backgroundColor: rainbowColors[(idx + segmentIdx) % rainbowColors.length],
+                          transition: 'width 120ms linear',
+                        }}
+                      />
+                    );
+                  });
+                });
+              })()}
             </div>
           </div>
         </div>
