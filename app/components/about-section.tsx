@@ -1,18 +1,9 @@
 "use client";
 
-import { splitText } from "animejs";
-import { useRef, useEffect, useState, useId } from "react";
+import { useRef, useEffect, useState, useId, type MutableRefObject } from "react";
 
 const imgBgFlowers = "/chat-gpt-image.png";
-const imgOrangeSun = "/orange-sun.svg";
 const imgArrowUp = "/arrow-up.svg";
-
-const paragraphs = [
-  "Building feels different in summer.",
-  "Time moves more slowly. Ideas have space to breathe. Conversation stretches beyond the screen. SummerHacks is a thoughtfully designed hackathon that takes place outdoors, shaped by the rhythm and openness of the season.",
-  "At its core, SummerHacks is about creating something lasting. Not only the projects that are built, but the memory of building them. Outdoors, together, during a fleeting moment of summer.",
-  "Let's build in golden hours.",
-];
 
 export default function AboutSection() {
   const [paragraphHeights, setParagraphHeights] = useState<number[]>([]);
@@ -42,8 +33,6 @@ export default function AboutSection() {
     setTextWidth(width);
     setTextHeight(height);
 
-    console.log('First paragraph height:', heights[0]);
-    console.log('Text wrapper width:', width);
   };
 
   useEffect(() => {
@@ -132,19 +121,12 @@ export default function AboutSection() {
         
         <div className="content-stretch flex flex-col gap-[48px] items-start relative shrink-0 w-full">
           <div ref={textWrapperRef} className="flex flex-col font-['Maison Neue:Medium',sans-serif] justify-end leading-[1.2] min-w-full not-italic px-[24px] md:px-0 relative shrink-0 text-[#ffcf98] text-[24px] md:text-[32px] text-justify tracking-[-0.64px] w-[min-content]">
-            {/* paragraph 0 */}
-            <p ref={el => { paragraphRefs.current[0] = el }} className="mb-0 text-[#2a2a2a]">Building feels different in summer. </p>
-            <p className="mb-0">&nbsp;</p>
-            {/* paragraph 1 */}
-            <p ref={el => { paragraphRefs.current[1] = el }} className="font-['Maison Neue:Book',sans-serif] mb-0">
-              <span className="text-[#ffcf98]">Time moves more slowly. Ideas have space to breathe. Conversation stretches beyond the screen. SummerHacks is a thoughtfully designed hackathon that takes place outdoors, shaped by the rhythm and openness of the season.</span>
-            </p>
-            {/* paragraph 2 */}
-            <p className="mb-0">&nbsp;</p>
-            <p ref={el => { paragraphRefs.current[2] = el }} className="font-['Maison Neue:Book',sans-serif]">At its core, SummerHacks is about creating something lasting. Not only the projects that are built, but the memory of building them. Outdoors, together, during a fleeting moment of summer.</p>
-            {/* paragraph 3 */}
-            <p className="mb-0">&nbsp;</p>
-            <p ref={el => { paragraphRefs.current[3] = el }} className="leading-[1.2]">Let&apos;s build in golden hours.<span className="text-4xl text-[#FDB869]">●</span></p>
+            <TextParagraphs
+              textColorClass="text-[#ffcf98]"
+              dotColorClass="text-[#FDB869]"
+              paragraphRefs={paragraphRefs}
+              useRefs
+            />
             {textWidth > 0 && textHeight > 0 && (
               <svg
                 className="pointer-events-none absolute inset-0 z-10"
@@ -170,19 +152,7 @@ export default function AboutSection() {
                 </defs>
                 <foreignObject x="0" y="0" width={textWidth} height={textHeight} mask={`url(#${maskId})`}>
                   <div className="flex flex-col font-['Maison Neue:Medium',sans-serif] justify-end leading-[1.2] min-w-full not-italic px-[24px] md:px-0 text-black text-[24px] md:text-[32px] text-justify tracking-[-0.64px] w-[min-content]">
-                    {/* paragraph 0 */}
-                    <p className="mb-0 text-black">Building feels different in summer. </p>
-                    <p className="mb-0">&nbsp;</p>
-                    {/* paragraph 1 */}
-                    <p className="font-['Maison Neue:Book',sans-serif] mb-0">
-                      <span className="text-black">Time moves more slowly. Ideas have space to breathe. Conversation stretches beyond the screen. SummerHacks is a thoughtfully designed hackathon that takes place outdoors, shaped by the rhythm and openness of the season.</span>
-                    </p>
-                    {/* paragraph 2 */}
-                    <p className="mb-0">&nbsp;</p>
-                    <p className="font-['Maison Neue:Book',sans-serif]">At its core, SummerHacks is about creating something lasting. Not only the projects that are built, but the memory of building them. Outdoors, together, during a fleeting moment of summer.</p>
-                    {/* paragraph 3 */}
-                    <p className="mb-0">&nbsp;</p>
-                    <p className="leading-[1.2]">Let&apos;s build in golden hours.<span className="text-4xl text-black">●</span></p>
+                    <TextParagraphs textColorClass="text-black" dotColorClass="text-black" />
                   </div>
                 </foreignObject>
               </svg>
@@ -194,6 +164,53 @@ export default function AboutSection() {
         </div>
       </div>
     </div>
+  );
+}
+
+function TextParagraphs({
+  textColorClass,
+  dotColorClass,
+  paragraphRefs,
+  useRefs = false,
+}: {
+  textColorClass: string;
+  dotColorClass: string;
+  paragraphRefs?: MutableRefObject<(HTMLParagraphElement | null)[]>;
+  useRefs?: boolean;
+}) {
+  const bindRef = (index: number) =>
+    useRefs && paragraphRefs
+      ? (el: HTMLParagraphElement | null) => {
+          paragraphRefs.current[index] = el;
+        }
+      : undefined;
+
+  return (
+    <>
+      {/* paragraph 0 */}
+      <p ref={bindRef(0)} className="mb-0">Building feels different in summer. </p>
+      <p className="mb-0">&nbsp;</p>
+      {/* paragraph 1 */}
+      <p ref={bindRef(1)} className="font-['Maison Neue:Book',sans-serif] mb-0">
+        <span className={textColorClass}>
+          Time moves more slowly. Ideas have space to breathe. Conversation stretches beyond the
+          screen. SummerHacks is a thoughtfully designed hackathon that takes place outdoors,
+          shaped by the rhythm and openness of the season.
+        </span>
+      </p>
+      {/* paragraph 2 */}
+      <p className="mb-0">&nbsp;</p>
+      <p ref={bindRef(2)} className="font-['Maison Neue:Book',sans-serif]">
+        At its core, SummerHacks is about creating something lasting. Not only the projects that
+        are built, but the memory of building them. Outdoors, together, during a fleeting moment of
+        summer.
+      </p>
+      {/* paragraph 3 */}
+      <p className="mb-0">&nbsp;</p>
+      <p ref={bindRef(3)} className="leading-[1.2]">
+        Let&apos;s build in golden hours.<span className={`text-4xl ${dotColorClass}`}>●</span>
+      </p>
+    </>
   );
 }
 
