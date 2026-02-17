@@ -19,6 +19,7 @@ export default function AboutSection() {
   const [paragraphOffsets, setParagraphOffsets] = useState<number[]>([]);
   const [textWidth, setTextWidth] = useState<number>(0);
   const [overlayOpacity, setOverlayOpacity] = useState<number>(0);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const paragraphRefs = useRef<(HTMLParagraphElement | null)[]>([]);
   const textWrapperRef = useRef<HTMLDivElement | null>(null);
   const aboutRef = useRef<HTMLDivElement | null>(null);
@@ -64,6 +65,16 @@ export default function AboutSection() {
   }, []);
 
   useEffect(() => {
+    const updateIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    updateIsMobile();
+    window.addEventListener('resize', updateIsMobile);
+    return () => window.removeEventListener('resize', updateIsMobile);
+  }, []);
+
+  useEffect(() => {
     const clamp = (val: number, min: number, max: number) => Math.min(max, Math.max(min, val));
 
     const handleScroll = () => {
@@ -83,21 +94,21 @@ export default function AboutSection() {
   return (
     <div ref={aboutRef} id="about" className="relative w-full" style={{ height: 'calc(100vh + 3600px)' }}>
       <div className="sticky top-0 content-stretch flex flex-col items-start p-[12px] shrink-0 w-full h-screen z-[3]">
-        <div className="bg-[#fffbf6] content-stretch flex flex-col gap-[64px] items-center justify-center overflow-clip pb-[128px] pt-[164px] px-[128px] relative shrink-0 w-full h-[calc(100dvh-24px)]">
+        <div className="bg-[#fffbf6] content-stretch flex flex-col gap-16 items-center justify-center overflow-clip pb-32 pt-41 px-6 md:px-32 relative shrink-0 w-full h-[calc(100dvh-24px)]">
         <BackgroundImages />
         
         <div className="content-stretch flex flex-col gap-[48px] items-start relative shrink-0 w-full">
-          <div ref={textWrapperRef} className="flex flex-col font-['Maison_Neue:Medium',sans-serif] justify-end leading-[1.2] min-w-full not-italic relative shrink-0 text-[#ffcf98] text-[32px] text-justify tracking-[-0.64px] w-[min-content]">
+          <div ref={textWrapperRef} className="flex flex-col font-['Maison Neue:Medium',sans-serif] justify-end leading-[1.2] min-w-full not-italic px-[24px] md:px-0 relative shrink-0 text-[#ffcf98] text-[24px] md:text-[32px] text-justify tracking-[-0.64px] w-[min-content]">
             {/* paragraph 0 */}
             <p ref={el => { paragraphRefs.current[0] = el }} className="mb-0 text-[#2a2a2a]">Building feels different in summer. </p>
             <p className="mb-0">&nbsp;</p>
             {/* paragraph 1 */}
-            <p ref={el => { paragraphRefs.current[1] = el }} className="font-['Maison_Neue:Book',sans-serif] mb-0">
+            <p ref={el => { paragraphRefs.current[1] = el }} className="font-['Maison Neue:Book',sans-serif] mb-0">
               <span className="text-[#ffcf98]">Time moves more slowly. Ideas have space to breathe. Conversation stretches beyond the screen. SummerHacks is a thoughtfully designed hackathon that takes place outdoors, shaped by the rhythm and openness of the season.</span>
             </p>
             {/* paragraph 2 */}
             <p className="mb-0">&nbsp;</p>
-            <p ref={el => { paragraphRefs.current[2] = el }} className="font-['Maison_Neue:Book',sans-serif]">At its core, SummerHacks is about creating something lasting. Not only the projects that are built, but the memory of building them. Outdoors, together, during a fleeting moment of summer.</p>
+            <p ref={el => { paragraphRefs.current[2] = el }} className="font-['Maison Neue:Book',sans-serif]">At its core, SummerHacks is about creating something lasting. Not only the projects that are built, but the memory of building them. Outdoors, together, during a fleeting moment of summer.</p>
             {/* paragraph 3 */}
             <p className="mb-0">&nbsp;</p>
             <p ref={el => { paragraphRefs.current[3] = el }} className="leading-[1.2]">Let&apos;s build in golden hours.<span className="text-4xl text-[#FDB869]">●</span></p>
@@ -105,7 +116,8 @@ export default function AboutSection() {
             <div className="pointer-events-none absolute inset-0 z-10">
               {paragraphHeights.map((height, idx) => {
                 if (!height) return null;
-                const segments = Math.max(1, Math.round(height / 38.4));
+                const segmentUnit = isMobile ? 29 : 38.4;
+                const segments = Math.max(1, Math.round(height / segmentUnit));
                 const segmentHeight = height / segments;
                 const topBase = paragraphOffsets[idx] ?? 0;
 
@@ -178,7 +190,7 @@ function ContinueButton() {
             </div>
           </div>
         </div>
-        <p className="font-['Maison_Neue:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#b07f46] text-[14px] text-center text-nowrap tracking-[-0.28px]">
+        <p className="font-['Maison Neue:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#b07f46] text-[14px] text-center text-nowrap tracking-[-0.28px]">
           Continue
         </p>
       </a>
