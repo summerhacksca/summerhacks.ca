@@ -30,7 +30,7 @@ function Header() {
   return (
     <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
       <div className="basis-0 content-stretch flex grow items-center min-h-px min-w-px relative shrink-0">
-        <p className="font-['Maison_Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-[color:var(--text\/on-dark,white)] text-nowrap tracking-[-0.28px]">
+        <p className="font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-[color:var(--text\/on-dark,white)] text-nowrap tracking-[-0.28px]">
           June 2026 - 3 days
         </p>
       </div>
@@ -38,12 +38,12 @@ function Header() {
         <div className="relative shrink-0 size-[17px]">
           <img alt="" className="block max-w-none size-full" src={imgOrangeSun} />
         </div>
-        <p className="font-['Maison_Neue:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[20px] text-nowrap text-white tracking-[-0.8px]">
+        <p className="font-['Maison Neue:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[20px] text-nowrap text-white tracking-[-0.8px]">
           SummerHacks
         </p>
       </div>
       <div className="basis-0 content-stretch flex grow items-center justify-end min-h-px min-w-px relative shrink-0">
-        <p className="font-['Maison_Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-[color:var(--text\/on-dark,white)] text-nowrap text-right tracking-[-0.28px]">
+        <p className="font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-[color:var(--text\/on-dark,white)] text-nowrap text-right tracking-[-0.28px]">
           Outdoor hackathon
         </p>
       </div>
@@ -55,10 +55,10 @@ function MainContent() {
   return (
     <div className="basis-0 content-stretch flex flex-col gap-[48px] grow items-center justify-center min-h-px min-w-px relative shrink-0 w-full">
       <div className="content-stretch flex flex-col gap-2 items-center not-italic relative shrink-0 text-[color:var(--text\/on-dark,white)] text-center w-full">
-        <p className="font-['Maison_Neue:Book',sans-serif] leading-[normal] relative shrink-0 text-[16px] text-nowrap text-shadow-[0px_0px_20px_rgba(0,0,0,0.25)]">
+        <p className="font-['Maison Neue:Book',sans-serif] leading-[normal] relative shrink-0 text-[16px] text-nowrap text-shadow-[0px_0px_20px_rgba(0,0,0,0.25)]">
           This June
         </p>
-        <div className="flex flex-col font-['Maison_Neue:Medium',sans-serif] justify-end leading-0 min-w-full relative shrink-0 text-[32px] text-shadow-[0px_0px_30px_rgba(0,0,0,0.25)] tracking-[-0.64px] w-[min-content]">
+        <div className="flex flex-col font-['Maison Neue:Medium',sans-serif] justify-end leading-0 min-w-full relative shrink-0 text-[32px] text-shadow-[0px_0px_30px_rgba(0,0,0,0.25)] tracking-[-0.64px] w-[min-content]">
           <p className="leading-none">Build under open skies</p>
         </div>
       </div>
@@ -126,14 +126,14 @@ function EmailSignup() {
             <img alt="" className="block max-w-none size-full" src={imgOrangeSun} />
           </div>
         </div>
-        <p className="font-['Maison_Neue:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[16px] text-[color:var(--base\/800,#2a2a2a)] text-nowrap tracking-[-0.64px]">
+        <p className="font-['Maison Neue:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[16px] text-[color:var(--base\/800,#2a2a2a)] text-nowrap tracking-[-0.64px]">
           Waitlist open. Limited spots.
         </p>
       </div>
       <div className="content-stretch flex gap-0.5 h-full items-center relative shrink-0">
         <div className="border border-[var(--primary\/sun\/100,#ffefdd)] border-solid content-stretch flex h-full items-center overflow-clip px-[20px] py-0 relative rounded-[100px] shrink-0 w-[290px]">
           {status === 'success' ? (
-            <p className="font-['Maison_Neue:Book',sans-serif] leading-[normal] not-italic text-[14px] text-[#fdb869] tracking-[-0.56px]">
+            <p className="font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic text-[14px] text-[#fdb869] tracking-[-0.56px]">
               added to waitlist!
             </p>
           ) : (
@@ -146,7 +146,7 @@ function EmailSignup() {
               }}
               placeholder={getPlaceholder()}
               disabled={status === 'loading'}
-              className={`font-['Maison_Neue:Book',sans-serif] leading-[normal] not-italic w-full bg-transparent outline-none text-[14px] text-[#fdb869] tracking-[-0.56px] disabled:opacity-50 ${
+              className={`font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic w-full bg-transparent outline-none text-[14px] text-[#fdb869] tracking-[-0.56px] disabled:opacity-50 ${
                 status === 'error' 
                   ? 'placeholder:text-red-400' 
                   : 'placeholder:text-[#fdb869]'
@@ -189,7 +189,7 @@ function ScrollIndicator() {
           </div>
         </div>
       </button>
-      <p className="font-['Maison_Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#ffefda] text-[14px] text-center text-nowrap tracking-[-0.28px]">
+      <p className="font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#ffefda] text-[14px] text-center text-nowrap tracking-[-0.28px]">
         Scroll down and discover
       </p>
     </div>

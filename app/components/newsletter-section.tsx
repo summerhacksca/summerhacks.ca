@@ -1,6 +1,6 @@
 'use client'
 
-import EmailSubscription from './EmailSubscription'
+import EmailSubscription from './email-subscription'
 
 export default function NewsletterSection() {
   return (

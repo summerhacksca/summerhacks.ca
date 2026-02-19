@@ -24,7 +24,7 @@ export default function TeamSection() {
           </div>
 
           {/* Description */}
-          <p className="max-w-[372px] font-['Maison_Neue',sans-serif] text-[14px] font-normal leading-normal text-[#2A2A2A]">
+          <p className="max-w-[372px] font-['Maison Neue',sans-serif] text-[14px] font-normal leading-normal text-[#2A2A2A]">
             We’re organizing a hackathon designed to be genuinely unique — by your friends at SummerHacks.
           </p>  
 
@@ -47,10 +47,10 @@ export default function TeamSection() {
                     )}
                   </div>
                   <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0">
-                    <p className="font-['Maison_Neue:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[16px] text-[#2a2a2a] tracking-[-0.32px]">
+                    <p className="font-['Maison Neue:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[16px] text-[#2a2a2a] tracking-[-0.32px]">
                       {member.name}
                     </p>
-                    <p className="font-['Maison_Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-[#666666] tracking-[-0.28px]">
+                    <p className="font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-[#666666] tracking-[-0.28px]">
                       {member.role}
                     </p>
                   </div>
