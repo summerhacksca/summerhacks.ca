@@ -1,33 +1,162 @@
+"use client";
+
+import { useRef, useEffect, useState, useId, type MutableRefObject } from "react";
+
 const imgBgFlowers = "/chat-gpt-image.png";
-const imgOrangeSun = "/orange-sun.svg";
 const imgArrowUp = "/arrow-up.svg";
 
 export default function AboutSection() {
+  const [paragraphHeights, setParagraphHeights] = useState<number[]>([]);
+  const [paragraphOffsets, setParagraphOffsets] = useState<number[]>([]);
+  const [textWidth, setTextWidth] = useState<number>(0);
+  const [textHeight, setTextHeight] = useState<number>(0);
+  const [overlayProgress, setOverlayProgress] = useState<number>(0);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const paragraphRefs = useRef<(HTMLParagraphElement | null)[]>([]);
+  const textWrapperRef = useRef<HTMLDivElement | null>(null);
+  const aboutRef = useRef<HTMLDivElement | null>(null);
+  const maskId = useId();
+
+  const measureLayout = () => {
+    const heights = paragraphRefs.current.map(ref => ref?.offsetHeight || 0);
+    const wrapperRect = textWrapperRef.current?.getBoundingClientRect();
+    const offsets = paragraphRefs.current.map(ref => {
+      if (!ref || !wrapperRect) return 0;
+      const rect = ref.getBoundingClientRect();
+      return rect.top - wrapperRect.top;
+    });
+    const width = textWrapperRef.current?.clientWidth || 0;
+    const height = textWrapperRef.current?.clientHeight || 0;
+
+    setParagraphHeights(heights);
+    setParagraphOffsets(offsets);
+    setTextWidth(width);
+    setTextHeight(height);
+
+  };
+
+  useEffect(() => {
+    measureLayout();
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      measureLayout();
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const updateIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    updateIsMobile();
+    window.addEventListener('resize', updateIsMobile);
+    return () => window.removeEventListener('resize', updateIsMobile);
+  }, []);
+
+  useEffect(() => {
+    const clamp = (val: number, min: number, max: number) => Math.min(max, Math.max(min, val));
+
+    const handleScroll = () => {
+      if (!aboutRef.current) return;
+      const rect = aboutRef.current.getBoundingClientRect();
+      const denom = Math.max(1, rect.height - window.innerHeight);
+      const raw = (0 - rect.top) / denom;
+      setOverlayProgress(clamp(raw, 0, 1));
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  const segmentUnit = isMobile ? 29 : 38.4;
+  const paragraphSegments = paragraphHeights.map(height =>
+    height ? Math.max(1, Math.round(height / segmentUnit)) : 0
+  );
+  const paragraphWidths = paragraphSegments.map(segments => segments * textWidth);
+  const totalWidth = paragraphWidths.reduce((sum, width) => sum + width, 0);
+  const progressWidth = overlayProgress * totalWidth;
+  let runningWidth = 0;
+  const maskRects: Array<{ x: number; y: number; width: number; height: number }> = [];
+
+  paragraphHeights.forEach((height, idx) => {
+    if (!height) {
+      runningWidth += paragraphWidths[idx] || 0;
+      return;
+    }
+    const segments = paragraphSegments[idx];
+    const segmentHeight = height / Math.max(1, segments);
+    const topBase = paragraphOffsets[idx] ?? 0;
+    const paragraphWidth = paragraphWidths[idx] || 0;
+    const localProgressWidth = Math.min(
+      paragraphWidth,
+      Math.max(0, progressWidth - runningWidth)
+    );
+    runningWidth += paragraphWidth;
+
+    for (let segmentIdx = 0; segmentIdx < segments; segmentIdx += 1) {
+      const filledWidth = Math.min(
+        textWidth,
+        Math.max(0, localProgressWidth - segmentIdx * textWidth)
+      );
+      if (filledWidth <= 0) continue;
+      maskRects.push({
+        x: 0,
+        y: topBase + segmentHeight * segmentIdx,
+        width: filledWidth,
+        height: segmentHeight,
+      });
+    }
+  });
+
   return (
-    <div id="about" className="relative w-full" style={{ height: 'calc(100vh + 3600px)' }}>
+    <div ref={aboutRef} id="about" className="relative w-full" style={{ height: 'calc(100vh + 3600px)' }}>
       <div className="sticky top-0 content-stretch flex flex-col items-start p-[12px] shrink-0 w-full h-screen z-[3]">
-        <div className="bg-[#fffbf6] content-stretch flex flex-col gap-[64px] items-center justify-center overflow-clip pb-[128px] pt-[164px] px-[128px] relative shrink-0 w-full h-[calc(100dvh-24px)]">
+        <div className="bg-[#fffbf6] content-stretch flex flex-col gap-16 items-center justify-center overflow-clip pb-32 pt-41 px-6 md:px-32 relative shrink-0 w-full h-[calc(100dvh-24px)]">
         <BackgroundImages />
         
         <div className="content-stretch flex flex-col gap-[48px] items-start relative shrink-0 w-full">
-          <div className="flex flex-col font-['Maison_Neue:Medium',sans-serif] justify-end leading-[1.2] min-w-full not-italic relative shrink-0 text-[#ffcf98] text-[32px] text-justify tracking-[-0.64px] w-[min-content]">
-            <p className="mb-0 text-[#2a2a2a]">Building feels different in summer. </p>
-            <p className="mb-0">&nbsp;</p>
-            <p className="font-['Maison_Neue:Book',sans-serif] mb-0">
-              <span className="text-[#2a2a2a]">Time moves more slowly. Ideas have space to breathe.</span>
-              <span className="text-[#ffcf98]">Conversation stretches beyond the screen. SummerHacks is a thoughtfully designed hackathon that takes place outdoors, shaped by the rhythm and openness of the season.</span>
-            </p>
-            <p className="mb-0">&nbsp;</p>
-            <p className="font-['Maison_Neue:Book',sans-serif]">At its core, SummerHacks is about creating something lasting. Not only the projects that are built, but the memory of building them. Outdoors, together, during a fleeting moment of summer.</p>
-          </div>
-          
-          <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
-            <div className="flex flex-col font-['Maison_Neue:Book',sans-serif] justify-end leading-[0] not-italic relative shrink-0 text-[#ffcf98] text-[32px] text-justify text-nowrap tracking-[-0.64px]">
-              <p className="leading-[1.2]">Let's build in golden hours.<span className="text-4xl text-[#FDB869]">●</span></p>
-            </div>
-            {/* <div className="relative shrink-0 size-[16px]">
-              <img alt="" className="block max-w-none size-full" src={imgOrangeSun} />
-            </div> */}
+          <div ref={textWrapperRef} className="flex flex-col font-['Maison Neue:Medium',sans-serif] justify-end leading-[1.2] min-w-full not-italic px-[24px] md:px-0 relative shrink-0 text-[#ffcf98] text-[24px] md:text-[32px] text-justify tracking-[-0.64px] w-[min-content]">
+            <TextParagraphs
+              textColorClass="text-[#ffcf98]"
+              dotColorClass="text-[#FDB869]"
+              paragraphRefs={paragraphRefs}
+              useRefs
+            />
+            {textWidth > 0 && textHeight > 0 && (
+              <svg
+                className="pointer-events-none absolute inset-0 z-10"
+                width={textWidth}
+                height={textHeight}
+                viewBox={`0 0 ${textWidth} ${textHeight}`}
+                preserveAspectRatio="none"
+              >
+                <defs>
+                  <mask id={maskId} maskUnits="userSpaceOnUse">
+                    <rect x="0" y="0" width={textWidth} height={textHeight} fill="black" />
+                    {maskRects.map((rect, idx) => (
+                      <rect
+                        key={`${rect.x}-${rect.y}-${idx}`}
+                        x={rect.x}
+                        y={rect.y}
+                        width={rect.width}
+                        height={rect.height}
+                        fill="white"
+                      />
+                    ))}
+                  </mask>
+                </defs>
+                <foreignObject x="0" y="0" width={textWidth} height={textHeight} mask={`url(#${maskId})`}>
+                  <div className="flex flex-col font-['Maison Neue:Medium',sans-serif] justify-end leading-[1.2] min-w-full not-italic px-[24px] md:px-0 text-black text-[24px] md:text-[32px] text-justify tracking-[-0.64px] w-[min-content]">
+                    <TextParagraphs textColorClass="text-black" dotColorClass="text-black" />
+                  </div>
+                </foreignObject>
+              </svg>
+            )}
           </div>
         </div>
         
@@ -35,6 +164,53 @@ export default function AboutSection() {
         </div>
       </div>
     </div>
+  );
+}
+
+function TextParagraphs({
+  textColorClass,
+  dotColorClass,
+  paragraphRefs,
+  useRefs = false,
+}: {
+  textColorClass: string;
+  dotColorClass: string;
+  paragraphRefs?: MutableRefObject<(HTMLParagraphElement | null)[]>;
+  useRefs?: boolean;
+}) {
+  const bindRef = (index: number) =>
+    useRefs && paragraphRefs
+      ? (el: HTMLParagraphElement | null) => {
+          paragraphRefs.current[index] = el;
+        }
+      : undefined;
+
+  return (
+    <>
+      {/* paragraph 0 */}
+      <p ref={bindRef(0)} className="mb-0">Building feels different in summer. </p>
+      <p className="mb-0">&nbsp;</p>
+      {/* paragraph 1 */}
+      <p ref={bindRef(1)} className="font-['Maison Neue:Book',sans-serif] mb-0">
+        <span className={textColorClass}>
+          Time moves more slowly. Ideas have space to breathe. Conversation stretches beyond the
+          screen. SummerHacks is a thoughtfully designed hackathon that takes place outdoors,
+          shaped by the rhythm and openness of the season.
+        </span>
+      </p>
+      {/* paragraph 2 */}
+      <p className="mb-0">&nbsp;</p>
+      <p ref={bindRef(2)} className="font-['Maison Neue:Book',sans-serif]">
+        At its core, SummerHacks is about creating something lasting. Not only the projects that
+        are built, but the memory of building them. Outdoors, together, during a fleeting moment of
+        summer.
+      </p>
+      {/* paragraph 3 */}
+      <p className="mb-0">&nbsp;</p>
+      <p ref={bindRef(3)} className="leading-[1.2]">
+        Let&apos;s build in golden hours.<span className={`text-4xl ${dotColorClass}`}>●</span>
+      </p>
+    </>
   );
 }
 
@@ -80,7 +256,7 @@ function ContinueButton() {
             </div>
           </div>
         </div>
-        <p className="font-['Maison_Neue:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#b07f46] text-[14px] text-center text-nowrap tracking-[-0.28px]">
+        <p className="font-['Maison Neue:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#b07f46] text-[14px] text-center text-nowrap tracking-[-0.28px]">
           Continue
         </p>
       </a>
