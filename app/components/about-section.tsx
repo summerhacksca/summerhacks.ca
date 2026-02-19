@@ -1,9 +1,55 @@
 "use client";
 
-import { useRef, useEffect, useState, useId, type MutableRefObject } from "react";
+import { useRef, useEffect, useState, useId, type MutableRefObject, memo } from "react";
+import Image from "next/image";
 
 const imgBgFlowers = "/chat-gpt-image.png";
 const imgArrowUp = "/arrow-up.svg";
+
+const OverlayMask = memo(function OverlayMask({
+  maskId,
+  textWidth,
+  textHeight,
+  maskRects,
+}: {
+  maskId: string;
+  textWidth: number;
+  textHeight: number;
+  maskRects: Array<{ x: number; y: number; width: number; height: number }>;
+}) {
+  return (
+    <svg
+      className="pointer-events-none absolute inset-0 z-10"
+      style={{ willChange: 'mask-image' }}
+      width={textWidth}
+      height={textHeight}
+      viewBox={`0 0 ${textWidth} ${textHeight}`}
+      preserveAspectRatio="none"
+    >
+      <defs>
+        <mask id={maskId} maskUnits="userSpaceOnUse">
+          <rect x="0" y="0" width={textWidth} height={textHeight} fill="black" />
+          {maskRects.map((rect, idx) => (
+            <rect
+              key={`${rect.x}-${rect.y}-${idx}`}
+              x={rect.x}
+              y={rect.y}
+              width={rect.width}
+              height={rect.height}
+              fill="white"
+            />
+          ))}
+        </mask>
+      </defs>
+      <foreignObject x="0" y="0" width={textWidth} height={textHeight} mask={`url(#${maskId})`}>
+        <div className="flex flex-col font-['Maison Neue:Medium',sans-serif] justify-end leading-[1.2] min-w-full not-italic px-[24px] md:px-0 text-black text-[24px] md:text-[32px] text-justify tracking-[-0.64px] w-[min-content]">
+          <TextParagraphs textColorClass="text-black" dotColorClass="text-black" />
+        </div>
+      </foreignObject>
+    </svg>
+  );
+});
+
 
 export default function AboutSection() {
   const [paragraphHeights, setParagraphHeights] = useState<number[]>([]);
@@ -17,7 +63,7 @@ export default function AboutSection() {
   const aboutRef = useRef<HTMLDivElement | null>(null);
   const maskId = useId();
 
-  const measureLayout = () => {
+  const measureLayout = () => { 
     const heights = paragraphRefs.current.map(ref => ref?.offsetHeight || 0);
     const wrapperRect = textWrapperRef.current?.getBoundingClientRect();
     const offsets = paragraphRefs.current.map(ref => {
@@ -60,18 +106,30 @@ export default function AboutSection() {
 
   useEffect(() => {
     const clamp = (val: number, min: number, max: number) => Math.min(max, Math.max(min, val));
+    let frameId: number | null = null;
 
     const handleScroll = () => {
-      if (!aboutRef.current) return;
-      const rect = aboutRef.current.getBoundingClientRect();
-      const denom = Math.max(1, rect.height - window.innerHeight);
-      const raw = (0 - rect.top) / denom;
-      setOverlayProgress(clamp(raw, 0, 1));
+      if (frameId !== null) return;
+      
+      frameId = requestAnimationFrame(() => {
+        if (!aboutRef.current) {
+          frameId = null;
+          return;
+        }
+        const rect = aboutRef.current.getBoundingClientRect();
+        const denom = Math.max(1, rect.height - window.innerHeight);
+        const raw = (0 - rect.top) / denom;
+        setOverlayProgress(clamp(raw, 0, 1));
+        frameId = null;
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (frameId !== null) cancelAnimationFrame(frameId);
+    };
   }, []);
   const segmentUnit = isMobile ? 29 : 38.4;
   const paragraphSegments = paragraphHeights.map(height =>
@@ -120,7 +178,7 @@ export default function AboutSection() {
         <BackgroundImages />
         
         <div className="content-stretch flex flex-col gap-[48px] items-start relative shrink-0 w-full">
-          <div ref={textWrapperRef} className="flex flex-col font-['Maison Neue:Medium',sans-serif] justify-end leading-[1.2] min-w-full not-italic px-[24px] md:px-0 relative shrink-0 text-[#ffcf98] text-[24px] md:text-[32px] text-justify tracking-[-0.64px] w-[min-content]">
+          <div ref={textWrapperRef} className="flex flex-col font-['Maison Neue:Medium',sans-serif] justify-end leading-[1.2] min-w-full not-italic px-[24px] md:px-0 relative shrink-0 text-[#ffcf98] text-[24px] md:text-[32px] text-justify tracking-[-0.64px] w-[min-content]" style={{ willChange: 'contents' }}>
             <TextParagraphs
               textColorClass="text-[#ffcf98]"
               dotColorClass="text-[#FDB869]"
@@ -128,34 +186,12 @@ export default function AboutSection() {
               useRefs
             />
             {textWidth > 0 && textHeight > 0 && (
-              <svg
-                className="pointer-events-none absolute inset-0 z-10"
-                width={textWidth}
-                height={textHeight}
-                viewBox={`0 0 ${textWidth} ${textHeight}`}
-                preserveAspectRatio="none"
-              >
-                <defs>
-                  <mask id={maskId} maskUnits="userSpaceOnUse">
-                    <rect x="0" y="0" width={textWidth} height={textHeight} fill="black" />
-                    {maskRects.map((rect, idx) => (
-                      <rect
-                        key={`${rect.x}-${rect.y}-${idx}`}
-                        x={rect.x}
-                        y={rect.y}
-                        width={rect.width}
-                        height={rect.height}
-                        fill="white"
-                      />
-                    ))}
-                  </mask>
-                </defs>
-                <foreignObject x="0" y="0" width={textWidth} height={textHeight} mask={`url(#${maskId})`}>
-                  <div className="flex flex-col font-['Maison Neue:Medium',sans-serif] justify-end leading-[1.2] min-w-full not-italic px-[24px] md:px-0 text-black text-[24px] md:text-[32px] text-justify tracking-[-0.64px] w-[min-content]">
-                    <TextParagraphs textColorClass="text-black" dotColorClass="text-black" />
-                  </div>
-                </foreignObject>
-              </svg>
+              <OverlayMask
+                maskId={maskId}
+                textWidth={textWidth}
+                textHeight={textHeight}
+                maskRects={maskRects}
+              />
             )}
           </div>
         </div>
@@ -220,24 +256,24 @@ function BackgroundImages() {
       <div className="absolute flex items-center justify-center left-[-297px] size-[717px] top-[-388px]" style={{ "--transform-inner-width": "0", "--transform-inner-height": "0" } as React.CSSProperties}>
         <div className="flex-none rotate-[90deg]">
           <div className="relative size-[717px]">
-            <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover opacity-30 pointer-events-none size-full" src={imgBgFlowers} />
+            <Image alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover opacity-30 pointer-events-none size-full" src={imgBgFlowers} fill />
           </div>
         </div>
       </div>
       <div className="absolute right-[-77px] size-[717px] top-[-287px]">
-        <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover opacity-30 pointer-events-none size-full" src={imgBgFlowers} />
+        <Image alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover opacity-30 pointer-events-none size-full" src={imgBgFlowers} fill />
       </div>
       <div className="absolute flex items-center justify-center right-[-311px] size-[717px] top-[644px]" style={{ "--transform-inner-width": "0", "--transform-inner-height": "0" } as React.CSSProperties}>
         <div className="flex-none rotate-[270deg]">
           <div className="relative size-[717px]">
-            <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover opacity-30 pointer-events-none size-full" src={imgBgFlowers} />
+            <Image alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover opacity-30 pointer-events-none size-full" src={imgBgFlowers} fill />
           </div>
         </div>
       </div>
       <div className="absolute bottom-[-503px] flex items-center justify-center left-[-380px] size-[717px]" style={{ "--transform-inner-width": "0", "--transform-inner-height": "0" } as React.CSSProperties}>
         <div className="flex-none rotate-[270deg]">
           <div className="relative size-[717px]">
-            <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover opacity-30 pointer-events-none size-full" src={imgBgFlowers} />
+            <Image alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover opacity-30 pointer-events-none size-full" src={imgBgFlowers} fill />
           </div>
         </div>
       </div>
@@ -251,10 +287,10 @@ function ContinueButton() {
       <a href="#info" className="backdrop-blur-[1px] backdrop-filter bg-[#ffefdd] content-stretch flex gap-[10px] h-[52px] items-center overflow-clip px-[16px] py-0 relative rounded-[100px] shrink-0">
         <div className="flex items-center justify-center relative shrink-0">
           <div className="flex-none rotate-[180deg]">
-            <div className="relative size-[20px]">
-              <img alt="" className="block max-w-none size-full" src={imgArrowUp} />
+              <div className="relative size-[20px]">
+                <Image alt="" className="block max-w-none size-full" src={imgArrowUp} fill />
+              </div>
             </div>
-          </div>
         </div>
         <p className="font-['Maison Neue:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#b07f46] text-[14px] text-center text-nowrap tracking-[-0.28px]">
           Continue

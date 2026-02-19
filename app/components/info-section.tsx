@@ -41,14 +41,14 @@ function LeftPanel() {
     <div className="basis-0 content-stretch flex flex-col gap-[48px] grow items-start min-h-px min-w-px overflow-clip p-[36px] relative self-stretch shrink-0">
       {/* General Info Header */}
       <div className="content-stretch flex gap-[36px] items-center relative shrink-0">
-        <p className="font-['Maison_Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-[#2a2a2a] text-nowrap tracking-[-0.64px]">
+        <p className="font-['Maison Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-[#2a2a2a] text-nowrap tracking-[-0.64px]">
           1
         </p>
         <div className="content-stretch flex gap-[12px] items-center relative shrink-0">
           <div className="relative shrink-0 size-[16px]">
             <img alt="" className="block max-w-none size-full" src={imgOrangeSun} />
           </div>
-          <p className="font-['Maison_Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-[#2a2a2a] text-nowrap tracking-[-0.64px]">
+          <p className="font-['Maison Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-[#2a2a2a] text-nowrap tracking-[-0.64px]">
             General info
           </p>
         </div>
@@ -63,10 +63,10 @@ function LeftPanel() {
 function AboutSection() {
   return (
     <div className="content-stretch flex flex-col gap-[28px] items-start relative shrink-0 w-full">
-      <div className="flex flex-col font-['Maison_Neue',sans-serif] font-normal justify-end leading-none not-italic relative shrink-0 text-[32px] text-[#2a2a2a] tracking-[-0.64px] whitespace-nowrap">
+      <div className="flex flex-col font-['Maison Neue',sans-serif] font-normal justify-end leading-none not-italic relative shrink-0 text-[32px] text-[#2a2a2a] tracking-[-0.64px] whitespace-nowrap">
         <p className="leading-none mb-0">About</p>
       </div>
-      <div className="font-['Maison_Neue',sans-serif] font-normal leading-normal not-italic relative shrink-0 text-[14px] text-[#2a2a2a]">
+      <div className="font-['Maison Neue',sans-serif] font-normal leading-normal not-italic relative shrink-0 text-[14px] text-[#2a2a2a]">
         <p className="leading-normal mb-0">Participants will spend a weekend in mid-June building projects under open skies, surrounded by greenery, camp-like activities, and a close-knit community.</p>
         <p className="leading-normal mb-0">&nbsp;</p>
         <p className="mb-0">
@@ -84,7 +84,7 @@ function AboutSection() {
           <div className="relative shrink-0 size-[20px]">
             <img alt="" className="block max-w-none size-full" src={imgArrowUp} />
           </div>
-          <p className="font-['Maison_Neue',sans-serif] font-medium leading-normal not-italic relative shrink-0 text-[#b07f46] text-[14px] text-center tracking-[-0.28px]">
+          <p className="font-['Maison Neue',sans-serif] font-medium leading-normal not-italic relative shrink-0 text-[#b07f46] text-[14px] text-center tracking-[-0.28px]">
             Join the waitlist
           </p>
         </button>
@@ -98,7 +98,7 @@ function FAQSection({ faqs }: {
 }) {
   return (
     <div className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full">
-      <div className="flex flex-col font-['Maison_Neue',sans-serif] font-normal justify-end leading-none not-italic relative shrink-0 text-[32px] text-[#2a2a2a] tracking-[-0.64px]">
+      <div className="flex flex-col font-['Maison Neue',sans-serif] font-normal justify-end leading-none not-italic relative shrink-0 text-[32px] text-[#2a2a2a] tracking-[-0.64px]">
         <p className="leading-none mb-0">Frequently Asked Questions</p>
       </div>
 
@@ -106,10 +106,10 @@ function FAQSection({ faqs }: {
       <Accordion type="single" collapsible className="w-full">
         {faqs.map((faq, index) => (
           <AccordionItem key={index} value={`item-${index}`} className="border-b border-[#e5e5e5]">
-            <AccordionTrigger className="font-['Maison_Neue',sans-serif] font-normal text-[16px] text-[#2a2a2a] hover:no-underline">
+            <AccordionTrigger className="font-['Maison Neue',sans-serif] font-normal text-[16px] text-[#2a2a2a] hover:no-underline">
               {faq.question}
             </AccordionTrigger>
-            <AccordionContent className="font-['Maison_Neue',sans-serif] font-normal text-[14px] text-[#2a2a2a]">
+            <AccordionContent className="font-['Maison Neue',sans-serif] font-normal text-[14px] text-[#2a2a2a]">
               {faq.answer}
             </AccordionContent>
           </AccordionItem>
@@ -131,24 +131,24 @@ function RightPanel() {
       
       <div className="content-stretch flex flex-col gap-[36px] items-start relative shrink-0">
         <div className="content-stretch flex gap-[36px] items-center relative shrink-0">
-          <p className="font-['Maison_Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-[#daf6ff] text-nowrap tracking-[-0.64px]">
+          <p className="font-['Maison Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-[#daf6ff] text-nowrap tracking-[-0.64px]">
             2
           </p>
           <div className="content-stretch flex gap-[12px] items-center relative shrink-0">
             <div className="relative shrink-0 size-[16px]">
               <img alt="" className="block max-w-none size-full" src={imgBlueSun} />
             </div>
-            <p className="font-['Maison_Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-[#daf6ff] text-nowrap tracking-[-0.64px]">
+            <p className="font-['Maison Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-[#daf6ff] text-nowrap tracking-[-0.64px]">
               Let&apos;s touch grass
             </p>
           </div>
         </div>
-        <p className="font-['Maison_Neue',sans-serif] font-normal leading-[normal] not-italic relative shrink-0 text-[14px] text-white w-[324px]">
+        <p className="font-['Maison Neue',sans-serif] font-normal leading-[normal] not-italic relative shrink-0 text-[14px] text-white w-[324px]">
           Stepping outside changes how you think. Fresh air slows the noise, sunlight sharpens focus, and ideas feel lighter when they&apos;re not trapped on a screen.
         </p>
       </div>
       
-      <p className="font-['Maison_Neue',sans-serif] font-normal leading-[normal] not-italic relative shrink-0 text-[14px] text-white w-[372px]">
+      <p className="font-['Maison Neue',sans-serif] font-normal leading-[normal] not-italic relative shrink-0 text-[14px] text-white w-[372px]">
         Sometimes, the best way to build better things is to unplug for a moment and let the world around you do the rest.
       </p>
     </div>
