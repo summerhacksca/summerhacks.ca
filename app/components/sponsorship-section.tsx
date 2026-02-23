@@ -4,6 +4,7 @@
 import { useState, useEffect, useRef } from "react";
 
 const sponspackage = "/sponspackage.svg";
+const sponspackagePdf = "/sponspackage.pdf";
 const oranges = {orange1: "/orange.svg", orange2: "/orangespot.svg", orange3: "/orangeleafup.svg", orange4: "/orangespotalt.svg"};
 const download = "/download.svg";
 
@@ -28,13 +29,19 @@ export default function SponsorshipSection() {
 				</div>
 				<div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-19 self-stretch min-w-0 flex-1 min-h-0">
 					<InfoRows className="order-1 md:order-2" />
-					<div className="order-2 md:order-1 flex-1 min-w-0 h-full">
+					<a
+						href={sponspackagePdf}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="order-2 md:order-1 flex-1 min-w-0 h-full"
+					>
 						<img
 							alt=""
-							className="block w-full h-full object-contain"
+							className="block w-full h-full object-cover border-[3px] border-white bg-[#d3d3d3] bg-center bg-cover bg-no-repeat shadow-[0_10px_20px_2px_rgba(0,0,0,0.05)]"
 							src={sponspackage}
+							style={{ backgroundImage: `url(${sponspackage})` }}
 						/>
-					</div>
+					</a>
 				</div>
 			</div>
 		</section>
@@ -134,7 +141,12 @@ function InfoRows({ className = "" }: { className?: string }) {
 				</p>
 
 				<div className="flex flex-col content-end items-center gap-3 ">
-					<div className="flex h-13 px-4 items-center gap-2.5 bg-[#ffefdd] py-3 rounded-[100px]">
+					<a
+						href={sponspackagePdf}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="flex h-13 px-4 items-center gap-2.5 bg-[#ffefdd] py-3 rounded-[100px]"
+					>
 						<img
 							alt=""
 							className="max-w-none w-auto h-auto"
@@ -143,7 +155,7 @@ function InfoRows({ className = "" }: { className?: string }) {
 						<span className="text-[14px] font-medium text-[#B07f46] tracking-[-0.28px]">
 							See our sponsorship package
 						</span>
-					</div>
+					</a>
 				</div>
 			</div>
 			<OrangeRow className="hidden md:flex" />
