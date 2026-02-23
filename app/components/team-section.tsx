@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import Image from "next/image";
@@ -30,19 +31,18 @@ export default function TeamSection() {
 						</p>
 
 						{/* Team Grid - Responsive: 1 col mobile, 2 cols tablet, 3 cols small desktop, 4 cols medium, 5 cols large */}
-						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-[24px] sm:gap-[28px] md:gap-[32px] lg:gap-[36px] w-full">
+						<div className="grid grid-cols-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-[8px] gap-y-[16px] md:gap-x-[32px] md:gap-y-[36px] lg:gap-x-[36px] lg:gap-y-[44px] w-full">
 							{teamMembers.map((member, index) => (
 								<div
 									key={index}
-									className="content-stretch flex flex-col gap-4 items-start relative shrink-0"
+									className="content-stretch flex flex-col gap-2 md:gap-4 items-start relative shrink-0"
 								>
 									<div className="relative w-full aspect-square bg-[#f0f0f0] overflow-hidden">
 										{member.image ? (
-											<Image
+											<img
 												alt={member.name}
 												className="block max-w-none size-full object-cover"
 												src={member.image}
-												fill
 											/>
 										) : (
 											<div className="flex items-center justify-center size-full bg-gradient-to-br from-[#ffcf98] to-[#fdb869]">
