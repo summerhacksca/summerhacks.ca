@@ -14,7 +14,7 @@ export default function SponsorshipSection() {
 			id="sponsorship"
 			className="bg-white h-auto md:h-screen w-full flex p-3 flex-col items-start self-stretch overflow-hidden box-border"
 		>
-			<div className="h-full w-full flex flex-col items-start p-9 gap-9 self-stretch box-border overflow-hidden">
+			<div className="h-full w-full flex flex-col items-start px-2 py-9 md:p-9 gap-9 self-stretch box-border overflow-hidden">
 				{/* page label */}
 				<div className="flex items-center gap-9">
 					<span className="text-[16px] font-medium text-[#2a2a2a] tracking-[-0.64px]">
@@ -33,11 +33,11 @@ export default function SponsorshipSection() {
 						href={sponspackagePdf}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="order-2 md:order-1 flex-1 min-w-0 h-full"
+						className="order-2 md:order-1 flex-1 min-w-0 max-w-full"
 					>
 						<img
 							alt=""
-							className="block w-full h-full object-cover border-[3px] border-white bg-[#d3d3d3] bg-center bg-cover bg-no-repeat shadow-[0_10px_20px_2px_rgba(0,0,0,0.05)]"
+							className="block w-full h-auto max-h-full object-contain border-[3px] border-white bg-[#d3d3d3] bg-center bg-cover bg-no-repeat shadow-[0_10px_20px_2px_rgba(0,0,0,0.05)]"
 							src={sponspackage}
 							style={{ backgroundImage: `url(${sponspackage})` }}
 						/>
