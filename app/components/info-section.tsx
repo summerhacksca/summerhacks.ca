@@ -121,7 +121,7 @@ function FAQSection({ faqs }: {
 
 function RightPanel() {
   return (
-    <div className="w-full md:basis-0 gap-9 content-stretch flex flex-col md:grow h-full items-start justify-between min-h-px min-w-px overflow-clip p-[36px] relative shrink-0">
+    <div className="w-full md:basis-0 content-stretch flex flex-col h-[100dvh] md:grow md:h-full items-start justify-between min-h-px min-w-px overflow-clip p-[36px] relative self-stretch shrink-0">
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 overflow-hidden">
           <img alt="" className="absolute inset-0 w-full h-full object-cover" src={imgFrame70} />

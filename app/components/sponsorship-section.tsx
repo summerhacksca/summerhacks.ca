@@ -140,8 +140,8 @@ function InfoRows({ className = "" }: { className?: string }) {
 							className="max-w-none w-auto h-auto"
 							src={download}
 						/>
-						<span className="text-[14px] font-medium text-[#2a2a2a] tracking-[-0.28px]">
-							View our sponsorship package
+						<span className="text-[14px] font-medium text-[#B07f46] tracking-[-0.28px]">
+							See our sponsorship package
 						</span>
 					</div>
 				</div>
