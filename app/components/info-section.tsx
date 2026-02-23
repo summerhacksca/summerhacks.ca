@@ -14,7 +14,7 @@ const imgArrowUp = "/arrow-up.svg";
 
 export default function InfoSection() {
   return (
-    <div id="info" className="bg-white content-stretch flex items-start overflow-clip p-[12px] relative shrink-0 w-full h-screen z-[2]">
+    <div id="info" className="bg-white content-stretch flex flex-col md:flex-row items-start overflow-visible md:overflow-clip p-[12px] relative shrink-0 w-full h-auto md:h-screen z-[2]">
       <LeftPanel />
       <RightPanel />
     </div>
@@ -38,7 +38,7 @@ function LeftPanel() {
   ];
 
   return (
-    <div className="basis-0 content-stretch flex flex-col gap-[48px] grow items-start min-h-px min-w-px overflow-clip p-[36px] relative self-stretch shrink-0">
+    <div className="w-full md:basis-0 content-stretch flex flex-col gap-[48px] md:grow items-start min-h-px min-w-px overflow-clip p-[12px] md:p-[36px] relative self-stretch shrink-0">
       {/* General Info Header */}
       <div className="content-stretch flex gap-[36px] items-center relative shrink-0">
         <p className="font-['Maison Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-[#2a2a2a] text-nowrap tracking-[-0.64px]">
@@ -121,12 +121,12 @@ function FAQSection({ faqs }: {
 
 function RightPanel() {
   return (
-    <div className="basis-0 content-stretch flex flex-col grow h-full items-start justify-between min-h-px min-w-px overflow-clip p-[36px] relative shrink-0">
+    <div className="w-full md:basis-0 content-stretch flex flex-col h-[100dvh] md:grow md:h-full items-start justify-between min-h-px min-w-px overflow-clip p-[36px] relative self-stretch shrink-0">
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 overflow-hidden">
           <img alt="" className="absolute inset-0 w-full h-full object-cover" src={imgFrame70} />
         </div>
-        <div className="absolute bg-gradient-to-b from-[rgba(0,0,0,0.2)] inset-0 to-[38.509%] to-[rgba(0,0,0,0)]" />
+        <div className="absolute inset-0 bg-black/20" />
       </div>
       
       <div className="content-stretch flex flex-col gap-[36px] items-start relative shrink-0">
@@ -143,12 +143,12 @@ function RightPanel() {
             </p>
           </div>
         </div>
-        <p className="font-['Maison Neue',sans-serif] font-normal leading-[normal] not-italic relative shrink-0 text-[14px] text-white w-[324px]">
+        <p className="font-['Maison Neue',sans-serif] font-normal leading-[normal] not-italic relative  text-[14px] text-white max-w-[324px]">
           Stepping outside changes how you think. Fresh air slows the noise, sunlight sharpens focus, and ideas feel lighter when they&apos;re not trapped on a screen.
         </p>
       </div>
       
-      <p className="font-['Maison Neue',sans-serif] font-normal leading-[normal] not-italic relative shrink-0 text-[14px] text-white w-[372px]">
+      <p className="font-['Maison Neue',sans-serif] font-normal leading-[normal] not-italic relative text-[14px] text-white max-w-[372px]">
         Sometimes, the best way to build better things is to unplug for a moment and let the world around you do the rest.
       </p>
     </div>

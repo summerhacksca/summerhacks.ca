@@ -42,7 +42,7 @@ const OverlayMask = memo(function OverlayMask({
         </mask>
       </defs>
       <foreignObject x="0" y="0" width={textWidth} height={textHeight} mask={`url(#${maskId})`}>
-        <div className="flex flex-col font-['Maison Neue:Medium',sans-serif] justify-end leading-[1.2] min-w-full not-italic px-[24px] md:px-0 text-black text-[24px] md:text-[32px] text-justify tracking-[-0.64px] w-[min-content]">
+        <div className="flex flex-col font-['Maison Neue:Medium',sans-serif] justify-end leading-[1.2] min-w-full not-italic text-black text-[20px] md:text-[32px] text-left md:!text-justify tracking-[-0.64px] w-[min-content]">
           <TextParagraphs textColorClass="text-black" dotColorClass="text-black" />
         </div>
       </foreignObject>
@@ -57,6 +57,7 @@ export default function AboutSection() {
   const [textWidth, setTextWidth] = useState<number>(0);
   const [textHeight, setTextHeight] = useState<number>(0);
   const [overlayProgress, setOverlayProgress] = useState<number>(0);
+  const [flowersVisible, setFlowersVisible] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const paragraphRefs = useRef<(HTMLParagraphElement | null)[]>([]);
   const textWrapperRef = useRef<HTMLDivElement | null>(null);
@@ -117,6 +118,8 @@ export default function AboutSection() {
           return;
         }
         const rect = aboutRef.current.getBoundingClientRect();
+        const sectionScroll = Math.max(0, -rect.top);
+        setFlowersVisible(sectionScroll >= 120);
         const denom = Math.max(1, rect.height - window.innerHeight);
         const raw = (0 - rect.top) / denom;
         setOverlayProgress(clamp(raw, 0, 1));
@@ -131,7 +134,7 @@ export default function AboutSection() {
       if (frameId !== null) cancelAnimationFrame(frameId);
     };
   }, []);
-  const segmentUnit = isMobile ? 29 : 38.4;
+  const segmentUnit = isMobile ? 24 : 38.4;
   const paragraphSegments = paragraphHeights.map(height =>
     height ? Math.max(1, Math.round(height / segmentUnit)) : 0
   );
@@ -174,11 +177,10 @@ export default function AboutSection() {
   return (
     <div ref={aboutRef} id="about" className="relative w-full" style={{ height: 'calc(100vh + 3600px)' }}>
       <div className="sticky top-0 content-stretch flex flex-col items-start p-[12px] shrink-0 w-full h-screen z-[3]">
-        <div className="bg-[#fffbf6] content-stretch flex flex-col gap-16 items-center justify-center overflow-clip pb-32 pt-41 px-6 md:px-32 relative shrink-0 w-full h-[calc(100dvh-24px)]">
-        <BackgroundImages />
-        
+        <div className="bg-[#fffbf6] content-stretch flex flex-col gap-16 items-center justify-center overflow-clip pb-16 md:pb-32 pt-24 md:pt-41 px-6 md:px-32 relative shrink-0 w-full h-[calc(100dvh-24px)]">
+        <BackgroundImages visible={flowersVisible} />
         <div className="content-stretch flex flex-col gap-[48px] items-start relative shrink-0 w-full">
-          <div ref={textWrapperRef} className="flex flex-col font-['Maison Neue:Medium',sans-serif] justify-end leading-[1.2] min-w-full not-italic px-[24px] md:px-0 relative shrink-0 text-[#ffcf98] text-[24px] md:text-[32px] text-justify tracking-[-0.64px] w-[min-content]" style={{ willChange: 'contents' }}>
+          <div ref={textWrapperRef} className="flex flex-col font-['Maison Neue:Medium',sans-serif] justify-end leading-[1.2] min-w-full not-italic relative shrink-0 text-[#ffcf98] text-[20px] md:text-[32px] text-left md:!text-justify tracking-[-0.64px] w-[min-content]" style={{ willChange: 'contents' }}>
             <TextParagraphs
               textColorClass="text-[#ffcf98]"
               dotColorClass="text-[#FDB869]"
@@ -243,16 +245,16 @@ function TextParagraphs({
       </p>
       {/* paragraph 3 */}
       <p className="mb-0">&nbsp;</p>
-      <p ref={bindRef(3)} className="leading-[1.2]">
-        Let&apos;s build in golden hours.<span className={`text-4xl ${dotColorClass}`}>●</span>
+      <p ref={bindRef(3)} className="leading-[1.2] font-['Maison Neue:Book',sans-serif]">
+        Let&apos;s build in golden hours.<span className={`text-2xl ${dotColorClass}`}>●</span>
       </p>
     </>
   );
 }
 
-function BackgroundImages() {
+function BackgroundImages({ visible }: { visible: boolean }) {
   return (
-    <>
+    <div className={`pointer-events-none transition-opacity duration-700 ${visible ? "opacity-100" : "opacity-0"}`}>
       <div className="absolute flex items-center justify-center left-[-297px] size-[717px] top-[-388px]" style={{ "--transform-inner-width": "0", "--transform-inner-height": "0" } as React.CSSProperties}>
         <div className="flex-none rotate-[90deg]">
           <div className="relative size-[717px]">
@@ -277,7 +279,7 @@ function BackgroundImages() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
