@@ -6,6 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import faqs from "@/app/data/faqs.json";
 
 const imgOrangeSun = "/orange-sun.svg";
 const imgBlueSun = "/blue-sun.svg";
@@ -22,21 +23,6 @@ export default function InfoSection() {
 }
 
 function LeftPanel() {
-  const faqs = [
-    {
-      question: "How many tents are there?",
-      answer: "Bring your own tent cuzzo. Don't be lazy. Bring your own tent cuzzo. Don't be lazy. Bring your own tent cuzzo. Don't be lazy. Bring your own tent cuzzo. Don't be lazy. Bring your own tent cuzzo. Don't be lazy."
-    },
-    {
-      question: "Can I eat grass?",
-      answer: "Temp text"
-    },
-    {
-      question: "Can I eat grass?",
-      answer: "Temp text"
-    }
-  ];
-
   return (
     <div className="w-full md:basis-0 content-stretch flex flex-col gap-[48px] md:grow items-start min-h-px min-w-px overflow-clip p-[12px] md:p-[36px] relative self-stretch shrink-0">
       {/* General Info Header */}
