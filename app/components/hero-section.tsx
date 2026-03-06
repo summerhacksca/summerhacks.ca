@@ -3,9 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 
-// to be replaced with videos
-const imgFrame53 = "/frame-53.png";
-const imgFrame54 = "/frame-54.png";
 const imgOrangeSun = "/orange-sun.svg";
 
 export default function HeroSection() {
@@ -16,20 +13,15 @@ export default function HeroSection() {
 					aria-hidden="true"
 					className="absolute inset-0 pointer-events-none"
 				>
-					<Image
-						alt=""
+					<video
 						className="absolute max-w-none object-50%-50% object-cover size-full"
-						src={imgFrame53}
-						fill
-						quality={100}
-					/>
-					<Image
-						alt=""
-						className="absolute max-w-none object-50%-50% object-cover size-full"
-						src={imgFrame54}
-						fill
-						quality={100}
-					/>
+						autoPlay
+						muted
+						loop
+						playsInline
+					>
+						<source src="/video.mp4" type="video/mp4" />
+					</video>
 					<div className="absolute inset-0 bg-black/20 object-cover" />
 				</div>
 
