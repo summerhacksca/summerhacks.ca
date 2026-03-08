@@ -5,7 +5,12 @@ import { useState, useEffect, useRef } from "react";
 
 const sponspackage = "/sponspackage.svg";
 const sponspackagePdf = "/sponspackage.pdf";
-const oranges = {orange1: "/orange.svg", orange2: "/orangespot.svg", orange3: "/orangeleafup.svg", orange4: "/orangespotalt.svg"};
+const oranges = {
+	orange1: "/orange.svg",
+	orange2: "/orangespot.svg",
+	orange3: "/orangeleafup.svg",
+	orange4: "/orangespotalt.svg",
+};
 const download = "/download.svg";
 
 export default function SponsorshipSection() {
@@ -33,13 +38,12 @@ export default function SponsorshipSection() {
 						href={sponspackagePdf}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="order-2 md:order-1 flex-1 min-w-0 max-w-full"
+						className="order-2 md:order-1 flex-1 min-w-0 max-w-full self-stretch min-h-0 flex items-center justify-center"
 					>
 						<img
 							alt=""
-							className="block w-full h-auto max-h-full object-contain border-[3px] border-white bg-[#d3d3d3] bg-center bg-cover bg-no-repeat shadow-[0_10px_20px_2px_rgba(0,0,0,0.05)]"
+							className="block w-auto h-auto max-w-full max-h-full border-[3px] border-white bg-[#d3d3d3] shadow-[0_10px_20px_2px_rgba(0,0,0,0.05)]"
 							src={sponspackage}
-							style={{ backgroundImage: `url(${sponspackage})` }}
 						/>
 					</a>
 				</div>
@@ -49,7 +53,9 @@ export default function SponsorshipSection() {
 }
 
 function OrangeRow({ className = "" }: { className?: string }) {
-	const [shuffledIndices, setShuffledIndices] = useState<number[]>([0, 1, 2, 3]);
+	const [shuffledIndices, setShuffledIndices] = useState<number[]>([
+		0, 1, 2, 3,
+	]);
 	const orangeBaseRotations = [0, -8, 6, -4];
 	const [rotations, setRotations] = useState<number[]>(orangeBaseRotations);
 	const hoveredRef = useRef<boolean[]>([false, false, false, false]);
@@ -73,7 +79,8 @@ function OrangeRow({ className = "" }: { className?: string }) {
 
 			for (let i = 0; i < 4; i += 1) {
 				const targetSpeed = hoveredRef.current[i] ? maxSpeed : 0;
-				speedsRef.current[i] += (targetSpeed - speedsRef.current[i]) * easing;
+				speedsRef.current[i] +=
+					(targetSpeed - speedsRef.current[i]) * easing;
 				rotationsRef.current[i] += speedsRef.current[i];
 			}
 
@@ -90,10 +97,14 @@ function OrangeRow({ className = "" }: { className?: string }) {
 	return (
 		<div className={`flex gap-4 md:gap-7.5 ${className}`}>
 			{shuffledIndices.map((index) => {
-				const currentRotation = rotations[index] ?? orangeBaseRotations[index] ?? 0;
+				const currentRotation =
+					rotations[index] ?? orangeBaseRotations[index] ?? 0;
 
 				return (
-					<div key={index} className="flex-1 min-w-0 flex justify-center">
+					<div
+						key={index}
+						className="flex-1 min-w-0 flex justify-center"
+					>
 						<img
 							alt=""
 							className="block w-auto h-auto max-w-full object-contain"
@@ -104,7 +115,9 @@ function OrangeRow({ className = "" }: { className?: string }) {
 								hoveredRef.current[index] = false;
 							}}
 							src={oranges[orangeKeys[index]]}
-							style={{ transform: `rotate(${currentRotation}deg)` }}
+							style={{
+								transform: `rotate(${currentRotation}deg)`,
+							}}
 						/>
 					</div>
 				);
@@ -115,7 +128,9 @@ function OrangeRow({ className = "" }: { className?: string }) {
 
 function InfoRows({ className = "" }: { className?: string }) {
 	return (
-		<div className={`flex flex-col items-start justify-center self-stretch flex-1 min-w-0 gap-7 ${className}`}>
+		<div
+			className={`flex flex-col items-start justify-center self-stretch flex-1 min-w-0 gap-7 ${className}`}
+		>
 			<OrangeRow />
 			<div className="flex flex-col items-start gap-7">
 				{/* oranges */}
