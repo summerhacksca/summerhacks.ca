@@ -115,13 +115,12 @@ function EmailSignup() {
 	const [status, setStatus] = useState<
 		"idle" | "loading" | "success" | "error"
 	>("idle");
+	const [errorMessage, setErrorMessage] = useState("");
 
 	const getPlaceholder = () => {
 		switch (status) {
 			case "success":
 				return "saved!";
-			case "error":
-				return "error, try again...";
 			case "loading":
 				return "saving...";
 			default:
@@ -134,10 +133,12 @@ function EmailSignup() {
 
 		if (!email) {
 			setStatus("error");
+			setErrorMessage("enter your email...");
 			return;
 		}
 
 		setStatus("loading");
+		setErrorMessage("");
 
 		try {
 			const response = await fetch("/api/email", {
@@ -152,10 +153,15 @@ function EmailSignup() {
 				setStatus("success");
 				setEmail("");
 			} else {
+				const data = await response.json();
 				setStatus("error");
+				setErrorMessage(data.error || "error, try again...");
+				setEmail("");
 			}
 		} catch {
 			setStatus("error");
+			setErrorMessage("error, try again...");
+			setEmail("");
 		}
 	};
 
@@ -196,13 +202,16 @@ function EmailSignup() {
 						</p>
 					) : (
 						<input
-							type="email"
+							type="text"
 							value={email}
 							onChange={(e) => {
 								setEmail(e.target.value);
-								if (status === "error") setStatus("idle");
+								if (status === "error") {
+									setStatus("idle");
+									setErrorMessage("");
+								}
 							}}
-							placeholder={getPlaceholder()}
+							placeholder={status === "error" ? errorMessage : getPlaceholder()}
 							disabled={status === "loading"}
 							className={`font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic w-full bg-transparent outline-none text-[14px] text-[#fdb869] tracking-[-0.56px] disabled:opacity-50 ${
 								status === "error"
