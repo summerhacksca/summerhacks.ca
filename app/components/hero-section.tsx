@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { toast } from "sonner";
 
 const imgOrangeSun = "/orange-sun.svg";
 
@@ -107,13 +108,14 @@ function EmailSignup() {
 	const [status, setStatus] = useState<
 		"idle" | "loading" | "success" | "error"
 	>("idle");
+	const [errorMessage, setErrorMessage] = useState("");
 
 	const getPlaceholder = () => {
 		switch (status) {
 			case "success":
 				return "saved!";
 			case "error":
-				return "error, try again...";
+				return errorMessage || "error, try again...";
 			case "loading":
 				return "saving...";
 			default:
@@ -126,10 +128,12 @@ function EmailSignup() {
 
 		if (!email) {
 			setStatus("error");
+			setErrorMessage("Please enter your email address");
 			return;
 		}
 
 		setStatus("loading");
+		setErrorMessage("");
 
 		try {
 			const response = await fetch("/api/email", {
@@ -140,14 +144,20 @@ function EmailSignup() {
 				body: JSON.stringify({ email }),
 			});
 
+			const data = await response.json();
+
 			if (response.ok) {
 				setStatus("success");
 				setEmail("");
 			} else {
 				setStatus("error");
+				setEmail("");
+				setErrorMessage(data.error || "Something went wrong");
 			}
 		} catch {
 			setStatus("error");
+			setEmail("");
+			setErrorMessage("Failed to subscribe. Please try again.");
 		}
 	};
 
@@ -177,7 +187,7 @@ function EmailSignup() {
 					</div>
 				</div>
 				<p className="font-['Maison Neue:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[16px] text-(--base\/800,#2a2a2a) text-nowrap tracking-[-0.64px]">
-					Waitlist open. Limited spots.
+					Waitlist open. Stay updated.
 				</p>
 			</div>
 			<div className="content-stretch flex gap-0.5 h-full items-center relative shrink-0 max-sm:h-13.5 max-sm:w-full">
@@ -186,9 +196,16 @@ function EmailSignup() {
 						<p className="font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic text-[14px] text-[#fdb869] tracking-[-0.56px]">
 							added to waitlist!
 						</p>
+					) : status === "error" && !email ? (
+						<p
+							className="font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic text-[14px] text-red-400 tracking-[-0.56px] cursor-pointer"
+							onClick={() => setStatus("idle")}
+						>
+							{errorMessage}
+						</p>
 					) : (
 						<input
-							type="email"
+							type="text"
 							value={email}
 							onChange={(e) => {
 								setEmail(e.target.value);
