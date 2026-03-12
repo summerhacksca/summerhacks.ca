@@ -53,12 +53,10 @@ function AboutSection() {
         <p className="leading-none mb-0">About</p>
       </div>
       <div className="font-['Maison Neue',sans-serif] font-normal leading-normal not-italic relative shrink-0 text-[14px] text-[#2a2a2a]">
-        <p className="leading-normal mb-0">Participants will spend a weekend in mid-June building projects under open skies, surrounded by greenery, camp-like activities, and a close-knit community.</p>
+        <p className="leading-normal mb-0">Participants will spend a weekend building projects under open skies, surrounded by greenery, camp-like activities, and a close-knit community.</p>
         <p className="leading-normal mb-0">&nbsp;</p>
         <p className="mb-0">
-          <span className="leading-normal">We are looking to admit</span>
-          <span className="font-semibold leading-normal">{` ~150 hackers.`}</span>
-          <span className="leading-normal">{` Make sure to reserve a spot on the waitlist.`}</span>
+          <span className="leading-normal">Coming soon in August. Join our waitlist for early updates and news.</span>
         </p>
       </div>
       <div className="content-stretch flex flex-col items-start justify-end relative shrink-0">
