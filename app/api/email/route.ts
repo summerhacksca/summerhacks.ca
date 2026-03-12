@@ -1,28 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import validDomainsArray from '@/public/university-domains.json'
-
-const validDomains = new Set<string>(validDomainsArray);
-
-function getBaseDomain(email: string): string {
-  const parts = email.split('@');
-  if (parts.length !== 2) return '';
-  
-  const domain = parts[1].toLowerCase();
-  const domainParts = domain.split('.');
-  
-  const secondLevelTLDs = ['ac', 'edu', 'gov', 'co'];
-  
-  if (domainParts.length >= 3 && secondLevelTLDs.includes(domainParts[domainParts.length - 2])) {
-    return domainParts.slice(-3).join('.');
-  }
-  
-  if (domainParts.length >= 2) {
-    return domainParts.slice(-2).join('.');
-  }
-  
-  return domain;
-}
 
 export async function POST(request: NextRequest) {
   try {
@@ -36,22 +13,6 @@ export async function POST(request: NextRequest) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
       return NextResponse.json({ error: 'Invalid email format' }, { status: 400 })
-    }
-
-    const baseDomain = getBaseDomain(email);
-    
-    if (!baseDomain) {
-      return NextResponse.json(
-        { error: 'Could not extract domain from email' },
-        { status: 400 }
-      )
-    }
-
-    if (!validDomains.has(baseDomain)) {
-      return NextResponse.json(
-        { error: 'Must use a university email address' },
-        { status: 400 }
-      )
     }
 
     // Create Supabase client with SERVICE ROLE key
