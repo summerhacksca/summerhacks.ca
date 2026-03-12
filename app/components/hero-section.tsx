@@ -38,7 +38,7 @@ function Header() {
 		<div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
 			<div className="basis-0 content-stretch flex grow items-center min-h-px min-w-px relative shrink-0">
 				<p className="font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-(--text\/on-dark,white) text-nowrap tracking-[-0.28px]">
-					June 2026 - 3 days
+					August 2026 - 3 days
 				</p>
 			</div>
 			<div className="content-stretch flex gap-[5.842px] items-center justify-center relative shrink-0 max-sm:hidden">
