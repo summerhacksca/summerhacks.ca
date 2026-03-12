@@ -138,7 +138,7 @@ function InfoRows({ className = "" }: { className?: string }) {
 					Join us under the sun
 				</h1>
 
-				<p className="text-[12px] font-light text-black font-['Maison Neue'] leading-[130%] tracking-[-0.24px] max-w-[359px]">
+				<p className="text-[14px] font-light text-black font-['Maison Neue'] leading-[130%] tracking-[-0.24px] max-w-[359px]">
 					Help us create a space to innovate under open skies. Hosted
 					outdoors with overnight camping, SummerHacks pushes
 					creativity beyond traditional walls and encourages students

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { toast } from "sonner";
 
 const imgOrangeSun = "/orange-sun.svg";
 
@@ -186,7 +187,7 @@ function EmailSignup() {
 					</div>
 				</div>
 				<p className="font-['Maison Neue:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[16px] text-(--base\/800,#2a2a2a) text-nowrap tracking-[-0.64px]">
-					Waitlist open. Limited spots.
+					Waitlist open. Stay updated.
 				</p>
 			</div>
 			<div className="content-stretch flex gap-0.5 h-full items-center relative shrink-0 max-sm:h-13.5 max-sm:w-full">
