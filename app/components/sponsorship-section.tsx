@@ -12,6 +12,7 @@ const akatos = "logos/akatos-brown.svg";
 const nom = "logos/nom-brown.svg";
 const gitTrophy = "logos/git-trophy-brown.svg";
 const s2dev = "logos/s2dev-brown.svg";
+const shopify = "logos/shopify-brown.svg";
 
 // graphics
 const basketBrown = "graphics/basket-brown.svg";
@@ -24,7 +25,7 @@ export default function SponsorshipSection() {
 	return (
 		<div
 			id="sponsorship"
-			className="bg-white content-stretch flex flex-col md:flex-row items-start overflow-visible md:overflow-clip p-[12px] relative shrink-0 w-full h-auto md:h-screen z-[2]"
+			className="bg-white content-stretch flex flex-col md:flex-row items-start overflow-visible md:overflow-clip pt-0 p-3 md:p-3 relative shrink-0 w-full h-auto md:h-screen z-[2]"
 		>
 			<LeftPanel />
 			<RightPanel />
@@ -34,11 +35,11 @@ export default function SponsorshipSection() {
 
 function Logo({ src, alt }: { src: string; alt: string }) {
 	return (
-		<div className="flex items-center align-middle">
+		<div className="flex items-center align-middle self-stretch">
 			<img
 				alt={alt}
 				src={src}
-				className="max-w-none size-full object-contain"
+				className="max-w-none size-full object-contain min-h-10 max-h-10"
 			/>
 		</div>
 	);
@@ -46,15 +47,36 @@ function Logo({ src, alt }: { src: string; alt: string }) {
 
 function Logos() {
 	return (
-		<div className="flex flex-col items-center justify-center self-stretch flex-1 min-w-0 gap-8">
-			<Logo src={codeRabbit} alt="CodeRabbit logo" />
-			<div className="flex flex-col md:flex-row px-4 self-stretch items-center md:justify-between w-full gap-7">
-				<Logo src={akatos} alt="Akatos logo" />
-				<Logo src={nom} alt="Nom logo" />
+		<div className="flex flex-col items-center justify-center self-stretch flex-1 min-w-0 gap-9 md:gap-14">
+			<div className="flex items-center align-middle self-stretch">
+				<img
+					alt="CodeRabbit logo"
+					src={codeRabbit}
+					className="max-w-none size-full object-contain min-h-10 max-h-20"
+				/>
 			</div>
-			<div className="flex flex-col md:flex-row px-4 self-stretch items-center md:justify-between w-full gap-7">
-				<Logo src={gitTrophy} alt="GitTrophy logo" />
-				<Logo src={s2dev} alt="S2Dev logo" />
+			<div className="flex px-4 items-center w-full gap-7">
+				<div className="flex-1 min-w-0">
+					<Logo src={akatos} alt="Akatos logo" />
+				</div>
+				<div className="flex-1 min-w-0">
+					<Logo src={nom} alt="Nom logo" />
+				</div>
+			</div>
+			<div className="flex px-4 items-center w-full gap-7">
+				<div className="flex-1 min-w-0">
+					<Logo src={gitTrophy} alt="GitTrophy logo" />
+				</div>
+				<div className="flex-1 min-w-0">
+					<Logo src={s2dev} alt="S2Dev logo" />
+				</div>
+			</div>
+			<div className="flex items-center align-middle self-stretch">
+				<img
+					alt="shopify logo"
+					src={shopify}
+					className="max-w-none size-full object-contain min-h-10 max-h-20"
+				/>
 			</div>
 		</div>
 	);
@@ -62,7 +84,7 @@ function Logos() {
 
 function LeftPanel() {
 	return (
-		<div className="bg-[#FFFBF6] h-dvh w-full md:basis-0 content-stretch flex flex-col md:grow items-start min-h-px min-w-px overflow-clip p-[36px] relative self-stretch shrink-0 -z-20">
+		<div className="bg-[#FFFBF6] h-[75dvh] md:h-dvh w-full md:basis-0 content-stretch flex flex-col md:grow items-start min-h-px min-w-px overflow-clip p-[36px] relative self-stretch shrink-0 -z-20">
 			<div className="items-center shrink-0 content-stretch flex flex-col gap-[36px] relative">
 				<div className="content-stretch flex gap-[36px] items-center relative shrink-0">
 					<p className="font-['Maison Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-nowrap tracking-[-0.64px]">
@@ -99,7 +121,7 @@ function LeftPanel() {
 
 function RightPanel() {
 	return (
-		<div className="w-full md:basis-0 content-stretch flex flex-col h-dvh md:grow md:h-full items-start justify-between min-h-px min-w-px overflow-clip px-[12px] py-[36px] md:p-[36px] relative self-stretch shrink-0">
+		<div className="w-full md:basis-0 content-stretch flex flex-col pb-55 gap-9 md:h-dvh md:grow md:h-full items-start justify-between min-h-px min-w-px overflow-clip px-[12px] py-[36px] md:p-[36px] relative self-stretch shrink-0">
 			<div className="content-stretch flex gap-[36px] items-center relative shrink-0">
 				<p className="font-['Maison Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-nowrap tracking-[-0.64px]">
 					4
@@ -121,17 +143,17 @@ function RightPanel() {
 			<img
 				src={orange}
 				alt="Orange"
-				className="absolute bottom-[30px] left-[51px] -z-20"
+				className="absolute left-[10px] bottom-[30px] sm:left-[50px] -z-20"
 			/>
 			<img
 				src={pear}
 				alt="Pear"
-				className="hidden md:block absolute bottom-[8px] right-[14.4375vw] -z-20"
+				className="hidden sm:block absolute bottom-[8px] right-[20vw] md:right-[14.4375vw] -z-20"
 			/>
 			<img
 				src={apple}
 				alt="Apple"
-				className="absolute top-[50px] md:top-auto md:bottom-[50px] right-[-15px] -z-20"
+				className="absolute bottom-[50px] sm:top-auto sm:bottom-[50px] right-[-15px] -z-20"
 			/>
 		</div>
 	);
@@ -157,7 +179,7 @@ function InfoRows({ className = "" }: { className?: string }) {
 					life!
 				</p>
 
-				<p className="text-[14px] font-light text-[#B07f46] font-['Maison Neue Book'] leading-[130%] tracking-[-0.28px] max-w-[395px]">
+				<p className="text-[14px] font-medium text-[#B07f46] font-['Maison Neue Book'] leading-[130%] tracking-[-0.28px] max-w-[395px]">
 					We are seeking sponsors who believe in shaping a greener
 					future through community-driven innovation and want to
 					meaningfully invest in the next generation of sustainable

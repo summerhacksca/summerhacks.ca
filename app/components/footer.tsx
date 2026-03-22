@@ -1,7 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { Icon } from "@iconify/react";
+import {
+	InstagramLogoIcon,
+	LinkedinLogoIcon,
+	XLogoIcon,
+} from "@phosphor-icons/react";
 
 const logo = "/logos/white-nobg.svg";
 const bagWhite = "/graphics/bag-white.svg";
@@ -30,26 +34,40 @@ export default function Footer() {
 					</p>
 
 					<div className="flex gap-7">
-						<Icon
-							icon="mdi:linkedin"
-							width="24"
-							height="24"
-							color="#ffffff"
-						/>
-						<Icon
-							icon="prime:twitter"
-							width="24"
-							height="24"
-							color="#ffffff"
-						/>
-						<Icon
-							icon="mdi:instagram"
-							width="24"
-							height="24"
-							color="#ffffff"
-						/>
+						<a
+							href="https://www.linkedin.com/company/summerhacksca/"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<LinkedinLogoIcon
+								weight="fill"
+								size={24}
+								color="#ffffff"
+							/>
+						</a>
+						<a
+							href="https://x.com/summerhacksca"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<XLogoIcon
+								weight="fill"
+								size={24}
+								color="#ffffff"
+							/>
+						</a>
+						<a
+							href="https://www.instagram.com/summerhacksca"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<InstagramLogoIcon
+								weight="fill"
+								size={24}
+								color="#ffffff"
+							/>
+						</a>
 					</div>
-
 					<img
 						src={bagWhite}
 						alt="Bag"

@@ -1,10 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useState } from "react";
 import Image from "next/image";
 import { toast } from "sonner";
 
-const logo = "/logos/white-nobg.svg";
+const logo = "/logos/fullwhite-nobg.svg";
 
 export default function HeroSection() {
 	return (
@@ -38,29 +39,35 @@ function Header() {
 	return (
 		<div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
 			<div className="basis-0 content-stretch flex grow items-center min-h-px min-w-px relative shrink-0">
-				<p className="font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-(--text\/on-dark,white) text-nowrap tracking-[-0.28px]">
+				<p className="hidden md:block font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-(--text\/on-dark,white) text-nowrap text-right tracking-[-0.28px]">
 					Summer 2026 - 3 days
 				</p>
+				<div className="relative shrink-0">
+					<img
+						alt=""
+						className="md:hidden block max-w-[40vw] size-full"
+						src={logo}
+					/>
+				</div>
 			</div>
-			<div className="content-stretch flex gap-[5.842px] items-center justify-center relative shrink-0 max-sm:hidden">
-				<div className="relative shrink-0 size-4.25">
-					<Image
+			<div className="content-stretch flex gap-[5.842px] items-center justify-center relative shrink-0 hidden md:block">
+				<div className="relative shrink-0">
+					<img
 						alt=""
 						className="block max-w-none size-full"
 						src={logo}
-						width={17}
-						height={17}
-						quality={100}
 					/>
 				</div>
-				<p className="font-['Maison Neue:Medium',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[20px] text-nowrap text-white tracking-[-0.8px]">
-					SummerHacks
-				</p>
 			</div>
 			<div className="basis-0 content-stretch flex grow items-center justify-end min-h-px min-w-px relative shrink-0">
-				<p className="font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-(--text\/on-dark,white) text-nowrap text-right tracking-[-0.28px]">
-					Outdoor hackathon
-				</p>
+				<div className="flex flex-col gap-1">
+					<p className="font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-(--text\/on-dark,white) text-nowrap text-right tracking-[-0.28px]">
+						Outdoor hackathon
+					</p>
+					<p className="block md:hidden font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-(--text\/on-dark,white) text-nowrap tracking-[-0.28px]">
+						Summer 2026 - 3 days
+					</p>
+				</div>
 			</div>
 		</div>
 	);
@@ -70,21 +77,6 @@ function MainContent() {
 	return (
 		<div className="basis-0 content-stretch flex flex-col gap-12 grow items-center justify-center min-h-px min-w-px relative shrink-0 w-full">
 			<div className="content-stretch flex flex-col gap-12 items-center not-italic relative shrink-0 text-(--text\/on-dark,white) text-center w-full">
-				<div className="hidden max-sm:flex content-stretch gap-2 items-center justify-center relative shrink-0">
-					<div className="relative shrink-0 size-4.25">
-						<Image
-							alt=""
-							className="block max-w-none size-full"
-							src={logo}
-							width={17}
-							height={17}
-							quality={100}
-						/>
-					</div>
-					<p className="font-['Maison Neue:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[20px] text-nowrap text-white tracking-[-0.8px]">
-						SummerHacks
-					</p>
-				</div>
 				<div className="flex flex-col items-center gap-2 self-stretch">
 					<p className="font-['Maison Neue:Book',sans-serif] leading-[normal] relative shrink-0 text-[16px] text-nowrap text-shadow-[0px_0px_20px_rgba(0,0,0,0.25)]">
 						This summer

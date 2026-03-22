@@ -15,7 +15,7 @@ const imgArrowUp = "/arrow-up.svg";
 
 export default function InfoSection() {
   return (
-    <div id="info" className="bg-white content-stretch flex flex-col md:flex-row items-start overflow-visible md:overflow-clip p-[12px] relative shrink-0 w-full h-auto md:h-screen z-[2]">
+    <div id="info" className="bg-white content-stretch flex flex-col md:flex-row items-start overflow-visible md:overflow-clip pb-0 p-3 md:p-3 relative shrink-0 w-full h-auto md:h-screen z-[2]">
       <LeftPanel />
       <RightPanel />
     </div>
@@ -42,7 +42,7 @@ function LeftPanel() {
 
       <AboutSection />
       <video
-        className="w-full rounded-md mt-18"
+        className="w-full rounded-md md:mt-18"
         controls
         src="/SUMMERHACKS.mov"
       />
@@ -61,10 +61,10 @@ function AboutSection() {
         <p className="leading-normal mb-0">Participants will spend a weekend building projects under open skies, surrounded by greenery, camp-like activities, and a close-knit community.</p>
         <p className="leading-normal mb-0">&nbsp;</p>
         <p className="mb-0">
-          <span className="leading-normal">Coming soon in August. Join our waitlist for early updates and news.</span>
+          <span className="leading-normal">Coming soon. Join our waitlist for early updates and news.</span>
         </p>
       </div>
-      <div className="content-stretch flex flex-col items-start justify-end relative shrink-0">
+      <div className="hidden content-stretch md:flex flex-col items-start justify-end relative shrink-0">
         <button 
           onClick={() => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -82,35 +82,9 @@ function AboutSection() {
   );
 }
 
-// function FAQSection({ faqs }: { 
-//   faqs: Array<{ question: string; answer: string }>; 
-// }) {
-//   return (
-//     <div className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full">
-//       <div className="flex flex-col font-['Maison Neue',sans-serif] font-normal justify-end leading-none not-italic relative shrink-0 text-[32px] text-[#2a2a2a] tracking-[-0.64px]">
-//         <p className="leading-none mb-0">Frequently Asked Questions</p>
-//       </div>
-
-//       {/* FAQ Items */}
-//       <Accordion type="single" collapsible className="w-full">
-//         {faqs.map((faq, index) => (
-//           <AccordionItem key={index} value={`item-${index}`} className="border-b border-[#e5e5e5]">
-//             <AccordionTrigger className="font-['Maison Neue',sans-serif] font-normal text-[16px] text-[#2a2a2a] hover:no-underline">
-//               {faq.question}
-//             </AccordionTrigger>
-//             <AccordionContent className="font-['Maison Neue',sans-serif] font-normal text-[14px] text-[#2a2a2a]">
-//               {faq.answer}
-//             </AccordionContent>
-//           </AccordionItem>
-//         ))}
-//       </Accordion>
-//     </div>
-//   );
-// }
-
 function RightPanel() {
   return (
-    <div className="w-full md:basis-0 content-stretch flex flex-col h-[100dvh] md:grow md:h-full items-start justify-between min-h-px min-w-px overflow-clip p-[36px] relative self-stretch shrink-0">
+    <div className="w-full md:basis-0 content-stretch flex flex-col h-[100dvh] md:grow md:h-full items-start justify-between min-h-px min-w-px overflow-clip p-9 relative self-stretch shrink-0">
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 overflow-hidden">
           <img alt="" className="absolute inset-0 w-full h-full object-cover" src={imgFrame70} />
