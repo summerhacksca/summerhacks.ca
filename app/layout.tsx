@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "SummerHacks",
   description: "Build under open skies",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
