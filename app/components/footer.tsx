@@ -11,7 +11,7 @@ export default function Footer() {
 	return (
 		<div id="team" className="relative w-full bg-[#BD3C3C] -z-20">
 			<div className="flex items-start p-3 w-full">
-				<div className="flex flex-col p-9 w-full gap-9 items-start self-stretch">
+				<div className="flex flex-col p-3 md:p-9 w-full gap-9 items-start self-stretch">
 					{/* Label row */}
 					<div className="flex items-center gap-[36px]">
 						<span className="text-[16px] font-medium text-white tracking-[-0.64px]">

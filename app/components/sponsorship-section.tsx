@@ -99,7 +99,7 @@ function LeftPanel() {
 
 function RightPanel() {
 	return (
-		<div className="w-full md:basis-0 content-stretch flex flex-col h-dvh md:grow md:h-full items-start justify-between min-h-px min-w-px overflow-clip p-[36px] relative self-stretch shrink-0">
+		<div className="w-full md:basis-0 content-stretch flex flex-col h-dvh md:grow md:h-full items-start justify-between min-h-px min-w-px overflow-clip px-[12px] py-[36px] md:p-[36px] relative self-stretch shrink-0">
 			<div className="content-stretch flex gap-[36px] items-center relative shrink-0">
 				<p className="font-['Maison Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-nowrap tracking-[-0.64px]">
 					4

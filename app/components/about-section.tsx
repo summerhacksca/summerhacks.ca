@@ -210,7 +210,7 @@ export default function AboutSection() {
 			ref={aboutRef}
 			id="about"
 			className="relative w-full"
-			style={{ height: "calc(100vh + 3600px)" }}
+			style={{ height: "calc(100vh + 1800px)" }}
 		>
 			<div className="sticky top-0 content-stretch flex flex-col items-start p-[12px] shrink-0 w-full h-screen z-[3]">
 				<div className="bg-[#fffbf6] content-stretch flex flex-col gap-16 items-center justify-center overflow-clip pb-16 md:pb-32 pt-24 md:pt-41 px-6 md:px-32 relative shrink-0 w-full h-[calc(100dvh-24px)]">

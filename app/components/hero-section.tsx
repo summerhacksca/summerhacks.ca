@@ -39,7 +39,7 @@ function Header() {
 		<div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
 			<div className="basis-0 content-stretch flex grow items-center min-h-px min-w-px relative shrink-0">
 				<p className="font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-(--text\/on-dark,white) text-nowrap tracking-[-0.28px]">
-					August 2026 - 3 days
+					Summer 2026 - 3 days
 				</p>
 			</div>
 			<div className="content-stretch flex gap-[5.842px] items-center justify-center relative shrink-0 max-sm:hidden">
@@ -87,7 +87,7 @@ function MainContent() {
 				</div>
 				<div className="flex flex-col items-center gap-2 self-stretch">
 					<p className="font-['Maison Neue:Book',sans-serif] leading-[normal] relative shrink-0 text-[16px] text-nowrap text-shadow-[0px_0px_20px_rgba(0,0,0,0.25)]">
-						This June
+						This summer
 					</p>
 					<div className="flex flex-col font-['Maison Neue:Medium',sans-serif] font-medium justify-end leading-0 min-w-full relative shrink-0 text-[32px] text-shadow-[0px_0px_30px_rgba(0,0,0,0.25)] tracking-[-0.64px] w-min">
 						<p className="leading-none">Build under open skies</p>

@@ -10,7 +10,7 @@ export default function TeamSection() {
 	return (
 		<div id="team" className="relative w-full bg-[#BD3C3C] -z-20">
 			<div className="flex flex-col items-start p-[12px] w-full">
-				<div className="flex flex-col items-start gap-[36px] px-2 py-9 md:p-[36px] flex-1 self-stretch box-border">
+				<div className="flex flex-col items-start gap-[36px] px-3 py-9 md:p-[36px] flex-1 self-stretch box-border">
 					{/* Section header */}
 					<div className="flex flex-col gap-[24px] w-full">
 						{/* Label row */}
