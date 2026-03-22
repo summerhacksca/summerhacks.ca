@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { toast } from "sonner";
 
-const imgOrangeSun = "/orange-sun.svg";
+const logo = "/logos/white-nobg.svg";
 
 export default function HeroSection() {
 	return (
@@ -47,13 +47,13 @@ function Header() {
 					<Image
 						alt=""
 						className="block max-w-none size-full"
-						src={imgOrangeSun}
+						src={logo}
 						width={17}
 						height={17}
 						quality={100}
 					/>
 				</div>
-				<p className="font-['Maison Neue:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[20px] text-nowrap text-white tracking-[-0.8px]">
+				<p className="font-['Maison Neue:Medium',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[20px] text-nowrap text-white tracking-[-0.8px]">
 					SummerHacks
 				</p>
 			</div>
@@ -75,7 +75,7 @@ function MainContent() {
 						<Image
 							alt=""
 							className="block max-w-none size-full"
-							src={imgOrangeSun}
+							src={logo}
 							width={17}
 							height={17}
 							quality={100}
@@ -89,7 +89,7 @@ function MainContent() {
 					<p className="font-['Maison Neue:Book',sans-serif] leading-[normal] relative shrink-0 text-[16px] text-nowrap text-shadow-[0px_0px_20px_rgba(0,0,0,0.25)]">
 						This June
 					</p>
-					<div className="flex flex-col font-['Maison Neue:Medium',sans-serif] justify-end leading-0 min-w-full relative shrink-0 text-[32px] text-shadow-[0px_0px_30px_rgba(0,0,0,0.25)] tracking-[-0.64px] w-min">
+					<div className="flex flex-col font-['Maison Neue:Medium',sans-serif] font-medium justify-end leading-0 min-w-full relative shrink-0 text-[32px] text-shadow-[0px_0px_30px_rgba(0,0,0,0.25)] tracking-[-0.64px] w-min">
 						<p className="leading-none">Build under open skies</p>
 					</div>
 				</div>
