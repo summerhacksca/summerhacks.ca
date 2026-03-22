@@ -13,6 +13,7 @@ const nom = "logos/nom-brown.svg";
 const gitTrophy = "logos/git-trophy-brown.svg";
 const s2dev = "logos/s2dev-brown.svg";
 const shopify = "logos/shopify-brown.svg";
+const mundane = "logos/mundane-brown.svg";
 
 // graphics
 const basketBrown = "graphics/basket-brown.svg";
@@ -75,6 +76,13 @@ function Logos() {
 				<img
 					alt="shopify logo"
 					src={shopify}
+					className="max-w-none size-full object-contain min-h-10 max-h-20"
+				/>
+			</div>
+			<div className="flex items-center align-middle self-stretch">
+				<img
+					alt="mundane logo"
+					src={mundane}
 					className="max-w-none size-full object-contain min-h-10 max-h-20"
 				/>
 			</div>
