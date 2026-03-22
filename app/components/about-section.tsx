@@ -143,7 +143,7 @@ export default function AboutSection() {
 				}
 				const rect = aboutRef.current.getBoundingClientRect();
 				const sectionScroll = Math.max(0, -rect.top);
-				setFlowersVisible(sectionScroll >= 120);
+				setFlowersVisible(sectionScroll >= 90);
 				const denom = Math.max(1, rect.height - window.innerHeight);
 				const raw = (0 - rect.top) / denom;
 				setOverlayProgress(clamp(raw, 0, 1));

@@ -44,8 +44,13 @@ function LeftPanel() {
       <video
         className="w-full rounded-md md:mt-18"
         controls
-        src="/SUMMERHACKS.mov"
-      />
+        playsInline
+        preload="metadata"
+        poster="/first_frame.jpg"
+      >
+        <source src="/SUMMERHACKS.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       {/* <FAQSection faqs={faqs} /> */}
     </div>
   );
