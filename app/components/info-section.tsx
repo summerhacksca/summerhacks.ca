@@ -8,8 +8,8 @@ import {
 } from "@/components/ui/accordion"
 import faqs from "@/app/data/faqs.json";
 
-const imgOrangeSun = "/orange-sun.svg";
-const imgBlueSun = "/blue-sun.svg";
+const imgOrangeSun = "logos/orange-nobg.svg";
+const imgBlueSun = "logos/blue-nobg.svg";
 const imgFrame70 = "/frame-70.png";
 const imgArrowUp = "/arrow-up.svg";
 
@@ -41,7 +41,12 @@ function LeftPanel() {
       </div>
 
       <AboutSection />
-      <FAQSection faqs={faqs} />
+      <video
+        className="w-full rounded-md mt-18"
+        controls
+        src="/SUMMERHACKS.mov"
+      />
+      {/* <FAQSection faqs={faqs} /> */}
     </div>
   );
 }
@@ -77,31 +82,31 @@ function AboutSection() {
   );
 }
 
-function FAQSection({ faqs }: { 
-  faqs: Array<{ question: string; answer: string }>; 
-}) {
-  return (
-    <div className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full">
-      <div className="flex flex-col font-['Maison Neue',sans-serif] font-normal justify-end leading-none not-italic relative shrink-0 text-[32px] text-[#2a2a2a] tracking-[-0.64px]">
-        <p className="leading-none mb-0">Frequently Asked Questions</p>
-      </div>
+// function FAQSection({ faqs }: { 
+//   faqs: Array<{ question: string; answer: string }>; 
+// }) {
+//   return (
+//     <div className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full">
+//       <div className="flex flex-col font-['Maison Neue',sans-serif] font-normal justify-end leading-none not-italic relative shrink-0 text-[32px] text-[#2a2a2a] tracking-[-0.64px]">
+//         <p className="leading-none mb-0">Frequently Asked Questions</p>
+//       </div>
 
-      {/* FAQ Items */}
-      <Accordion type="single" collapsible className="w-full">
-        {faqs.map((faq, index) => (
-          <AccordionItem key={index} value={`item-${index}`} className="border-b border-[#e5e5e5]">
-            <AccordionTrigger className="font-['Maison Neue',sans-serif] font-normal text-[16px] text-[#2a2a2a] hover:no-underline">
-              {faq.question}
-            </AccordionTrigger>
-            <AccordionContent className="font-['Maison Neue',sans-serif] font-normal text-[14px] text-[#2a2a2a]">
-              {faq.answer}
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
-    </div>
-  );
-}
+//       {/* FAQ Items */}
+//       <Accordion type="single" collapsible className="w-full">
+//         {faqs.map((faq, index) => (
+//           <AccordionItem key={index} value={`item-${index}`} className="border-b border-[#e5e5e5]">
+//             <AccordionTrigger className="font-['Maison Neue',sans-serif] font-normal text-[16px] text-[#2a2a2a] hover:no-underline">
+//               {faq.question}
+//             </AccordionTrigger>
+//             <AccordionContent className="font-['Maison Neue',sans-serif] font-normal text-[14px] text-[#2a2a2a]">
+//               {faq.answer}
+//             </AccordionContent>
+//           </AccordionItem>
+//         ))}
+//       </Accordion>
+//     </div>
+//   );
+// }
 
 function RightPanel() {
   return (

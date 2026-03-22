@@ -1,127 +1,138 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-
 const sponspackage = "/sponspackage.svg";
 const sponspackagePdf = "/sponspackage.pdf";
-const oranges = {
-	orange1: "/orange.svg",
-	orange2: "/orangespot.svg",
-	orange3: "/orangeleafup.svg",
-	orange4: "/orangespotalt.svg",
-};
 const download = "/download.svg";
+
+// logos
+const imgOrangeSun = "logos/orange-nobg.svg";
+const codeRabbit = "logos/coderabbit-brown.svg";
+const akatos = "logos/akatos-brown.svg";
+const nom = "logos/nom-brown.svg";
+const gitTrophy = "logos/git-trophy-brown.svg";
+const s2dev = "logos/s2dev-brown.svg";
+
+// graphics
+const basketBrown = "graphics/basket-brown.svg";
+const bagBrown = "graphics/bag-brown.svg";
+const orange = "graphics/orange.svg";
+const pear = "graphics/pear.svg";
+const apple = "graphics/apple.svg";
 
 export default function SponsorshipSection() {
 	return (
-		<section
+		<div
 			id="sponsorship"
-			className="bg-white h-auto md:h-screen w-full flex p-3 flex-col items-start self-stretch overflow-hidden box-border"
+			className="bg-white content-stretch flex flex-col md:flex-row items-start overflow-visible md:overflow-clip p-[12px] relative shrink-0 w-full h-auto md:h-screen z-[2]"
 		>
-			<div className="h-full w-full flex flex-col items-start px-2 py-9 md:p-9 gap-9 self-stretch box-border overflow-hidden">
-				{/* page label */}
-				<div className="flex items-center gap-9">
-					<span className="text-[16px] font-medium text-[#2a2a2a] tracking-[-0.64px]">
-						3
-					</span>
-					<div className="flex items-center gap-[12px]">
-						<span className="block w-[16px] h-[16px] rounded-full bg-[#FDB869]" />
-						<span className="text-[16px] font-medium text-[#2a2a2a] tracking-[-0.64px]">
-							Partners
-						</span>
-					</div>
-				</div>
-				<div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-19 self-stretch min-w-0 flex-1 min-h-0">
-					<InfoRows className="order-1 md:order-2" />
-					<a
-						href={sponspackagePdf}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="order-2 md:order-1 flex-1 min-w-0 max-w-full self-stretch min-h-0 flex items-center justify-center"
-					>
-						<img
-							alt=""
-							className="block w-auto h-auto max-w-full max-h-full border-[3px] border-white bg-[#d3d3d3] shadow-[0_10px_20px_2px_rgba(0,0,0,0.05)]"
-							src={sponspackage}
-						/>
-					</a>
-				</div>
-			</div>
-		</section>
+			<LeftPanel />
+			<RightPanel />
+		</div>
 	);
 }
 
-function OrangeRow({ className = "" }: { className?: string }) {
-	const [shuffledIndices, setShuffledIndices] = useState<number[]>([
-		0, 1, 2, 3,
-	]);
-	const orangeBaseRotations = [0, -8, 6, -4];
-	const [rotations, setRotations] = useState<number[]>(orangeBaseRotations);
-	const hoveredRef = useRef<boolean[]>([false, false, false, false]);
-	const speedsRef = useRef<number[]>([0, 0, 0, 0]);
-	const rotationsRef = useRef<number[]>(orangeBaseRotations);
-
-	useEffect(() => {
-		const frameId = requestAnimationFrame(() => {
-			setShuffledIndices([0, 1, 2, 3].sort(() => Math.random() - 0.5));
-		});
-
-		return () => cancelAnimationFrame(frameId);
-	}, []);
-
-	useEffect(() => {
-		let animationFrameId = 0;
-
-		const animate = () => {
-			const maxSpeed = 10;
-			const easing = 0.025;
-
-			for (let i = 0; i < 4; i += 1) {
-				const targetSpeed = hoveredRef.current[i] ? maxSpeed : 0;
-				speedsRef.current[i] +=
-					(targetSpeed - speedsRef.current[i]) * easing;
-				rotationsRef.current[i] += speedsRef.current[i];
-			}
-
-			setRotations([...rotationsRef.current]);
-			animationFrameId = requestAnimationFrame(animate);
-		};
-
-		animationFrameId = requestAnimationFrame(animate);
-
-		return () => cancelAnimationFrame(animationFrameId);
-	}, []);
-
-	const orangeKeys = Object.keys(oranges) as (keyof typeof oranges)[];
+function Logo({ src, alt }: { src: string; alt: string }) {
 	return (
-		<div className={`flex gap-4 md:gap-7.5 ${className}`}>
-			{shuffledIndices.map((index) => {
-				const currentRotation =
-					rotations[index] ?? orangeBaseRotations[index] ?? 0;
+		<div className="flex items-center align-middle">
+			<img
+				alt={alt}
+				src={src}
+				className="max-w-none size-full object-contain"
+			/>
+		</div>
+	);
+}
 
-				return (
-					<div
-						key={index}
-						className="flex-1 min-w-0 flex justify-center"
-					>
+function Logos() {
+	return (
+		<div className="flex flex-col items-center justify-center self-stretch flex-1 min-w-0 gap-8">
+			<Logo src={codeRabbit} alt="CodeRabbit logo" />
+			<div className="flex flex-col md:flex-row px-4 self-stretch items-center md:justify-between w-full gap-7">
+				<Logo src={akatos} alt="Akatos logo" />
+				<Logo src={nom} alt="Nom logo" />
+			</div>
+			<div className="flex flex-col md:flex-row px-4 self-stretch items-center md:justify-between w-full gap-7">
+				<Logo src={gitTrophy} alt="GitTrophy logo" />
+				<Logo src={s2dev} alt="S2Dev logo" />
+			</div>
+		</div>
+	);
+}
+
+function LeftPanel() {
+	return (
+		<div className="bg-[#FFFBF6] h-dvh w-full md:basis-0 content-stretch flex flex-col md:grow items-start min-h-px min-w-px overflow-clip p-[36px] relative self-stretch shrink-0 -z-20">
+			<div className="items-center shrink-0 content-stretch flex flex-col gap-[36px] relative">
+				<div className="content-stretch flex gap-[36px] items-center relative shrink-0">
+					<p className="font-['Maison Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-nowrap tracking-[-0.64px]">
+						3
+					</p>
+					<div className="content-stretch flex gap-[12px] items-center relative shrink-0">
+						<div className="relative shrink-0 size-[16px]">
+							<img
+								alt=""
+								className="block max-w-none size-full"
+								src={imgOrangeSun}
+							/>
+						</div>
+						<p className="font-['Maison Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-nowrap tracking-[-0.64px]">
+							Sponsors
+						</p>
+					</div>
+				</div>
+			</div>
+			<Logos />
+			<img
+				src={basketBrown}
+				alt="Bag"
+				className="absolute bottom-[-35px] left-[-22px] -z-10"
+			/>
+			<img
+				src={bagBrown}
+				alt="Bag"
+				className="hidden md:block md:absolute bottom-[-3px] right-[-40px] -z-10"
+			/>
+		</div>
+	);
+}
+
+function RightPanel() {
+	return (
+		<div className="w-full md:basis-0 content-stretch flex flex-col h-dvh md:grow md:h-full items-start justify-between min-h-px min-w-px overflow-clip p-[36px] relative self-stretch shrink-0">
+			<div className="content-stretch flex gap-[36px] items-center relative shrink-0">
+				<p className="font-['Maison Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-nowrap tracking-[-0.64px]">
+					4
+				</p>
+				<div className="content-stretch flex gap-[12px] items-center relative shrink-0">
+					<div className="relative shrink-0 size-[16px]">
 						<img
 							alt=""
-							className="block w-auto h-auto max-w-full object-contain"
-							onMouseEnter={() => {
-								hoveredRef.current[index] = true;
-							}}
-							onMouseLeave={() => {
-								hoveredRef.current[index] = false;
-							}}
-							src={oranges[orangeKeys[index]]}
-							style={{
-								transform: `rotate(${currentRotation}deg)`,
-							}}
+							className="block max-w-none size-full"
+							src={imgOrangeSun}
 						/>
 					</div>
-				);
-			})}
+					<p className="font-['Maison Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-nowrap tracking-[-0.64px]">
+						Join us
+					</p>
+				</div>
+			</div>
+			<InfoRows className="order-1 md:order-2" />
+			<img
+				src={orange}
+				alt="Orange"
+				className="absolute bottom-[30px] left-[51px] -z-20"
+			/>
+			<img
+				src={pear}
+				alt="Pear"
+				className="hidden md:block absolute bottom-[8px] right-[14.4375vw] -z-20"
+			/>
+			<img
+				src={apple}
+				alt="Apple"
+				className="absolute top-[50px] md:top-auto md:bottom-[50px] right-[-15px] -z-20"
+			/>
 		</div>
 	);
 }
@@ -131,9 +142,7 @@ function InfoRows({ className = "" }: { className?: string }) {
 		<div
 			className={`flex flex-col items-start justify-center self-stretch flex-1 min-w-0 gap-7 ${className}`}
 		>
-			<OrangeRow />
 			<div className="flex flex-col items-start gap-7">
-				{/* oranges */}
 				<h1 className="text-[32px] font-normal text-[#2a2a2a] font-['Maison Neue'] leading-[100%] tracking-[-0.64px]">
 					Join us under the sun
 				</h1>
@@ -173,7 +182,6 @@ function InfoRows({ className = "" }: { className?: string }) {
 					</a>
 				</div>
 			</div>
-			<OrangeRow className="hidden md:flex" />
 		</div>
 	);
 }
