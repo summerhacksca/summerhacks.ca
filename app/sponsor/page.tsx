@@ -87,16 +87,16 @@ function EmailSignup() {
 		<div
 			className="bg-(--base\/0,white) content-stretch flex gap-6 h-14 items-center overflow-clip pl-4 pr-0.5 py-0.5 relative rounded-lg shadow-[0px_20px_50px_0px_rgba(0,0,0,0.25)] shrink-0 max-sm:flex-col max-sm:h-auto max-sm:items-start max-sm:gap-3.5 max-sm:p-4 max-sm:w-full max-sm:max-w-82.5"
 		>
-			<div className="content-stretch flex gap-2 items-center relative shrink-0">
-				<div className="relative shrink-0 size-2.5">
-					<div
-						className="absolute inset-0"
-						style={
+            <a href="https://drive.google.com/file/d/1BgZAcUphJN6mjg_9d9F6q0lL9YAhKydP/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+				<div className="content-stretch flex gap-2 items-center relative shrink-0">
+					<div className="relative shrink-0 size-2.5">
+						<div
+							className="absolute inset-0"
+							style={
 							{
 								"--fill-0": "rgba(253, 184, 105, 1)",
 							} as React.CSSProperties
-						}
-					>
+						}>
 						<Image
 							alt=""
 							className="block max-w-none size-full"
@@ -105,16 +105,17 @@ function EmailSignup() {
 							height={10}
 							quality={100}
 						/>
-					</div>
-				</div>
-				<p className="font-['Maison Neue:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[16px] pr-3 text-(--base\/800,#2a2a2a) text-nowrap tracking-[-0.64px]">
-                    Get sponsorship package
-				</p>
+					    </div>
+                    </div>
+                    <p className="font-['Maison Neue:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[16px] pr-3 text-(--base\/800,#2a2a2a) text-nowrap tracking-[-0.64px]">
+                        Get sponsorship package
+                    </p>
 
-                <div className="flex items-center p-4 bg-[#FFEFDD] rounded-[100px] self-stretch justify-between">
-                    <GoogleDriveLogoIcon size={20} weight="regular" color="#B07F46" />
-                </div>
-			</div>
+                    <div className="flex items-center p-4 bg-[#FFEFDD] rounded-[100px] self-stretch justify-between">
+                        <GoogleDriveLogoIcon size={20} weight="regular" color="#B07F46" />
+                    </div>
+			    </div>
+            </a>
 		</div>
 	);
 }
