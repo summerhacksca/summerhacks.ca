@@ -205,3 +205,18 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Hide iOS/WebKit start-playback UI for decorative background video. */
+.sponsor-bg-video::-webkit-media-controls {
+  display: none !important;
+}
+
+.sponsor-bg-video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+.sponsor-bg-video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
