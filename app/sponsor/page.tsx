@@ -4,11 +4,34 @@
 
 import Image from "next/image";
 import { GoogleDriveLogoIcon } from "@phosphor-icons/react";
+import { useEffect, useRef, useState } from "react";
 
 
 const logo = "/logos/fullwhite-nobg.svg";
 
 export default function Sponsor() {
+	const videoRef = useRef<HTMLVideoElement>(null);
+	const [useGifFallback, setUseGifFallback] = useState(false);
+
+	useEffect(() => {
+		const video = videoRef.current;
+		if (!video) return;
+
+		const attemptAutoplay = async () => {
+			try {
+				const playPromise = video.play();
+				if (playPromise) {
+					await playPromise;
+				}
+			} catch {
+				// iOS Low Power Mode commonly blocks autoplay.
+				setUseGifFallback(true);
+			}
+		};
+
+		attemptAutoplay();
+	}, []);
+
 	return (
 		<div className="content-stretch flex flex-col items-start p-3 relative shrink-0 w-full z-4">
 			<div className="content-stretch flex flex-col h-[calc(100dvh-24px)] items-center justify-center overflow-clip p-9 max-sm:p-5 relative shrink-0 w-full">
@@ -16,15 +39,27 @@ export default function Sponsor() {
 					aria-hidden="true"
 					className="absolute inset-0 pointer-events-none"
 				>
-					<video
-						className="absolute max-w-none object-50%-50% object-cover size-full"
-						autoPlay
-						muted
-						loop
-						playsInline
-					>
-						<source src="/video.mp4" type="video/mp4" />
-					</video>
+					{useGifFallback ? (
+						<img
+							alt=""
+							className="absolute max-w-none object-50%-50% object-cover size-full"
+							src="/videofallback.gif"
+						/>
+					) : (
+						<video
+							ref={videoRef}
+							className="sponsor-bg-video absolute max-w-none object-50%-50% object-cover size-full"
+							autoPlay
+							muted
+							loop
+							playsInline
+							preload="auto"
+							disablePictureInPicture
+							onError={() => setUseGifFallback(true)}
+						>
+							<source src="/video.mp4" type="video/mp4" />
+						</video>
+					)}
 					<div className="absolute inset-0 bg-black/20 object-cover" />
 				</div>
 
@@ -48,7 +83,7 @@ function Header() {
 					/>
 				</div>
 			</div>
-			<div className="content-stretch flex gap-[5.842px] items-center justify-center relative shrink-0 hidden md:block">
+			<div className="content-stretch hidden md:flex gap-[5.842px] items-center justify-center relative shrink-0">
 				<div className="relative shrink-0">
 					<img
 						alt=""
@@ -68,7 +103,7 @@ function MainContent() {
 		<div className="basis-0 content-stretch flex flex-col gap-12 grow items-center justify-center min-h-px min-w-px relative shrink-0 w-full">
 			<div className="content-stretch flex flex-col gap-12 items-center not-italic relative shrink-0 text-(--text\/on-dark,white) text-center w-full">
 				<div className="flex flex-col items-center gap-2 self-stretch">
-					<div className="flex flex-col font-['Maison Neue:Medium',sans-serif] font-bold justify-end leading-0 min-w-full relative shrink-0 text-5xl text-shadow-[0px_0px_30px_rgba(0,0,0,0.25)] tracking-[-0.64px] w-min">
+					<div className="flex flex-col font-['Maison Neue:Medium',sans-serif] font-bold justify-end leading-0 min-w-full relative shrink-0 text-3xl md:text-5xl text-shadow-[0px_0px_30px_rgba(0,0,0,0.25)] tracking-[-0.64px] w-min">
 						<p className="leading-none">Thank you for your <br />interest in sponsoring.</p>
 					</div>
 				</div>
@@ -81,7 +116,6 @@ function MainContent() {
 
 function EmailSignup() {
 	const imgOrangeSun = "/orange-sun.svg";
-	const imgArrowUp = "/arrow-up.svg";
 
 	return (
 		<div

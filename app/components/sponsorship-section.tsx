@@ -72,19 +72,13 @@ function Logos() {
 					<Logo src={s2dev} alt="S2Dev logo" />
 				</div>
 			</div>
-			<div className="flex items-center align-middle self-stretch">
-				<img
-					alt="shopify logo"
-					src={shopify}
-					className="max-w-none size-full object-contain min-h-10 max-h-20"
-				/>
-			</div>
-			<div className="flex items-center align-middle self-stretch">
-				<img
-					alt="mundane logo"
-					src={mundane}
-					className="max-w-none size-full object-contain min-h-10 max-h-20"
-				/>
+			<div className="flex px-4 items-center w-full gap-7">
+				<div className="flex-1 min-w-0">
+					<Logo src={shopify} alt="Shopify logo" />
+				</div>
+				<div className="flex-1 min-w-0">
+					<Logo src={mundane} alt="S2Dev logo" />
+				</div>
 			</div>
 		</div>
 	);

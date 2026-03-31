@@ -1,13 +1,35 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { toast } from "sonner";
 
 const logo = "/logos/fullwhite-nobg.svg";
 
 export default function HeroSection() {
+	const videoRef = useRef<HTMLVideoElement>(null);
+	const [useGifFallback, setUseGifFallback] = useState(false);
+
+	useEffect(() => {
+		const video = videoRef.current;
+		if (!video) return;
+
+		const attemptAutoplay = async () => {
+			try {
+				const playPromise = video.play();
+				if (playPromise) {
+					await playPromise;
+				}
+			} catch {
+				// iOS Low Power Mode commonly blocks autoplay.
+				setUseGifFallback(true);
+			}
+		};
+
+		attemptAutoplay();
+	}, []);
+
 	return (
 		<div className="content-stretch flex flex-col items-start p-3 relative shrink-0 w-full z-4">
 			<div className="content-stretch flex flex-col h-[calc(100dvh-24px)] items-center justify-center overflow-clip p-9 max-sm:p-5 relative shrink-0 w-full">
@@ -15,15 +37,27 @@ export default function HeroSection() {
 					aria-hidden="true"
 					className="absolute inset-0 pointer-events-none"
 				>
-					<video
-						className="absolute max-w-none object-50%-50% object-cover size-full"
-						autoPlay
-						muted
-						loop
-						playsInline
-					>
-						<source src="/video.mp4" type="video/mp4" />
-					</video>
+					{useGifFallback ? (
+						<img
+							alt=""
+							className="absolute max-w-none object-50%-50% object-cover size-full"
+							src="/videofallback.gif"
+						/>
+					) : (
+						<video
+							ref={videoRef}
+							className="absolute max-w-none object-50%-50% object-cover size-full"
+							autoPlay
+							muted
+							loop
+							playsInline
+							preload="auto"
+							disablePictureInPicture
+							onError={() => setUseGifFallback(true)}
+						>
+							<source src="/video.mp4" type="video/mp4" />
+						</video>
+					)}
 					<div className="absolute inset-0 bg-black/20 object-cover" />
 				</div>
 
