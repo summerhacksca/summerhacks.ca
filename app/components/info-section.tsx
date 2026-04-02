@@ -27,7 +27,7 @@ export default function InfoSection() {
 
 function LeftPanel() {
 	return (
-		<div className="w-full md:basis-0 content-stretch flex flex-col gap-[48px] md:grow items-start min-h-px min-w-px overflow-clip p-[12px] md:p-[36px] relative self-stretch shrink-0">
+		<div className="w-full md:basis-0 content-stretch flex flex-col md:grow items-start min-h-px min-w-px overflow-clip p-[12px] md:p-[36px] relative self-stretch justify-between shrink-0">
 			{/* General Info Header */}
 			<div className="content-stretch flex gap-[36px] items-center relative shrink-0">
 				<p className="font-['Maison Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-[#2a2a2a] text-nowrap tracking-[-0.64px]">
