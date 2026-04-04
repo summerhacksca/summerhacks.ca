@@ -1,46 +1,107 @@
 import { NextResponse, NextRequest } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { readFile } from 'node:fs/promises'
+import path from 'node:path'
 import { sendEmail } from '@/lib/gmail'
 
-function waitlistConfirmationEmail(): string {
-  return `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body style="margin: 0; padding: 0; background-color: #ffffff; font-family: Helvetica, Arial, sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #ffffff;">
-    <tr>
-      <td align="center" style="padding: 40px 20px;">
-        <table width="560" cellpadding="0" cellspacing="0" style="max-width: 560px; width: 100%;">
-          <tr>
-            <td style="background-color: #ffefdd; border-radius: 16px; padding: 40px 40px 32px 40px;">
-              <p style="margin: 0 0 24px 0; font-size: 28px;">☀️</p>
-              <h1 style="margin: 0 0 12px 0; font-size: 24px; font-weight: 600; color: #1a1a1a; line-height: 1.3;">
-                You're on the list!
-              </h1>
-              <p style="margin: 0 0 24px 0; font-size: 16px; color: #555555; line-height: 1.6;">
-                Thanks for signing up for Summer Hacks. We'll reach out with updates as we get closer to the event.
-              </p>
-              <p style="margin: 0; font-size: 15px; color: #888888; line-height: 1.5;">
-                — The Summer Hacks Team
-              </p>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding: 20px 0 0 0; text-align: center;">
-              <p style="margin: 0; font-size: 13px; color: #bbbbbb;">
-                summerhacks.ca
-              </p>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>`
+const waitlistConfirmationEmailDir = path.join(
+  process.cwd(),
+  'app/api/email/emailformat'
+)
+const waitlistConfirmationEmailPath = path.join(waitlistConfirmationEmailDir, 'email.html')
+
+function replaceInlineSvgsWithPngs(html: string): string {
+  const replacements = [
+    '<img src="email-decor-left.png" width="211" height="239" alt="Decor left" style="display:block;width:211px;height:239px;" />',
+    '<img src="email-decor-right.png" width="247" height="264" alt="Decor right" style="display:block;width:247px;height:264px;" />',
+    '<img src="email-logo.png" width="20" height="20" alt="Logo mark" style="display:block;width:20px;height:20px;" />',
+  ]
+
+  let index = 0
+  return html.replace(/<svg[\s\S]*?<\/svg>/g, () => {
+    const replacement = replacements[index]
+    index += 1
+    return replacement ?? ''
+  })
+}
+
+function getMimeType(fileName: string): string {
+  const ext = path.extname(fileName).toLowerCase()
+  switch (ext) {
+    case '.png':
+      return 'image/png'
+    case '.jpg':
+    case '.jpeg':
+      return 'image/jpeg'
+    case '.gif':
+      return 'image/gif'
+    case '.webp':
+      return 'image/webp'
+    case '.svg':
+      return 'image/svg+xml'
+    default:
+      return 'application/octet-stream'
+  }
+}
+
+async function inlineTemplateImages(html: string): Promise<string> {
+  const srcRegex = /src="([^"]+)"/g
+  const srcMatches = [...html.matchAll(srcRegex)]
+  const uniqueSrcs = [...new Set(srcMatches.map((match) => match[1]))]
+
+  for (const src of uniqueSrcs) {
+    const isAlreadyEmbeddable =
+      src.startsWith('http://') ||
+      src.startsWith('https://') ||
+      src.startsWith('data:') ||
+      src.startsWith('cid:')
+
+    if (isAlreadyEmbeddable) {
+      continue
+    }
+
+    let resolvedSrc = src
+
+    // Many email clients don't reliably render SVGs. Prefer a PNG sibling when available.
+    if (path.extname(src).toLowerCase() === '.svg') {
+      const pngCandidate = src.replace(/\.svg$/i, '.png')
+      const pngPath = path.resolve(waitlistConfirmationEmailDir, pngCandidate)
+
+      try {
+        await readFile(pngPath)
+        resolvedSrc = pngCandidate
+      } catch {
+        console.warn(`No PNG fallback found for SVG asset: ${src}`)
+      }
+    }
+
+    const assetPath = path.resolve(waitlistConfirmationEmailDir, resolvedSrc)
+    const isInsideTemplateDir =
+      assetPath === waitlistConfirmationEmailDir ||
+      assetPath.startsWith(`${waitlistConfirmationEmailDir}${path.sep}`)
+
+    if (!isInsideTemplateDir) {
+      console.warn(`Skipping non-local email asset path: ${src}`)
+      continue
+    }
+
+    try {
+      const assetBuffer = await readFile(assetPath)
+      const mimeType = getMimeType(resolvedSrc)
+      const dataUri = `data:${mimeType};base64,${assetBuffer.toString('base64')}`
+      html = html.replaceAll(`src="${src}"`, `src="${dataUri}"`)
+    } catch (error) {
+      console.error(`Failed to inline email asset: ${resolvedSrc}`, error)
+    }
+  }
+
+  return html
+}
+
+async function waitlistConfirmationEmail(): Promise<string> {
+  const rawHtml = await readFile(waitlistConfirmationEmailPath, 'utf8')
+  const emailSafeHtml = replaceInlineSvgsWithPngs(rawHtml)
+  return inlineTemplateImages(emailSafeHtml)
 }
 
 export async function POST(request: NextRequest) {
@@ -87,11 +148,13 @@ export async function POST(request: NextRequest) {
 
     console.log(`New email subscription: ${normalizedEmail}`)
 
+    const confirmationEmailHtml = await waitlistConfirmationEmail()
+
     // Send confirmation email — non-blocking, don't fail the request if it errors
     sendEmail(
       normalizedEmail,
       "You're on the Summer Hacks waitlist!",
-      waitlistConfirmationEmail()
+      confirmationEmailHtml
     ).catch((err) => {
       console.error('Failed to send confirmation email:', err)
     })
