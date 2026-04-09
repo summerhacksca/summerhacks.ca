@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: "SummerHacks",
   description: "Build under open skies",
   icons: {
-    icon: "/favicon.svg",
+    icon: "/icon.svg",
   },
 };
 

@@ -1,8 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-const sponspackage = "/sponspackage.svg";
-const sponspackagePdf = "/sponspackage.pdf";
 const download = "/download.svg";
 
 // logos
@@ -190,7 +188,7 @@ function InfoRows({ className = "" }: { className?: string }) {
 
 				<div className="flex flex-col content-end items-center gap-3 ">
 					<a
-						href={sponspackagePdf}
+						href="https://drive.google.com/file/d/1BgZAcUphJN6mjg_9d9F6q0lL9YAhKydP/view?usp=sharing"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="flex h-13 px-4 items-center gap-2.5 bg-[#ffefdd] py-3 rounded-[100px]"
