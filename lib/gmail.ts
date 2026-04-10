@@ -1,5 +1,14 @@
 import { google } from 'googleapis'
 
+const fallbackFromAddress = 'admin@summerhacks.ca'
+
+function getFromHeader(): string {
+  const fromAddress = process.env.GMAIL_FROM_ADDRESS?.trim() || fallbackFromAddress
+  const fromName = process.env.GMAIL_FROM_NAME?.trim()
+
+  return fromName ? `${fromName} <${fromAddress}>` : fromAddress
+}
+
 function getGmailClient() {
   const oauth2Client = new google.auth.OAuth2(
     process.env.GMAIL_CLIENT_ID,
@@ -12,8 +21,13 @@ function getGmailClient() {
 }
 
 function buildRawMessage(to: string, subject: string, htmlBody: string): string {
+  const fromHeader = getFromHeader()
+  const replyTo = process.env.GMAIL_REPLY_TO?.trim()
+
   const lines = [
     `To: ${to}`,
+    `From: ${fromHeader}`,
+    ...(replyTo ? [`Reply-To: ${replyTo}`] : []),
     'Content-Type: text/html; charset=utf-8',
     'MIME-Version: 1.0',
     `Subject: ${subject}`,

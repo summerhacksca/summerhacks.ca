@@ -4,17 +4,19 @@ import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { sendEmail } from '@/lib/gmail'
 
+const emailImagesBaseUrl = 'https://summerhacks.ca/emailimages'
+
 const waitlistConfirmationEmailDir = path.join(
   process.cwd(),
-  'app/api/email/emailformat'
+  'app/api/email'
 )
 const waitlistConfirmationEmailPath = path.join(waitlistConfirmationEmailDir, 'email.html')
 
 function replaceInlineSvgsWithPngs(html: string): string {
   const replacements = [
-    '<img src="email-decor-left.png" width="211" height="239" alt="Decor left" style="display:block;width:211px;height:239px;" />',
-    '<img src="email-decor-right.png" width="247" height="264" alt="Decor right" style="display:block;width:247px;height:264px;" />',
-    '<img src="email-logo.png" width="20" height="20" alt="Logo mark" style="display:block;width:20px;height:20px;" />',
+    `<img src="${emailImagesBaseUrl}/email-decor-left.png" width="211" height="239" alt="Decor left" style="display:block;width:211px;height:239px;" />`,
+    `<img src="${emailImagesBaseUrl}/email-decor-right.png" width="247" height="264" alt="Decor right" style="display:block;width:247px;height:264px;" />`,
+    `<img src="${emailImagesBaseUrl}/email-logo.png" width="20" height="20" alt="Logo mark" style="display:block;width:20px;height:20px;" />`,
   ]
 
   let index = 0
@@ -25,83 +27,28 @@ function replaceInlineSvgsWithPngs(html: string): string {
   })
 }
 
-function getMimeType(fileName: string): string {
-  const ext = path.extname(fileName).toLowerCase()
-  switch (ext) {
-    case '.png':
-      return 'image/png'
-    case '.jpg':
-    case '.jpeg':
-      return 'image/jpeg'
-    case '.gif':
-      return 'image/gif'
-    case '.webp':
-      return 'image/webp'
-    case '.svg':
-      return 'image/svg+xml'
-    default:
-      return 'application/octet-stream'
-  }
-}
-
-async function inlineTemplateImages(html: string): Promise<string> {
+function rewriteTemplateImageSources(html: string): string {
   const srcRegex = /src="([^"]+)"/g
-  const srcMatches = [...html.matchAll(srcRegex)]
-  const uniqueSrcs = [...new Set(srcMatches.map((match) => match[1]))]
-
-  for (const src of uniqueSrcs) {
-    const isAlreadyEmbeddable =
+  return html.replace(srcRegex, (_fullMatch, src: string) => {
+    const isAlreadyAbsolute =
       src.startsWith('http://') ||
       src.startsWith('https://') ||
       src.startsWith('data:') ||
       src.startsWith('cid:')
 
-    if (isAlreadyEmbeddable) {
-      continue
+    if (isAlreadyAbsolute) {
+      return `src="${src}"`
     }
 
-    let resolvedSrc = src
-
-    // Many email clients don't reliably render SVGs. Prefer a PNG sibling when available.
-    if (path.extname(src).toLowerCase() === '.svg') {
-      const pngCandidate = src.replace(/\.svg$/i, '.png')
-      const pngPath = path.resolve(waitlistConfirmationEmailDir, pngCandidate)
-
-      try {
-        await readFile(pngPath)
-        resolvedSrc = pngCandidate
-      } catch {
-        console.warn(`No PNG fallback found for SVG asset: ${src}`)
-      }
-    }
-
-    const assetPath = path.resolve(waitlistConfirmationEmailDir, resolvedSrc)
-    const isInsideTemplateDir =
-      assetPath === waitlistConfirmationEmailDir ||
-      assetPath.startsWith(`${waitlistConfirmationEmailDir}${path.sep}`)
-
-    if (!isInsideTemplateDir) {
-      console.warn(`Skipping non-local email asset path: ${src}`)
-      continue
-    }
-
-    try {
-      const assetBuffer = await readFile(assetPath)
-      const mimeType = getMimeType(resolvedSrc)
-      const dataUri = `data:${mimeType};base64,${assetBuffer.toString('base64')}`
-      html = html.replaceAll(`src="${src}"`, `src="${dataUri}"`)
-    } catch (error) {
-      console.error(`Failed to inline email asset: ${resolvedSrc}`, error)
-    }
-  }
-
-  return html
+    const assetFileName = path.basename(src)
+    return `src="${emailImagesBaseUrl}/${assetFileName}"`
+  })
 }
 
 async function waitlistConfirmationEmail(): Promise<string> {
   const rawHtml = await readFile(waitlistConfirmationEmailPath, 'utf8')
   const emailSafeHtml = replaceInlineSvgsWithPngs(rawHtml)
-  return inlineTemplateImages(emailSafeHtml)
+  return rewriteTemplateImageSources(emailSafeHtml)
 }
 
 export async function POST(request: NextRequest) {
