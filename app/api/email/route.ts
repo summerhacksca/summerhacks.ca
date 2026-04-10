@@ -8,7 +8,7 @@ const emailImagesBaseUrl = 'https://summerhacks.ca/emailimages'
 
 const waitlistConfirmationEmailDir = path.join(
   process.cwd(),
-  'app/api/email/emailformat'
+  'app/api/email'
 )
 const waitlistConfirmationEmailPath = path.join(waitlistConfirmationEmailDir, 'email.html')
 
