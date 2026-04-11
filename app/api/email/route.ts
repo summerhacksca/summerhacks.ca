@@ -17,6 +17,8 @@ function replaceInlineSvgsWithPngs(html: string): string {
     `<img src="${emailImagesBaseUrl}/email-decor-left.png" width="211" height="239" alt="Decor left" style="display:block;width:211px;height:239px;" />`,
     `<img src="${emailImagesBaseUrl}/email-decor-right.png" width="247" height="264" alt="Decor right" style="display:block;width:247px;height:264px;" />`,
     `<img src="${emailImagesBaseUrl}/email-logo.png" width="20" height="20" alt="Logo mark" style="display:block;width:20px;height:20px;" />`,
+    `<img src="${emailImagesBaseUrl}/sun.png" width="40" height="40" alt="Sun icon" style="display:block;width:40px;height:40px;" />`,
+    `<img src="${emailImagesBaseUrl}/bg.png" width="528" alt="Background" style="display:block;max-width:528px;height:auto;" />`,
   ]
 
   let index = 0
