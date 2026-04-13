@@ -5,7 +5,7 @@ const download = "/download.svg";
 
 // logos
 const imgOrangeSun = "logos/orange-nobg.svg";
-const codeRabbit = "logos/coderabbit-brown.svg";
+const codeRabbit = "logos/coderabbit.svg";
 const akatos = "logos/akatos-brown.svg";
 const nom = "logos/nom-brown.svg";
 const gitTrophy = "logos/git-trophy-brown.svg";

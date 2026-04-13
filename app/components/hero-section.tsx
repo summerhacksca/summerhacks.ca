@@ -219,7 +219,7 @@ function EmailSignup() {
 			<div className="content-stretch flex gap-0.5 h-full items-center relative shrink-0 max-sm:h-13.5 max-sm:w-full">
 				<div className="border border-(--primary\/sun\/100,#ffefdd) border-solid content-stretch flex h-full items-center overflow-clip px-5 py-0 relative rounded-[100px] shrink-0 w-72.5 max-sm:w-auto max-sm:grow">
 					{status === "success" ? (
-						<p className="font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic text-[14px] text-[#fdb869] tracking-[-0.56px]">
+						<p className="font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic text-[14px] text-[#B07F46] tracking-[-0.56px]">
 							added to waitlist!
 						</p>
 					) : status === "error" && !email ? (
@@ -242,7 +242,7 @@ function EmailSignup() {
 							className={`font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic w-full bg-transparent outline-none text-[14px] text-[#fdb869] tracking-[-0.56px] disabled:opacity-50 ${
 								status === "error"
 									? "placeholder:text-red-400"
-									: "placeholder:text-[#fdb869]"
+									: "placeholder:text-[#B07F46]"
 							}`}
 						/>
 					)}
