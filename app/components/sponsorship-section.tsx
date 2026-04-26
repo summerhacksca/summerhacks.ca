@@ -12,6 +12,11 @@ const gitTrophy = "logos/git-trophy-brown.svg";
 const s2dev = "logos/s2dev-brown.svg";
 const shopify = "logos/shopify-brown.svg";
 const mundane = "logos/mundane-brown.svg";
+const wics = "logos/wics.svg";
+const tccff = "logos/tccff.svg";
+const georgeshao = "logos/georgeshao.svg";
+const hudzah = "logos/hudzah.svg";
+const josephma = "logos/josephma.svg";
 
 // graphics
 const basketBrown = "graphics/basket-brown.svg";
@@ -56,6 +61,14 @@ function Logos() {
 			</div>
 			<div className="flex px-4 items-center w-full gap-7">
 				<div className="flex-1 min-w-0">
+					<Logo src={shopify} alt="Shopify logo" />
+				</div>
+				<div className="flex-1 min-w-0">
+					<Logo src={mundane} alt="S2Dev logo" />
+				</div>
+			</div>
+			<div className="flex px-4 items-center w-full gap-7">
+				<div className="flex-1 min-w-0">
 					<Logo src={akatos} alt="Akatos logo" />
 				</div>
 				<div className="flex-1 min-w-0">
@@ -72,10 +85,23 @@ function Logos() {
 			</div>
 			<div className="flex px-4 items-center w-full gap-7">
 				<div className="flex-1 min-w-0">
-					<Logo src={shopify} alt="Shopify logo" />
+					<Logo src={wics} alt="WICS logo" />
 				</div>
 				<div className="flex-1 min-w-0">
-					<Logo src={mundane} alt="S2Dev logo" />
+					<Logo src={tccff} alt="TCCFF logo" />
+				</div>
+			</div>
+			<div className="flex px-4 items-center w-full gap-7">
+				<div className="flex-1 min-w-0">
+					<Logo src={georgeshao} alt="George Shao logo" />
+				</div>
+				<div className="flex-1 min-w-0">
+					<Logo src={hudzah} alt="Hudzah logo" />
+				</div>
+			</div>
+			<div className="flex px-4 items-center w-full gap-7">
+				<div className="flex-1 min-w-0">
+					<Logo src={josephma} alt="Joseph Ma logo" />
 				</div>
 			</div>
 		</div>
