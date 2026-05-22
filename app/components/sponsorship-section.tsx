@@ -52,13 +52,13 @@ function Logo({ src, alt }: { src: string; alt: string }) {
 function Logos() {
 	return (
 		<div className="flex flex-col items-center justify-center self-stretch flex-1 min-w-0 gap-9 md:gap-14">
-			<div className="flex items-center align-middle self-stretch">
+			{/* <div className="flex items-center align-middle self-stretch">
 				<img
 					alt="CodeRabbit logo"
 					src={codeRabbit}
 					className="max-w-none size-full object-contain min-h-10 max-h-20"
 				/>
-			</div>
+			</div> */}
 			<div className="flex px-4 items-center w-full gap-7">
 				<div className="flex-1 min-w-0">
 					<Logo src={shopify} alt="Shopify logo" />
@@ -214,7 +214,7 @@ function InfoRows({ className = "" }: { className?: string }) {
 
 				<div className="flex flex-col content-end items-center gap-3 ">
 					<a
-						href="https://drive.google.com/file/d/1BgZAcUphJN6mjg_9d9F6q0lL9YAhKydP/view?usp=sharing"
+						href="https://drive.google.com/file/d/1_vLV-Hf5UUkvSOezyXBvqcM9XqZyFH4_/view?usp=sharing"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="flex h-13 px-4 items-center gap-2.5 bg-[#ffefdd] py-3 rounded-[100px]"

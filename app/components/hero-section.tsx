@@ -74,7 +74,7 @@ function Header() {
 		<div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
 			<div className="basis-0 content-stretch flex grow items-center min-h-px min-w-px relative shrink-0">
 				<p className="hidden md:block font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-(--text\/on-dark,white) text-nowrap text-right tracking-[-0.28px]">
-					Summer 2026 - 3 days
+					Summer 2026 - 2 days
 				</p>
 				<div className="relative shrink-0">
 					<img
@@ -99,7 +99,7 @@ function Header() {
 						Outdoor hackathon
 					</p>
 					<p className="block md:hidden font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-(--text\/on-dark,white) text-nowrap tracking-[-0.28px]">
-						Summer 2026 - 3 days
+						Summer 2026 - 2 days
 					</p>
 				</div>
 			</div>

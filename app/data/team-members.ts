@@ -26,44 +26,9 @@ export const teamMembers: TeamMember[] = [
     image: "/team-member-photos/anitadu.png",
   },
   {
-    name: "Dundee Zhang",
-    role: "University of Waterloo",
-    image: "/team-member-photos/dundeezhang.png",
-  },
-  {
-    name: "Anna Wei",
-    role: "University of Waterloo",
-    image: "/team-member-photos/annawei.png",
-  },
-  {
-    name: "Aricia Chan",
-    role: "Carnegie Mellon University",
-    image: "/team-member-photos/ariciachan.png",
-  },
-  {
-    name: "Charles Zhang",
-    role: "University of Waterloo",
-    image: "/team-member-photos/charleszhang.png",
-  },
-  {
-    name: "Claire Liu",
-    role: "University of Waterloo",
-    image: "/team-member-photos/claireliu.png",
-  },
-  {
     name: "Ivy Cho",
     role: "Western University",
     image: "/team-member-photos/ivycho.png",
-  },
-  {
-    name: "Justin Wang",
-    role: "University of Waterloo",
-    image: "/team-member-photos/justinwang.png",
-  },
-  {
-    name: "Matias Rivas",
-    role: "University of Waterloo",
-    image: "/team-member-photos/matiasrivas.png",
   },
   {
     name: "Oliver Huang",
@@ -71,19 +36,14 @@ export const teamMembers: TeamMember[] = [
     image: "/team-member-photos/oliverhuang.png",
   },
   {
-    name: "Shalott Tam",
+    name: "Jerome Heng",
+    role: "University of Toronto",
+    image: "/team-member-photos/jeromeheng.png",
+  },
+  {
+    name: "Matias Rivas",
     role: "University of Waterloo",
-    image: "/team-member-photos/shalotttam.png",
-  },
-  {
-    name: "Alex Gu",
-    role: "University of Toronto",
-    image: "/team-member-photos/alexgu.png",
-  },
-  {
-    name: "Anthony Hua",
-    role: "University of Toronto",
-    image: "/team-member-photos/anthonyhua.png",
+    image: "/team-member-photos/matiasrivas.png",
   },
   {
     name: "Anton Kuzmichev",
@@ -91,24 +51,34 @@ export const teamMembers: TeamMember[] = [
     image: "/team-member-photos/antonkuzmichev.png",
   },
   {
-    name: "Caitlin Phillips",
-    role: "McMaster University",
-    image: "/team-member-photos/caitlinphillips.png",
-  },
-  {
     name: "Elizabeth Ling",
     role: "University of Waterloo",
     image: "/team-member-photos/elizabethling.png",
   },
   {
-    name: "Evan Liem",
+    name: "Claire Liu",
     role: "University of Waterloo",
-    image: "/team-member-photos/evanliem.png",
+    image: "/team-member-photos/claireliu.png",
   },
   {
-    name: "Jerome Heng",
+    name: "Aricia Chan",
+    role: "Carnegie Mellon University",
+    image: "/team-member-photos/ariciachan.png",
+  },
+  {
+    name: "Monica Trinh",
+    role: "University of Waterloo",
+    image: "/team-member-photos/monicatrinh.png",
+  },
+  {
+    name: "Joonie Kang",
     role: "University of Toronto",
-    image: "/team-member-photos/jeromeheng.png",
+    image: "/team-member-photos/jooniekang.png",
+  },
+  {
+    name: "Raghav Agarwal",
+    role: "University of Waterloo",
+    image: "/team-member-photos/raghavagarwal.png",
   },
   {
     name: "Joanna Wang",
@@ -116,9 +86,39 @@ export const teamMembers: TeamMember[] = [
     image: "/team-member-photos/joannawang.png",
   },
   {
+    name: "Charles Zhang",
+    role: "University of Waterloo",
+    image: "/team-member-photos/charleszhang.png",
+  },
+  {
+    name: "Shalott Tam",
+    role: "University of Waterloo",
+    image: "/team-member-photos/shalotttam.png",
+  },
+  {
     name: "Jocelyn Xu",
     role: "University of Waterloo",
     image: "/team-member-photos/jocelynxu.png",
+  },
+  {
+    name: "Victoria Feng",
+    role: "University of Waterloo",
+    image: "/team-member-photos/victoriafeng.png",
+  },
+  {
+    name: "Jia Naidu",
+    role: "University of Waterloo",
+    image: "/team-member-photos/jianaidu.png",
+  },
+  {
+    name: "Jonathan Wang",
+    role: "University of Waterloo",
+    image: "/team-member-photos/jonathanwang.png",
+  },
+  {
+    name: "Annie Liu",
+    role: "Western University",
+    image: "/team-member-photos/annieliu.png",
   },
   {
     name: "Justin Wu",
@@ -126,18 +126,33 @@ export const teamMembers: TeamMember[] = [
     image: "/team-member-photos/justinwu.png",
   },
   {
+    name: "Justin Wang",
+    role: "University of Waterloo",
+    image: "/team-member-photos/justinwang.png",
+  },
+  {
+    name: "Alex Gu",
+    role: "University of Waterloo",
+    image: "/team-member-photos/alexgu.png",
+  },
+  {
+    name: "Caitlin Phillips",
+    role: "McMaster University",
+    image: "/team-member-photos/caitlinphillips.png",
+  },
+  {
+    name: "Evan Liem",
+    role: "University of Waterloo",
+    image: "/team-member-photos/evanliem.png",
+  },
+  {
     name: "Norman Dong",
     role: "University of Waterloo",
     image: "/team-member-photos/normandong.png",
   },
   {
-    name: "Olivia Yi",
+    name: "Matthew Mo",
     role: "University of Waterloo",
-    image: "/team-member-photos/oliviayi.png",
+    image: "/team-member-photos/matthewmo.png",
   },
-  {
-    name: "Raghav Agarwal",
-    role: "University of Waterloo",
-    image: "/team-member-photos/raghavagarwal.png",
-  }
 ];
