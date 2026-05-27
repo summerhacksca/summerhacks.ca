@@ -3,7 +3,9 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { ArrowUp } from "@phosphor-icons/react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const logo = "/logos/fullwhite-nobg.svg";
 
@@ -128,68 +130,10 @@ function MainContent() {
 
 function EmailSignup() {
 	const imgOrangeSun = "/orange-sun.svg";
-	const imgArrowUp = "/arrow-up.svg";
-
-	const [email, setEmail] = useState("");
-	const [status, setStatus] = useState<
-		"idle" | "loading" | "success" | "error"
-	>("idle");
-	const [errorMessage, setErrorMessage] = useState("");
-
-	const getPlaceholder = () => {
-		switch (status) {
-			case "success":
-				return "saved!";
-			case "error":
-				return errorMessage || "error, try again...";
-			case "loading":
-				return "saving...";
-			default:
-				return "your email...";
-		}
-	};
-
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-
-		if (!email) {
-			setStatus("error");
-			setErrorMessage("Please enter your email address");
-			return;
-		}
-
-		setStatus("loading");
-		setErrorMessage("");
-
-		try {
-			const response = await fetch("/api/email", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ email }),
-			});
-
-			const data = await response.json();
-
-			if (response.ok) {
-				setStatus("success");
-				setEmail("");
-			} else {
-				setStatus("error");
-				setEmail("");
-				setErrorMessage(data.error || "Something went wrong");
-			}
-		} catch {
-			setStatus("error");
-			setEmail("");
-			setErrorMessage("Failed to subscribe. Please try again.");
-		}
-	};
+	const router = useRouter();
 
 	return (
-		<form
-			onSubmit={handleSubmit}
+		<div
 			className="bg-(--base\/0,white) content-stretch flex gap-6 h-14 items-center overflow-clip pl-4 pr-0.5 py-0.5 relative rounded-lg shadow-[0px_20px_50px_0px_rgba(0,0,0,0.25)] shrink-0 max-sm:flex-col max-sm:h-auto max-sm:items-start max-sm:gap-3.5 max-sm:p-4 max-sm:w-full max-sm:max-w-82.5"
 		>
 			<div className="content-stretch flex gap-2 items-center relative shrink-0">
@@ -213,75 +157,31 @@ function EmailSignup() {
 					</div>
 				</div>
 				<p className="font-['Maison Neue:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[16px] text-(--base\/800,#2a2a2a) text-nowrap tracking-[-0.64px]">
-					Waitlist open. Stay updated.
+					Applications open. Start now.
 				</p>
 			</div>
 			<div className="content-stretch flex gap-0.5 h-full items-center relative shrink-0 max-sm:h-13.5 max-sm:w-full">
-				<div className="border border-(--primary\/sun\/100,#ffefdd) border-solid content-stretch flex h-full items-center overflow-clip px-5 py-0 relative rounded-[100px] shrink-0 w-72.5 max-sm:w-auto max-sm:grow">
-					{status === "success" ? (
-						<p className="font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic text-[14px] text-[#B07F46] tracking-[-0.56px]">
-							added to waitlist!
-						</p>
-					) : status === "error" && !email ? (
-						<p
-							className="font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic text-[14px] text-red-400 tracking-[-0.56px] cursor-pointer"
-							onClick={() => setStatus("idle")}
-						>
-							{errorMessage}
-						</p>
-					) : (
-						<input
-							type="text"
-							value={email}
-							onChange={(e) => {
-								setEmail(e.target.value);
-								if (status === "error") setStatus("idle");
-							}}
-							placeholder={getPlaceholder()}
-							disabled={status === "loading"}
-							className={`font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic w-full bg-transparent outline-none text-[14px] text-[#fdb869] tracking-[-0.56px] disabled:opacity-50 ${
-								status === "error"
-									? "placeholder:text-red-400"
-									: "placeholder:text-[#B07F46]"
-							}`}
-						/>
-					)}
-				</div>
 				<button
-					type="submit"
-					disabled={status === "loading"}
-					className="aspect-54/54 bg-(--primary\/sun\/100,#ffefdd) content-stretch flex h-full items-center justify-center overflow-clip relative rounded-[100px] shrink-0 hover:bg-(--primary\/sun\/200,#fde4c8) transition-colors disabled:opacity-50 cursor-pointer"
+					type="button"
+					onClick={() => router.push("/apply")}
+					className="bg-(--primary\/sun\/100,#ffefdd) text-[#B07F46] inline-flex h-full items-center justify-center overflow-clip px-4 rounded-[100px] shrink-0 hover:bg-(--primary\/sun\/200,#fde4c8) transition-colors disabled:opacity-50 cursor-pointer max-sm:h-13.5 max-sm:w-full"
 				>
-					<div
-						className="flex items-center justify-center relative shrink-0 size-5"
-						style={
-							{
-								"--transform-inner-width": "0",
-								"--transform-inner-height": "0",
-							} as React.CSSProperties
-						}
-					>
+					<div className="flex items-center justify-center gap-2 relative shrink-0">
+						APPLY
 						<div className="flex-none rotate-90">
 							<div className="relative size-5">
-								<Image
-									alt=""
-									className="block max-w-none size-full"
-									src={imgArrowUp}
-									width={20}
-									height={20}
-									quality={100}
-								/>
+								<ArrowUp size={20} weight="bold" className="block max-w-none size-full" />
 							</div>
 						</div>
 					</div>
 				</button>
 			</div>
-		</form>
+		</div>
 	);
 }
 
 function ScrollIndicator() {
-	const imgArrowUp = "/arrow-up.svg";
+    
 
 	return (
 		<div className="content-stretch flex flex-col gap-3 items-center justify-end pb-4 pt-0 px-0 relative shrink-0 w-full">
@@ -294,21 +194,14 @@ function ScrollIndicator() {
 				className="backdrop-blur-[2.5px] backdrop-filter bg-[rgba(255,239,218,0.2)] content-stretch flex items-center justify-center overflow-clip relative rounded-[100px] shrink-0 size-13 cursor-pointer hover:bg-[rgba(255,239,218,0.3)] transition-colors"
 			>
 				<div className="flex items-center justify-center relative shrink-0">
-					<div className="flex-none rotate-180">
-						<div
-							className="relative size-5"
-							style={{ filter: "brightness(0) invert(1)" }}
-						>
-							<Image
-								alt=""
-								className="block max-w-none size-full"
-								src={imgArrowUp}
-								width={20}
-								height={20}
-								quality={100}
-							/>
-						</div>
-					</div>
+							<div className="flex-none rotate-180">
+								<div
+									className="relative size-5"
+									style={{ filter: "brightness(0) invert(1)" }}
+								>
+									<ArrowUp size={20} weight="bold" className="block max-w-none size-full" />
+								</div>
+							</div>
 				</div>
 			</button>
 			<p className="font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#ffefda] text-[14px] text-center text-nowrap tracking-[-0.28px]">
