@@ -4,12 +4,12 @@ import { useState } from "react";
 import { ArrowUp } from "@phosphor-icons/react";
 import Image from "next/image";
 import {
-  Combobox,
-  ComboboxContent,
-  ComboboxEmpty,
-  ComboboxInput,
-  ComboboxItem,
-  ComboboxList,
+	Combobox,
+	ComboboxContent,
+	ComboboxEmpty,
+	ComboboxInput,
+	ComboboxItem,
+	ComboboxList,
 } from "@/components/ui/combobox";
 
 type SlideId = 1 | 2 | 3;
@@ -98,6 +98,8 @@ const tshirtSizeOptions = ["XS", "S", "M", "L", "XL", "XXL"];
 
 const imgOrangeSun = "/logos/orange-nobg.svg";
 
+const orange = "/graphics/orange.svg";
+
 function AppComboBox({
 	items,
 	placeholder,
@@ -171,24 +173,67 @@ function LeftPanelContent({
 }) {
 	if (step === 1) {
 		return (
-			<div className="flex flex-1 items-end">
-				<div className="max-w-md">
-					<p className="font-['Maison Neue',sans-serif] text-[14px] font-medium uppercase tracking-[0.28em] text-[#b07f46]/70">
-						Start here
+			<div className="flex flex-col items-center justify-center self-stretch flex-1 w-full min-h-0">
+				<div className="flex flex-col gap-7">
+					<div className="flex justify-center items-start justify-start gap-[30px]">
+						<Image
+							alt=""
+							className="block max-w-none "
+							src={orange}
+							width={96}
+							height={96}
+							quality={100}
+						/>
+						<Image
+							alt=""
+							className="block max-w-none "
+							src={orange}
+							width={96}
+							height={96}
+							quality={100}
+						/>
+						<Image
+							alt=""
+							className="block max-w-none "
+							src={orange}
+							width={96}
+							height={96}
+							quality={100}
+						/>
+					</div>
+					<p className="text-[#F80] text-3xl font-medium font-['Maison_Neue'] leading-8">
+						Join us under the sun.
 					</p>
-					<h3 className="mt-3 font-['Maison Neue',sans-serif] text-[18px] font-medium text-[#2a2a2a]">
-						Build your profile
-					</h3>
-					<p className="mt-2 font-['Maison Neue',sans-serif] text-[15px] leading-[130%] tracking-[-0.32px] text-[#2a2a2a]/80">
-						This slide collects the basics and your public links so
-						we can place the rest of your application in context.
+					<p className="text-text-on-light text-3xl font-normal font-['Maison_Neue'] leading-8">
+						Creating a hacker profile is the first step to
+						experience SummerHacks.
 					</p>
-					<ul className="mt-4 space-y-2 font-['Maison Neue',sans-serif] text-[14px] leading-[130%] tracking-[-0.28px] text-[#2a2a2a]/70">
-						<li>
-							Legal and preferred names, age, and school details.
-						</li>
-						<li>LinkedIn, GitHub, resume, and portfolio links.</li>
-					</ul>
+					<div className="flex justify-center items-start justify-start gap-[30px]">
+						<Image
+							alt=""
+							className="block max-w-none "
+							src={orange}
+							width={96}
+							height={96}
+							quality={100}
+						/>
+						<Image
+							alt=""
+							className="block max-w-none "
+							src={orange}
+							width={96}
+							height={96}
+							quality={100}
+						/>
+						<Image
+							alt=""
+							className="block max-w-none "
+							src={orange}
+							width={96}
+							height={96}
+							quality={100}
+						/>
+					</div>
 				</div>
 			</div>
 		);
@@ -196,7 +241,7 @@ function LeftPanelContent({
 
 	if (step === 2) {
 		return (
-			<div className="flex flex-col items-start self-stretch justify-between h-full py-17.5">
+			<div className="flex flex-col items-start self-stretch gap-17.5 h-full py-17.5">
 				<div className="flex flex-col items-start self-stretch gap-4">
 					<div className="flex flex-col">
 						<p className="text-md font-bold text-black">
@@ -211,7 +256,9 @@ function LeftPanelContent({
 					<ApplicationTextField
 						placeholder="Answer (500 words)"
 						value={formData.proudProject}
-						onChange={(value) => onFieldChange("proudProject", value)}
+						onChange={(value) =>
+							onFieldChange("proudProject", value)
+						}
 					/>
 				</div>
 				<div className="flex flex-col items-start self-stretch gap-4">
@@ -236,7 +283,9 @@ function LeftPanelContent({
 					<ApplicationTextField
 						placeholder="Answer (500 words)"
 						value={formData.chooseOneAnswer}
-						onChange={(value) => onFieldChange("chooseOneAnswer", value)}
+						onChange={(value) =>
+							onFieldChange("chooseOneAnswer", value)
+						}
 					/>
 				</div>
 				<div className="flex flex-col items-start self-stretch gap-4">
@@ -248,7 +297,9 @@ function LeftPanelContent({
 					<ApplicationTextField
 						placeholder="Answer (500 words)"
 						value={formData.summerHacksGoal}
-						onChange={(value) => onFieldChange("summerHacksGoal", value)}
+						onChange={(value) =>
+							onFieldChange("summerHacksGoal", value)
+						}
 					/>
 				</div>
 			</div>
@@ -267,7 +318,9 @@ function LeftPanelContent({
 					<ApplicationTextField
 						placeholder="N/A if none"
 						value={formData.dietaryRestrictions}
-						onChange={(value) => onFieldChange("dietaryRestrictions", value)}
+						onChange={(value) =>
+							onFieldChange("dietaryRestrictions", value)
+						}
 					/>
 				</div>
 				<div className="flex flex-col items-start self-stretch gap-4">
@@ -280,7 +333,9 @@ function LeftPanelContent({
 					<ApplicationTextField
 						placeholder="Answer"
 						value={formData.accessibilityNeeds}
-						onChange={(value) => onFieldChange("accessibilityNeeds", value)}
+						onChange={(value) =>
+							onFieldChange("accessibilityNeeds", value)
+						}
 					/>
 				</div>
 				<div className="flex flex-col items-start self-stretch gap-4">
@@ -350,25 +405,37 @@ function RightPanelContent({
 							<ApplicationTextField
 								placeholder="First Name (Legal)"
 								value={formData.firstNameLegal}
-								onChange={(value) => onFieldChange("firstNameLegal", value)}
+								onChange={(value) =>
+									onFieldChange("firstNameLegal", value)
+								}
 							/>
 							<ApplicationTextField
 								placeholder="Last Name (Legal)"
 								value={formData.lastNameLegal}
-								onChange={(value) => onFieldChange("lastNameLegal", value)}
+								onChange={(value) =>
+									onFieldChange("lastNameLegal", value)
+								}
 							/>
 						</div>
 						<div className="flex items-start gap-4 self-stretch">
-							<ApplicationTextField
-								placeholder="Preferred Name"
-								value={formData.preferredName}
-								onChange={(value) => onFieldChange("preferredName", value)}
-							/>
-							<ApplicationTextField
-								placeholder="Age"
-								value={formData.age}
-								onChange={(value) => onFieldChange("age", value)}
-							/>
+							<div className="flex-1">
+								<ApplicationTextField
+									placeholder="Preferred Name"
+									value={formData.preferredName}
+									onChange={(value) =>
+										onFieldChange("preferredName", value)
+									}
+								/>
+							</div>
+							<div className="w-32 shrink-0">
+								<ApplicationTextField
+									placeholder="Age"
+									value={formData.age}
+									onChange={(value) =>
+										onFieldChange("age", value)
+									}
+								/>
+							</div>
 						</div>
 						<div className="flex items-start gap-4 self-stretch">
 							<AppComboBox
@@ -389,16 +456,24 @@ function RightPanelContent({
 							/>
 						</div>
 						<div className="flex items-start gap-4 self-stretch">
-							<ApplicationTextField
-								placeholder="Post Secondary Institution Name"
-								value={formData.institutionName}
-								onChange={(value) => onFieldChange("institutionName", value)}
-							/>
-							<ApplicationTextField
-								placeholder="Year"
-								value={formData.year}
-								onChange={(value) => onFieldChange("year", value)}
-							/>
+							<div className="flex-1">
+								<ApplicationTextField
+									placeholder="Post Secondary Institution Name"
+									value={formData.institutionName}
+									onChange={(value) =>
+										onFieldChange("institutionName", value)
+									}
+								/>
+							</div>
+							<div className="w-32 shrink-0">
+								<ApplicationTextField
+									placeholder="Year"
+									value={formData.year}
+									onChange={(value) =>
+										onFieldChange("year", value)
+									}
+								/>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -408,7 +483,9 @@ function RightPanelContent({
 						<ApplicationTextField
 							placeholder="LinkedIn"
 							value={formData.linkedin}
-							onChange={(value) => onFieldChange("linkedin", value)}
+							onChange={(value) =>
+								onFieldChange("linkedin", value)
+							}
 						/>
 						<ApplicationTextField
 							placeholder="GitHub"
@@ -418,12 +495,16 @@ function RightPanelContent({
 						<ApplicationTextField
 							placeholder="Resume (link)"
 							value={formData.resumeLink}
-							onChange={(value) => onFieldChange("resumeLink", value)}
+							onChange={(value) =>
+								onFieldChange("resumeLink", value)
+							}
 						/>
 						<ApplicationTextField
 							placeholder="Portfolio (link)"
 							value={formData.portfolioLink}
-							onChange={(value) => onFieldChange("portfolioLink", value)}
+							onChange={(value) =>
+								onFieldChange("portfolioLink", value)
+							}
 						/>
 					</div>
 				</div>
@@ -433,7 +514,7 @@ function RightPanelContent({
 
 	if (step === 2) {
 		return (
-			<div className="flex flex-col items-start self-stretch justify-between h-full py-8">
+			<div className="flex flex-col items-start self-stretch gap-17.5 h-full py-8">
 				<div className="flex flex-col items-start self-stretch gap-4">
 					<p className="text-md text-black">
 						What is a random topic you could ramble on and on about?
@@ -441,7 +522,9 @@ function RightPanelContent({
 					<ApplicationTextField
 						placeholder="Answer (500 words)"
 						value={formData.rambleTopic}
-						onChange={(value) => onFieldChange("rambleTopic", value)}
+						onChange={(value) =>
+							onFieldChange("rambleTopic", value)
+						}
 					/>
 				</div>
 				<div className="flex flex-col items-start self-stretch gap-4">
@@ -453,7 +536,9 @@ function RightPanelContent({
 					<ApplicationTextField
 						placeholder="Answer (500 words)"
 						value={formData.bearOrMuffin}
-						onChange={(value) => onFieldChange("bearOrMuffin", value)}
+						onChange={(value) =>
+							onFieldChange("bearOrMuffin", value)
+						}
 					/>
 				</div>
 				<div className="flex flex-col items-start self-stretch gap-4">
@@ -464,14 +549,82 @@ function RightPanelContent({
 					<ApplicationTextField
 						placeholder="Answer (500 words)"
 						value={formData.offlineSelf}
-						onChange={(value) => onFieldChange("offlineSelf", value)}
+						onChange={(value) =>
+							onFieldChange("offlineSelf", value)
+						}
 					/>
 				</div>
 			</div>
 		);
 	}
 
-	return null;
+	if (step === 3) {
+		return (
+			<div className="flex flex-col items-center justify-center self-stretch flex-1 w-full min-h-0">
+				<div className="flex flex-col gap-7">
+					<div className="flex justify-center items-start justify-start gap-[30px]">
+						<Image
+							alt=""
+							className="block max-w-none "
+							src={orange}
+							width={96}
+							height={96}
+							quality={100}
+						/>
+						<Image
+							alt=""
+							className="block max-w-none "
+							src={orange}
+							width={96}
+							height={96}
+							quality={100}
+						/>
+						<Image
+							alt=""
+							className="block max-w-none "
+							src={orange}
+							width={96}
+							height={96}
+							quality={100}
+						/>
+					</div>
+					<p className="text-[#F80] text-3xl font-medium font-['Maison_Neue'] leading-8">
+						Build under open skies
+					</p>
+					<p className="text-text-on-light text-3xl font-normal font-['Maison_Neue'] leading-8">
+						Thanks for applying. We’re excited to see you at
+						SummerHacks!
+					</p>
+					<div className="flex justify-center items-start justify-start gap-[30px]">
+						<Image
+							alt=""
+							className="block max-w-none "
+							src={orange}
+							width={96}
+							height={96}
+							quality={100}
+						/>
+						<Image
+							alt=""
+							className="block max-w-none "
+							src={orange}
+							width={96}
+							height={96}
+							quality={100}
+						/>
+						<Image
+							alt=""
+							className="block max-w-none "
+							src={orange}
+							width={96}
+							height={96}
+							quality={100}
+						/>
+					</div>
+				</div>
+			</div>
+		);
+	}
 }
 
 export default function ApplicationSlides({
@@ -481,7 +634,8 @@ export default function ApplicationSlides({
 }) {
 	void userEmail;
 	const [currentStep, setCurrentStep] = useState<SlideId>(1);
-	const [formData, setFormData] = useState<ApplicationFormData>(INITIAL_FORM_DATA);
+	const [formData, setFormData] =
+		useState<ApplicationFormData>(INITIAL_FORM_DATA);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [submitError, setSubmitError] = useState("");
 	const [submitSuccess, setSubmitSuccess] = useState("");
@@ -525,7 +679,9 @@ export default function ApplicationSlides({
 			setSubmitSuccess("Application submitted successfully.");
 		} catch (error) {
 			setSubmitError(
-				error instanceof Error ? error.message : "Failed to submit application",
+				error instanceof Error
+					? error.message
+					: "Failed to submit application",
 			);
 		} finally {
 			setIsSubmitting(false);
@@ -561,7 +717,7 @@ export default function ApplicationSlides({
 						</div>
 					</div>
 
-					<div className="flex flex-col align-middle self-stretch h-full">
+					<div className="flex flex-col align-middle self-stretch flex-1 min-h-0">
 						<LeftPanelContent
 							step={currentStep}
 							formData={formData}
@@ -576,12 +732,17 @@ export default function ApplicationSlides({
 								direction="left"
 								disabled={isSubmitting}
 								onClick={() =>
-									setCurrentStep((step) => (step - 1) as SlideId)
+									setCurrentStep(
+										(step) => (step - 1) as SlideId,
+									)
 								}
 							/>
 							<ActionButton
-								label={isSubmitting ? "Submitting..." : "Submit"}
+								label={
+									isSubmitting ? "Submitting..." : "Submit"
+								}
 								direction="right"
+								variant="primary"
 								type="submit"
 								disabled={isSubmitting}
 							/>
@@ -589,10 +750,14 @@ export default function ApplicationSlides({
 					) : null}
 
 					{submitError ? (
-						<p className="mt-3 text-sm text-red-500">{submitError}</p>
+						<p className="mt-3 text-sm text-red-500">
+							{submitError}
+						</p>
 					) : null}
 					{submitSuccess ? (
-						<p className="mt-3 text-sm text-green-700">{submitSuccess}</p>
+						<p className="mt-3 text-sm text-green-700">
+							{submitSuccess}
+						</p>
 					) : null}
 				</div>
 
@@ -614,6 +779,7 @@ export default function ApplicationSlides({
 								<ActionButton
 									label="Continue"
 									direction="right"
+									variant="primary"
 									onClick={() =>
 										setCurrentStep(
 											(step) => (step + 1) as SlideId,
@@ -628,16 +794,21 @@ export default function ApplicationSlides({
 									direction="left"
 									disabled={isSubmitting}
 									onClick={() =>
-										setCurrentStep((step) => (step - 1) as SlideId)
+										setCurrentStep(
+											(step) => (step - 1) as SlideId,
+										)
 									}
 								/>
 
 								<ActionButton
 									label="Continue"
 									direction="right"
+									variant="primary"
 									disabled={isSubmitting}
 									onClick={() =>
-										setCurrentStep((step) => (step + 1) as SlideId)
+										setCurrentStep(
+											(step) => (step + 1) as SlideId,
+										)
 									}
 								/>
 							</div>
@@ -654,12 +825,14 @@ function ActionButton({
 	direction,
 	onClick,
 	disabled = false,
+	variant = "default",
 	type = "button",
 }: {
 	label: string;
 	direction: "left" | "right";
 	onClick?: () => void;
 	disabled?: boolean;
+	variant?: "default" | "primary";
 	type?: "button" | "submit";
 }) {
 	return (
@@ -667,7 +840,11 @@ function ActionButton({
 			type={type}
 			onClick={onClick}
 			disabled={disabled}
-			className="bg-(--primary\/sun\/100,#ffefdd) text-[#B07F46] inline-flex h-14 items-center justify-center overflow-clip px-4 rounded-[100px] shrink-0 hover:bg-(--primary\/sun\/200,#fde4c8) transition-colors disabled:opacity-50 cursor-pointer max-md:w-full"
+			className={`inline-flex h-14 items-center justify-center overflow-clip px-4 rounded-[100px] shrink-0 transition-colors disabled:opacity-50 cursor-pointer max-md:w-full ${
+				variant === "primary"
+					? "bg-[#F80] text-white hover:bg-[#e67300]"
+					: "bg-(--primary\\/sun\\/100,#ffefdd) text-[#B07F46] hover:bg-(--primary\\/sun\\/200,#fde4c8)"
+			}`}
 		>
 			<div className="flex items-center justify-center gap-2 relative shrink-0">
 				{label}
