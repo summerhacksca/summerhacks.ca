@@ -87,8 +87,8 @@ export function MobileApplicationFlow({
   };
 
   return (
-    <div className="flex min-h-[calc(100dvh-24px)] w-full flex-col bg-[#fffbf6] p-6 md:hidden">
-      <div className="flex flex-1 flex-col gap-6 overflow-auto">
+    <div className="flex min-h-[calc(100dvh-24px)] w-full flex-col overflow-x-hidden bg-[#fffbf6] p-6 md:hidden">
+      <div className="flex flex-1 flex-col gap-6 overflow-auto overflow-x-hidden">
         {mobilePanel === 1 ? (
           <RightPanelContent
             step={1}

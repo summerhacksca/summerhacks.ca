@@ -18,7 +18,7 @@ export function RightPanelContent({
 }: RightPanelContentProps) {
   if (step === 1) {
     return (
-      <>
+      <div className="flex flex-col items-start self-stretch gap-5 overflow-x-hidden">
         <div className="flex flex-col items-start self-stretch gap-5">
           <p className="text-md font-bold text-black">Basic Details</p>
           <div className="flex flex-col items-start gap-4 self-stretch">
@@ -107,13 +107,13 @@ export function RightPanelContent({
             />
           </div>
         </div>
-      </>
+      </div>
     );
   }
 
   if (step === 2) {
     return (
-      <div className="flex flex-col items-start self-stretch gap-17.5 h-full py-8">
+      <div className="flex flex-col items-start self-stretch gap-17.5 h-full py-8 overflow-x-hidden">
         <div className="flex flex-col items-start self-stretch gap-4">
           <p className="text-md text-black">What is a random topic you could ramble on and on about?</p>
           <ApplicationTextField
@@ -147,7 +147,7 @@ export function RightPanelContent({
 
   if (step === 3) {
     return (
-      <div className="flex flex-col items-center justify-center self-stretch flex-1 w-full min-h-0">
+      <div className="flex flex-col items-center justify-center self-stretch flex-1 w-full min-h-0 overflow-x-hidden">
         <div className="flex flex-col gap-7">
           <div className="flex justify-start items-start gap-7.5">
             <Image alt="" className="block max-w-none" src={orange} width={96} height={96} quality={100} />

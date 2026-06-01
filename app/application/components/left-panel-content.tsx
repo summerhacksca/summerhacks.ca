@@ -18,7 +18,7 @@ export function LeftPanelContent({
 }: LeftPanelContentProps) {
 	if (step === 1) {
 		return (
-			<div className="flex flex-col items-center justify-center self-stretch flex-1 w-full min-h-0">
+			<div className="flex flex-col items-center justify-center self-stretch flex-1 w-full min-h-0 overflow-x-hidden">
 				<div className="flex flex-col gap-7">
 					<div className="flex justify-start items-start gap-7.5">
 						<Image
@@ -86,7 +86,7 @@ export function LeftPanelContent({
 
 	if (step === 2) {
 		return (
-			<div className="flex flex-col items-start self-stretch gap-17.5 h-full py-17.5">
+			<div className="flex flex-col items-start self-stretch gap-17.5 h-full py-17.5 overflow-x-hidden">
 				<div className="flex flex-col items-start self-stretch gap-4">
 					<div className="flex flex-col">
 						<p className="text-md font-bold text-black">
@@ -153,7 +153,7 @@ export function LeftPanelContent({
 
 	if (step === 3) {
 		return (
-			<div className="flex flex-col items-start self-stretch gap-16 h-full py-17.5">
+			<div className="flex flex-col items-start self-stretch gap-16 h-full py-17.5 overflow-x-hidden">
 				<div className="flex flex-col items-start self-stretch gap-4">
 					<div className="flex flex-col">
 						<p className="text-md font-bold text-black">
