@@ -132,7 +132,7 @@ export default function ApplyHero() {
 				email: normalizedEmail,
 				password,
 				options: {
-					emailRedirectTo: `${window.location.origin}/auth/confirm?next=/application`,
+					emailRedirectTo: "https://summerhacks.ca/auth/confirm?next=/application",
 				},
 			});
 
