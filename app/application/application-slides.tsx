@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import { imgOrangeSun, INITIAL_FORM_DATA, slides } from "./constants";
 import { ActionButton } from "./components/action-button";
@@ -21,6 +22,7 @@ export default function ApplicationSlides({
   const [submitError, setSubmitError] = useState("");
   const [submitSuccess, setSubmitSuccess] = useState("");
   const slide = slides[currentStep - 1];
+  const router = useRouter();
 
   const handleFieldChange = (
     field: keyof ApplicationFormData,
@@ -58,6 +60,7 @@ export default function ApplicationSlides({
       }
 
       setSubmitSuccess("Application submitted successfully.");
+      router.replace("/thank-you");
     } catch (error) {
       setSubmitError(
         error instanceof Error
