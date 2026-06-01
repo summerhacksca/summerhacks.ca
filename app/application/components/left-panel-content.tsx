@@ -20,7 +20,7 @@ export function LeftPanelContent({
 		return (
 			<div className="flex flex-col items-center justify-center self-stretch flex-1 w-full min-h-0">
 				<div className="flex flex-col gap-7">
-					<div className="flex justify-start items-start gap-[30px]">
+					<div className="flex justify-start items-start gap-7.5">
 						<Image
 							alt=""
 							className="block max-w-none"
@@ -53,7 +53,7 @@ export function LeftPanelContent({
 						Creating a hacker profile is the first step to
 						experience SummerHacks.
 					</p>
-					<div className="flex justify-start items-start gap-[30px]">
+					<div className="flex justify-start items-start gap-7.5">
 						<Image
 							alt=""
 							className="block max-w-none"
@@ -117,7 +117,7 @@ export function LeftPanelContent({
 								to day life, and how would you solve it?
 							</li>
 							<li>
-								2. How would you define "creativity" in the
+								2. How would you define &quot;creativity&quot; in the
 								present day with tools like generative AI? Do
 								you think AI diminishes the value of human art,
 								or does it enable more people to express

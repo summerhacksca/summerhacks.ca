@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { imgOrangeSun, INITIAL_FORM_DATA, slides } from "./constants";
 import { ActionButton } from "./components/action-button";
+import { MobileApplicationFlow } from "./components/mobile-application-flow";
 import { LeftPanelContent } from "./components/left-panel-content";
 import { RightPanelContent } from "./components/right-panel-content";
 import type { ApplicationFormData, SlideId } from "./types";
@@ -73,96 +74,45 @@ export default function ApplicationSlides({
   };
 
   return (
-    <main className="h-dvh overflow-hidden bg-white p-3">
+    <main className="h-dvh overflow-hidden bg-[#fffbf6] p-0 md:bg-white md:p-3">
       <form
         onSubmit={handleSubmit}
-        className="flex h-[calc(100dvh-24px)] w-full flex-col overflow-clip bg-white shadow-[0px_24px_60px_rgba(176,127,70,0.08)] md:flex-row"
+        className="flex h-dvh w-full flex-col overflow-clip bg-[#fffbf6] shadow-none md:h-[calc(100dvh-24px)] md:bg-white md:shadow-[0px_24px_60px_rgba(176,127,70,0.08)] md:flex-row"
       >
-        <div
-          className={`flex min-h-[48dvh] w-full flex-col p-6 md:min-h-full md:basis-0 md:grow md:p-9 ${currentStep === 3 ? "bg-white" : "bg-[#fffbf6]"}`}
-        >
-          <div className="content-stretch flex gap-9 items-center relative shrink-0">
-            <p className="font-['Maison Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-nowrap tracking-[-0.64px] text-[#2a2a2a]">
-              {slide.numberLabel}
-            </p>
-            <div className="content-stretch flex gap-3 items-center relative shrink-0">
-              <div className="relative shrink-0 size-4">
-                <Image
-                  alt=""
-                  className="block max-w-none size-full"
-                  src={imgOrangeSun}
-                  width={16}
-                  height={16}
-                />
-              </div>
+        <div className="hidden w-full md:flex md:h-full md:flex-row">
+          <div
+            className={`hidden min-h-[48dvh] w-full flex-col p-6 md:flex md:min-h-full md:basis-0 md:grow md:p-9 ${currentStep === 3 ? "md:bg-white" : "md:bg-[#fffbf6]"}`}
+          >
+            <div className="content-stretch flex gap-9 items-center relative shrink-0">
               <p className="font-['Maison Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-nowrap tracking-[-0.64px] text-[#2a2a2a]">
-                {slide.title}
+                {slide.numberLabel}
               </p>
-            </div>
-          </div>
-
-          <div className="flex flex-col align-middle self-stretch flex-1 min-h-0">
-            <LeftPanelContent
-              step={currentStep}
-              formData={formData}
-              onFieldChange={handleFieldChange}
-            />
-          </div>
-
-          {currentStep === 3 ? (
-            <div className="mt-8 flex items-end justify-end gap-3 max-md:flex-col max-md:items-stretch">
-              <ActionButton
-                label="Back"
-                direction="left"
-                disabled={isSubmitting}
-                onClick={() =>
-                  setCurrentStep((step) => (step - 1) as SlideId)
-                }
-              />
-              <ActionButton
-                label={isSubmitting ? "Submitting..." : "Submit"}
-                direction="right"
-                variant="primary"
-                type="submit"
-                disabled={isSubmitting}
-              />
-            </div>
-          ) : null}
-
-          {submitError ? (
-            <p className="mt-3 text-sm text-red-500">{submitError}</p>
-          ) : null}
-          {submitSuccess ? (
-            <p className="mt-3 text-sm text-green-700">{submitSuccess}</p>
-          ) : null}
-        </div>
-
-        <div
-          className={`flex min-h-[44dvh] w-full flex-col justify-between p-6 md:min-h-full md:basis-0 md:grow md:p-9 ${currentStep === 3 ? "bg-[#fffbf6]" : "bg-white"}`}
-        >
-          <div className="flex h-full flex-1 flex-col items-end justify-between self-stretch gap-8 overflow-hidden md:gap-10">
-            <RightPanelContent
-              step={currentStep}
-              formData={formData}
-              onFieldChange={handleFieldChange}
-            />
-
-            {currentStep === 1 ? (
-              <div className="flex items-center justify-between self-stretch gap-4 max-md:flex-col max-md:items-stretch">
-                <p className="font-['Maison Neue',sans-serif] text-[14px] leading-[130%] tracking-[-0.28px] text-[#2a2a2a]/70">
-                  Make sure details are correct
+              <div className="content-stretch flex gap-3 items-center relative shrink-0">
+                <div className="relative shrink-0 size-4">
+                  <Image
+                    alt=""
+                    className="block max-w-none size-full"
+                    src={imgOrangeSun}
+                    width={16}
+                    height={16}
+                  />
+                </div>
+                <p className="font-['Maison Neue',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-nowrap tracking-[-0.64px] text-[#2a2a2a]">
+                  {slide.title}
                 </p>
-                <ActionButton
-                  label="Continue"
-                  direction="right"
-                  variant="primary"
-                  onClick={() =>
-                    setCurrentStep((step) => (step + 1) as SlideId)
-                  }
-                />
               </div>
-            ) : currentStep === 2 ? (
-              <div className="flex items-end justify-end gap-3 max-md:flex-col max-md:items-stretch">
+            </div>
+
+            <div className="flex flex-col align-middle self-stretch flex-1 min-h-0">
+              <LeftPanelContent
+                step={currentStep}
+                formData={formData}
+                onFieldChange={handleFieldChange}
+              />
+            </div>
+
+            {currentStep === 3 ? (
+              <div className="mt-8 flex items-end justify-end gap-3 max-md:flex-col max-md:items-stretch">
                 <ActionButton
                   label="Back"
                   direction="left"
@@ -171,20 +121,83 @@ export default function ApplicationSlides({
                     setCurrentStep((step) => (step - 1) as SlideId)
                   }
                 />
-
                 <ActionButton
-                  label="Continue"
+                  label={isSubmitting ? "Submitting..." : "Submit"}
                   direction="right"
                   variant="primary"
+                  type="submit"
                   disabled={isSubmitting}
-                  onClick={() =>
-                    setCurrentStep((step) => (step + 1) as SlideId)
-                  }
                 />
               </div>
             ) : null}
+
+            {submitError ? (
+              <p className="mt-3 text-sm text-red-500">{submitError}</p>
+            ) : null}
+            {submitSuccess ? (
+              <p className="mt-3 text-sm text-green-700">{submitSuccess}</p>
+            ) : null}
+          </div>
+
+          <div
+            className={`flex min-h-0 w-full flex-1 flex-col justify-between bg-[#fffbf6] p-6 md:min-h-full md:basis-0 md:grow md:p-9 md:${currentStep === 3 ? "bg-[#fffbf6]" : "bg-white"}`}
+          >
+            <div className="flex h-full flex-1 flex-col items-end justify-between self-stretch gap-8 overflow-hidden md:gap-10">
+              <RightPanelContent
+                step={currentStep}
+                formData={formData}
+                onFieldChange={handleFieldChange}
+              />
+
+              {currentStep === 1 ? (
+                <div className="flex items-center justify-between self-stretch gap-4 max-md:flex-col max-md:items-stretch">
+                  <p className="font-['Maison Neue',sans-serif] text-[14px] leading-[130%] tracking-[-0.28px] text-[#2a2a2a]/70">
+                    Make sure details are correct
+                  </p>
+                  <ActionButton
+                    label="Continue"
+                    direction="right"
+                    variant="primary"
+                    onClick={() =>
+                      setCurrentStep((step) => (step + 1) as SlideId)
+                    }
+                  />
+                </div>
+              ) : currentStep === 2 ? (
+                <div className="flex items-end justify-end gap-3 max-md:flex-col max-md:items-stretch">
+                  <ActionButton
+                    label="Back"
+                    direction="left"
+                    disabled={isSubmitting}
+                    onClick={() =>
+                      setCurrentStep((step) => (step - 1) as SlideId)
+                    }
+                  />
+
+                  <ActionButton
+                    label="Continue"
+                    direction="right"
+                    variant="primary"
+                    disabled={isSubmitting}
+                    onClick={() =>
+                      setCurrentStep((step) => (step + 1) as SlideId)
+                    }
+                  />
+                </div>
+              ) : null}
+            </div>
           </div>
         </div>
+
+        <MobileApplicationFlow
+          currentStep={currentStep}
+          setCurrentStep={setCurrentStep}
+          formData={formData}
+          onFieldChange={handleFieldChange}
+          isSubmitting={isSubmitting}
+          submitError={submitError}
+          submitSuccess={submitSuccess}
+        />
       </form>
     </main>
   );

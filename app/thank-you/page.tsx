@@ -21,12 +21,6 @@ export default function ThankYouPage() {
             >
               Return home
             </Link>
-            <Link
-              href="/application"
-              className="inline-flex h-14 items-center justify-center rounded-full border border-[#e6c9a4] bg-transparent px-6 font-medium text-[#b07f46] transition-colors hover:bg-[#fff4e7]"
-            >
-              View application status
-            </Link>
           </div>
         </section>
       </div>
