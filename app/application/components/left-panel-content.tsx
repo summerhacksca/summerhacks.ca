@@ -210,6 +210,9 @@ export function LeftPanelContent({
 							Are you able to travel to Downtown Toronto for
 							SummerHacks?*
 						</p>
+						<p className="text-sm text-black/60">
+							At least one member of your team must be in-person on Sunday for judging.
+						</p>
 					</div>
 					<div className="flex w-full">
 						<AppComboBox
