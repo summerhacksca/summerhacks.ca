@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { orange, tshirtSizeOptions } from "../constants";
+import { orange, tshirtSizeOptions, yesNoOptions } from "../constants";
 import { ApplicationFormData, FieldChangeHandler, SlideId } from "../types";
 import { AppComboBox } from "./app-combobox";
 import { ApplicationTextField } from "./application-text-field";
@@ -200,6 +200,24 @@ export function LeftPanelContent({
 							value={formData.tshirtSize}
 							onValueChange={(value) =>
 								onFieldChange("tshirtSize", value ?? "")
+							}
+						/>
+					</div>
+				</div>
+				<div className="flex flex-col items-start self-stretch gap-4">
+					<div className="flex flex-col">
+						<p className="text-md font-bold text-black">
+							Are you able to travel to Downtown Toronto for
+							SummerHacks?*
+						</p>
+					</div>
+					<div className="flex w-full">
+						<AppComboBox
+							items={yesNoOptions}
+							placeholder="Select yes or no"
+							value={formData.travelToDowntownToronto}
+							onValueChange={(value) =>
+								onFieldChange("travelToDowntownToronto", value ?? "")
 							}
 						/>
 					</div>

@@ -39,6 +39,7 @@ const STEP_THREE_FIELDS: (keyof ApplicationFormData)[] = [
   "dietaryRestrictions",
   "accessibilityNeeds",
   "tshirtSize",
+  "travelToDowntownToronto",
 ];
 
 function isFilled(value: string) {

@@ -22,6 +22,7 @@ export const INITIAL_FORM_DATA: ApplicationFormData = {
   dietaryRestrictions: "",
   accessibilityNeeds: "",
   tshirtSize: "",
+  travelToDowntownToronto: "",
 };
 
 export const slides: Slide[] = [
@@ -51,6 +52,7 @@ export const ethnicityOptions = [
 ];
 
 export const tshirtSizeOptions = ["XS", "S", "M", "L", "XL", "XXL"];
+export const yesNoOptions = ["Yes", "No"];
 
 export const imgOrangeSun = "/logos/orange-nobg.svg";
 export const orange = "/graphics/orange.svg";

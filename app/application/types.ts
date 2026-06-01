@@ -28,6 +28,7 @@ export type ApplicationFormData = {
   dietaryRestrictions: string;
   accessibilityNeeds: string;
   tshirtSize: string;
+  travelToDowntownToronto: string;
 };
 
 export type FieldChangeHandler = (
