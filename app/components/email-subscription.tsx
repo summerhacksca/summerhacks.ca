@@ -26,32 +26,9 @@ export default function EmailSubscription({
       return
     }
 
-    setStatus('loading')
-    setMessage('')
-
-    try {
-      const response = await fetch('/api/email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      })
-
-      const data = await response.json()
-
-      if (response.ok) {
-        setStatus('success')
-        setMessage('Thank you for subscribing!')
-        setEmail('')
-      } else {
-        setStatus('error')
-        setMessage(data.error || 'Something went wrong')
-      }
-    } catch (error) {
-      setStatus('error')
-      setMessage('Failed to subscribe. Please try again.')
-    }
+    setStatus('success')
+    setMessage('Applications are open. Use the Apply button instead.')
+    setEmail('')
   }
 
   return (
