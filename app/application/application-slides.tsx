@@ -35,9 +35,7 @@ export default function ApplicationSlides({
     }));
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  const submitApplication = async () => {
     setSubmitError("");
     setSubmitSuccess("");
     setIsSubmitting(true);
@@ -71,6 +69,11 @@ export default function ApplicationSlides({
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await submitApplication();
   };
 
   return (
@@ -116,6 +119,7 @@ export default function ApplicationSlides({
                 <ActionButton
                   label="Back"
                   direction="left"
+                  type="button"
                   disabled={isSubmitting}
                   onClick={() =>
                     setCurrentStep((step) => (step - 1) as SlideId)
@@ -125,8 +129,11 @@ export default function ApplicationSlides({
                   label={isSubmitting ? "Submitting..." : "Submit"}
                   direction="right"
                   variant="primary"
-                  type="submit"
+                  type="button"
                   disabled={isSubmitting}
+                  onClick={() => {
+                    void submitApplication();
+                  }}
                 />
               </div>
             ) : null}
@@ -158,6 +165,7 @@ export default function ApplicationSlides({
                     label="Continue"
                     direction="right"
                     variant="primary"
+                    type="button"
                     onClick={() =>
                       setCurrentStep((step) => (step + 1) as SlideId)
                     }
@@ -168,6 +176,7 @@ export default function ApplicationSlides({
                   <ActionButton
                     label="Back"
                     direction="left"
+                    type="button"
                     disabled={isSubmitting}
                     onClick={() =>
                       setCurrentStep((step) => (step - 1) as SlideId)
@@ -178,6 +187,7 @@ export default function ApplicationSlides({
                     label="Continue"
                     direction="right"
                     variant="primary"
+                    type="button"
                     disabled={isSubmitting}
                     onClick={() =>
                       setCurrentStep((step) => (step + 1) as SlideId)
@@ -197,6 +207,9 @@ export default function ApplicationSlides({
           isSubmitting={isSubmitting}
           submitError={submitError}
           submitSuccess={submitSuccess}
+          onSubmitApplication={() => {
+            void submitApplication();
+          }}
         />
       </form>
     </main>
