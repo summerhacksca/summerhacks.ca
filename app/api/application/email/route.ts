@@ -1,10 +1,10 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 
 const USERS_PAGE_SIZE = 1000;
 
 async function findUserByEmail(
-	supabaseAdmin: ReturnType<typeof createClient>,
+	supabaseAdmin: SupabaseClient<any, any, any, any, any>,
 	normalizedEmail: string,
 ) {
 	let page = 1;
