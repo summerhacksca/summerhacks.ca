@@ -76,11 +76,6 @@ export const teamMembers: TeamMember[] = [
     image: "/team-member-photos/jooniekang.png",
   },
   {
-    name: "Raghav Agarwal",
-    role: "University of Waterloo",
-    image: "/team-member-photos/raghavagarwal.png",
-  },
-  {
     name: "Joanna Wang",
     role: "Western University",
     image: "/team-member-photos/joannawang.png",

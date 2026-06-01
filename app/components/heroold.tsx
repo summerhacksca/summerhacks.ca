@@ -2,10 +2,10 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { ArrowUp } from "@phosphor-icons/react";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 const logo = "/logos/fullwhite-nobg.svg";
 
@@ -76,7 +76,7 @@ function Header() {
 		<div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
 			<div className="basis-0 content-stretch flex grow items-center min-h-px min-w-px relative shrink-0">
 				<p className="hidden md:block font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-(--text\/on-dark,white) text-nowrap text-right tracking-[-0.28px]">
-					Summer 2026 - 2 days
+					Summer 2026 - 3 days
 				</p>
 				<div className="relative shrink-0">
 					<img
@@ -101,7 +101,7 @@ function Header() {
 						Outdoor hackathon
 					</p>
 					<p className="block md:hidden font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-(--text\/on-dark,white) text-nowrap tracking-[-0.28px]">
-						Summer 2026 - 2 days
+						Summer 2026 - 3 days
 					</p>
 				</div>
 			</div>
@@ -132,9 +132,67 @@ function EmailSignup() {
 	const imgOrangeSun = "/orange-sun.svg";
 	const router = useRouter();
 
+	const [email, setEmail] = useState("");
+	const [status, setStatus] = useState<
+		"idle" | "loading" | "success" | "error"
+	>("idle");
+	const [errorMessage, setErrorMessage] = useState("");
+
+	const getPlaceholder = () => {
+		switch (status) {
+			case "success":
+				return "saved!";
+			case "error":
+				return errorMessage || "error, try again...";
+			case "loading":
+				return "saving...";
+			default:
+				return "your email...";
+		}
+	};
+
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
+
+		if (!email) {
+			setStatus("error");
+			setErrorMessage("Please enter your email address");
+			return;
+		}
+
+		setStatus("loading");
+		setErrorMessage("");
+
+		try {
+			const response = await fetch("/api/email", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ email }),
+			});
+
+			const data = await response.json();
+
+			if (response.ok) {
+				setStatus("success");
+				setEmail("");
+			} else {
+				setStatus("error");
+				setEmail("");
+				setErrorMessage(data.error || "Something went wrong");
+			}
+		} catch {
+			setStatus("error");
+			setEmail("");
+			setErrorMessage("Failed to subscribe. Please try again.");
+		}
+	};
+
 	return (
-		<div
-			className="bg-(--base\/0,white) content-stretch flex gap-6 h-14 items-center overflow-clip pl-4 pr-4 py-0.5 relative rounded-lg shadow-[0px_20px_50px_0px_rgba(0,0,0,0.25)] shrink-0 max-sm:flex-col max-sm:h-auto max-sm:items-start max-sm:gap-3.5 max-sm:p-4 max-sm:w-full max-sm:max-w-82.5"
+		<form
+			onSubmit={handleSubmit}
+			className="bg-(--base\/0,white) content-stretch flex gap-6 h-14 items-center overflow-clip pl-4 pr-0.5 py-0.5 relative rounded-lg shadow-[0px_20px_50px_0px_rgba(0,0,0,0.25)] shrink-0 max-sm:flex-col max-sm:h-auto max-sm:items-start max-sm:gap-3.5 max-sm:p-4 max-sm:w-full max-sm:max-w-82.5"
 		>
 			<div className="content-stretch flex gap-2 items-center relative shrink-0">
 				<div className="relative shrink-0 size-2.5">
@@ -164,25 +222,28 @@ function EmailSignup() {
 				<button
 					type="button"
 					onClick={() => router.push("/apply")}
-					className="bg-(--primary\/sun\/100,#ffefdd) text-[#B07F46] inline-flex h-[80%] items-center justify-center overflow-clip px-4 rounded-[100px] shrink-0 hover:bg-(--primary\/sun\/200,#fde4c8) transition-colors disabled:opacity-50 cursor-pointer max-sm:h-13.5 max-sm:w-full"
+					disabled={status === "loading"}
+					className="bg-(--primary\/sun\/100,#ffefdd) text-[#B07F46] inline-flex h-full items-center justify-center overflow-clip px-4 rounded-[100px] shrink-0 hover:bg-(--primary\/sun\/200,#fde4c8) transition-colors disabled:opacity-50 cursor-pointer max-sm:h-13.5 max-sm:w-full"
 				>
 					<div className="flex items-center justify-center gap-2 relative shrink-0">
 						APPLY
 						<div className="flex-none rotate-90">
 							<div className="relative size-5">
-								<ArrowUp size={20} weight="bold" className="block max-w-none size-full" />
+								<ArrowUp
+									size={20}
+									weight="bold"
+									className="block max-w-none size-full"
+								/>
 							</div>
 						</div>
 					</div>
 				</button>
 			</div>
-		</div>
+		</form>
 	);
 }
 
 function ScrollIndicator() {
-    
-
 	return (
 		<div className="content-stretch flex flex-col gap-3 items-center justify-end pb-4 pt-0 px-0 relative shrink-0 w-full">
 			<button
@@ -194,14 +255,18 @@ function ScrollIndicator() {
 				className="backdrop-blur-[2.5px] backdrop-filter bg-[rgba(255,239,218,0.2)] content-stretch flex items-center justify-center overflow-clip relative rounded-[100px] shrink-0 size-13 cursor-pointer hover:bg-[rgba(255,239,218,0.3)] transition-colors"
 			>
 				<div className="flex items-center justify-center relative shrink-0">
-							<div className="flex-none rotate-180">
-								<div
-									className="relative size-5"
-									style={{ filter: "brightness(0) invert(1)" }}
-								>
-									<ArrowUp size={20} weight="bold" className="block max-w-none size-full" />
-								</div>
-							</div>
+					<div className="flex-none rotate-180">
+						<div
+							className="relative size-5"
+							style={{ filter: "brightness(0) invert(1)" }}
+						>
+							<ArrowUp
+								size={20}
+								weight="bold"
+								className="block max-w-none size-full"
+							/>
+						</div>
+					</div>
 				</div>
 			</button>
 			<p className="font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#ffefda] text-[14px] text-center text-nowrap tracking-[-0.28px]">

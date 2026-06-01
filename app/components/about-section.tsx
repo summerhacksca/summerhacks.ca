@@ -9,9 +9,9 @@ import {
 	memo,
 } from "react";
 import Image from "next/image";
+import { ArrowUp } from "@phosphor-icons/react";
 
 const imgBgFlowers = "/chat-gpt-image.png";
-const imgArrowUp = "/arrow-up.svg";
 const logo = "/logos/orange-nobg.svg";
 
 const OverlayMask = memo(function OverlayMask({
@@ -402,12 +402,7 @@ function ContinueButton() {
 				<div className="flex items-center justify-center relative shrink-0">
 					<div className="flex-none rotate-[180deg]">
 						<div className="relative size-[20px]">
-							<Image
-								alt=""
-								className="block max-w-none size-full"
-								src={imgArrowUp}
-								fill
-							/>
+							<ArrowUp size={20} weight="bold" className="block max-w-none size-full" />
 						</div>
 					</div>
 				</div>

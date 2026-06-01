@@ -7,11 +7,11 @@ import {
 	AccordionTrigger,
 } from "@/components/ui/accordion";
 import faqs from "@/app/data/faqs.json";
+import { ArrowUp } from "@phosphor-icons/react";
 
 const imgOrangeSun = "logos/orange-nobg.svg";
 const imgBlueSun = "logos/blue-nobg.svg";
 const imgFrame70 = "/frame-70.png";
-const imgArrowUp = "/arrow-up.svg";
 
 export default function InfoSection() {
 	return (
@@ -91,11 +91,7 @@ function AboutSection() {
 					className="backdrop-blur-[1px] bg-[#ffefdd] content-stretch flex gap-[10px] h-[52px] items-center overflow-clip px-[16px] relative rounded-[100px] shrink-0 cursor-pointer hover:bg-[#ffe5cd] transition-colors"
 				>
 					<div className="relative shrink-0 size-[20px]">
-						<img
-							alt=""
-							className="block max-w-none size-full"
-							src={imgArrowUp}
-						/>
+						<ArrowUp size={20} weight="bold" className="block max-w-none size-full" />
 					</div>
 					<p className="font-['Maison Neue',sans-serif] font-medium leading-normal not-italic relative shrink-0 text-[#b07f46] text-[14px] text-center tracking-[-0.28px]">
 						Join the waitlist
