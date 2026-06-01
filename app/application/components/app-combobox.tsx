@@ -12,6 +12,7 @@ type AppComboBoxProps = {
   placeholder: string;
   value: string;
   onValueChange: (value: string | null) => void;
+  required?: boolean;
 };
 
 export function AppComboBox({
@@ -19,10 +20,17 @@ export function AppComboBox({
   placeholder,
   value,
   onValueChange,
+  required = true,
 }: AppComboBoxProps) {
   return (
     <Combobox items={items} value={value} onValueChange={onValueChange}>
-      <ComboboxInput placeholder={placeholder} />
+      <div className="w-full">
+        <ComboboxInput
+          placeholder={placeholder}
+          required={required}
+          aria-required={required}
+        />
+      </div>
       <ComboboxContent>
         <ComboboxEmpty>No items found.</ComboboxEmpty>
         <ComboboxList>

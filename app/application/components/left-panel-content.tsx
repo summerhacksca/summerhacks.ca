@@ -90,7 +90,7 @@ export function LeftPanelContent({
 				<div className="flex flex-col items-start self-stretch gap-4">
 					<div className="flex flex-col">
 						<p className="text-md font-bold text-black">
-							Tell us about a project you are proud of!
+							Tell us about a project you are proud of!*
 						</p>
 						<p>
 							While it does not have to specifically be technical,
@@ -104,12 +104,13 @@ export function LeftPanelContent({
 						onChange={(value) =>
 							onFieldChange("proudProject", value)
 						}
+						multiline
 					/>
 				</div>
 				<div className="flex flex-col items-start self-stretch gap-4">
 					<div className="flex flex-col">
 						<p className="text-md font-bold text-black">
-							Choose one of the following to answer:
+							Choose one of the following to answer:*
 						</p>
 						<ol type="1">
 							<li>
@@ -131,20 +132,23 @@ export function LeftPanelContent({
 						onChange={(value) =>
 							onFieldChange("chooseOneAnswer", value)
 						}
+						multiline
 					/>
 				</div>
 				<div className="flex flex-col items-start self-stretch gap-4">
 					<div className="flex flex-col">
 						<p className="text-md font-bold text-black">
-							What do you hope to get out of SummerHacks?
+							What do you hope to get out of SummerHacks?*
 						</p>
 					</div>
 					<ApplicationTextField
-						placeholder="Answer (500 words)"
+						placeholder="Answer (150 words)"
 						value={formData.summerHacksGoal}
 						onChange={(value) =>
 							onFieldChange("summerHacksGoal", value)
 						}
+						multiline
+						maxWords={150}
 					/>
 				</div>
 			</div>
@@ -157,7 +161,7 @@ export function LeftPanelContent({
 				<div className="flex flex-col items-start self-stretch gap-4">
 					<div className="flex flex-col">
 						<p className="text-md font-bold text-black">
-							Any dietary restrictions and/or allergies?
+							Any dietary restrictions and/or allergies?*
 						</p>
 					</div>
 					<ApplicationTextField
@@ -172,7 +176,7 @@ export function LeftPanelContent({
 					<div className="flex flex-col">
 						<p className="text-md font-bold text-black">
 							Do you require any accessibility accommodations to
-							fully enjoy the event?
+							fully enjoy the event?*
 						</p>
 					</div>
 					<ApplicationTextField
@@ -186,7 +190,7 @@ export function LeftPanelContent({
 				<div className="flex flex-col items-start self-stretch gap-4">
 					<div className="flex flex-col">
 						<p className="text-md font-bold text-black">
-							What is your t-shirt size?
+							What is your t-shirt size?*
 						</p>
 					</div>
 					<div className="flex w-full">

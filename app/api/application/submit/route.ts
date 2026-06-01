@@ -41,7 +41,13 @@ export async function POST(request: NextRequest) {
     if (error) {
       console.error("Failed to save application:", error);
       return NextResponse.json(
-        { error: "Failed to save application" },
+        {
+          error: "Failed to save application",
+          details:
+            process.env.NODE_ENV === "production"
+              ? undefined
+              : error.message ?? String(error),
+        },
         { status: 500 },
       );
     }

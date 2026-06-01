@@ -314,7 +314,7 @@ function EmailSignup({
 	};
 
 	return (
-		<div className="bg-(--base\/0,white) content-stretch flex gap-6 h-14 items-center overflow-clip pl-4 pr-0.5 py-0.5 relative rounded-md shadow-[0px_20px_50px_0px_rgba(0,0,0,0.25)] shrink-0 max-sm:flex-col max-sm:h-auto max-sm:items-start max-sm:gap-3.5 max-sm:p-4 max-sm:w-full max-sm:max-w-82.5">
+		<div className="bg-(--base\/0,white) content-stretch flex gap-6 h-14 items-center overflow-clip pl-4 pr-4 py-2 relative rounded-md shadow-[0px_20px_50px_0px_rgba(0,0,0,0.25)] shrink-0 max-sm:flex-col max-sm:h-auto max-sm:items-start max-sm:gap-3.5 max-sm:p-4 max-sm:w-full max-sm:max-w-82.5">
 			<div className="content-stretch flex gap-2 items-center relative shrink-0">
 				<div className="relative shrink-0 size-2.5">
 					<div

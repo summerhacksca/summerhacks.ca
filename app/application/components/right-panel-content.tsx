@@ -21,15 +21,16 @@ export function RightPanelContent({
       <div className="flex flex-col items-start self-stretch gap-5 overflow-x-hidden">
         <div className="flex flex-col items-start self-stretch gap-5">
           <p className="text-md font-bold text-black">Basic Details</p>
+          <p className="text-sm text-black/60">* are required</p>
           <div className="flex flex-col items-start gap-4 self-stretch">
             <div className="flex items-start gap-4 self-stretch">
               <ApplicationTextField
-                placeholder="First Name (Legal)"
+                placeholder="First Name (Legal)*"
                 value={formData.firstNameLegal}
                 onChange={(value) => onFieldChange("firstNameLegal", value)}
               />
               <ApplicationTextField
-                placeholder="Last Name (Legal)"
+                placeholder="Last Name (Legal)*"
                 value={formData.lastNameLegal}
                 onChange={(value) => onFieldChange("lastNameLegal", value)}
               />
@@ -44,7 +45,7 @@ export function RightPanelContent({
               </div>
               <div className="w-32 shrink-0">
                 <ApplicationTextField
-                  placeholder="Age"
+                  placeholder="Age*"
                   value={formData.age}
                   onChange={(value) => onFieldChange("age", value)}
                 />
@@ -53,13 +54,13 @@ export function RightPanelContent({
             <div className="flex items-start gap-4 self-stretch">
               <AppComboBox
                 items={genderOptions}
-                placeholder="Gender"
+                placeholder="Gender*"
                 value={formData.gender}
                 onValueChange={(value) => onFieldChange("gender", value ?? "")}
               />
               <AppComboBox
                 items={ethnicityOptions}
-                placeholder="Ethnicity"
+                placeholder="Ethnicity*"
                 value={formData.ethnicity}
                 onValueChange={(value) => onFieldChange("ethnicity", value ?? "")}
               />
@@ -67,14 +68,14 @@ export function RightPanelContent({
             <div className="flex items-start gap-4 self-stretch">
               <div className="flex-1">
                 <ApplicationTextField
-                  placeholder="Post Secondary Institution Name"
+                  placeholder="Post Secondary Institution Name*"
                   value={formData.institutionName}
                   onChange={(value) => onFieldChange("institutionName", value)}
                 />
               </div>
               <div className="w-32 shrink-0">
                 <ApplicationTextField
-                  placeholder="Year"
+                  placeholder="Year*"
                   value={formData.year}
                   onChange={(value) => onFieldChange("year", value)}
                 />
@@ -86,7 +87,7 @@ export function RightPanelContent({
           <p className="text-md font-bold text-black">Your Links</p>
           <div className="flex flex-col items-start gap-4 self-stretch">
             <ApplicationTextField
-              placeholder="LinkedIn"
+              placeholder="LinkedIn*"
               value={formData.linkedin}
               onChange={(value) => onFieldChange("linkedin", value)}
             />
@@ -94,9 +95,10 @@ export function RightPanelContent({
               placeholder="GitHub"
               value={formData.github}
               onChange={(value) => onFieldChange("github", value)}
+              required={false}
             />
             <ApplicationTextField
-              placeholder="Resume (link)"
+              placeholder="Resume (link)*"
               value={formData.resumeLink}
               onChange={(value) => onFieldChange("resumeLink", value)}
             />
@@ -104,6 +106,7 @@ export function RightPanelContent({
               placeholder="Portfolio (link)"
               value={formData.portfolioLink}
               onChange={(value) => onFieldChange("portfolioLink", value)}
+              required={false}
             />
           </div>
         </div>
@@ -115,30 +118,36 @@ export function RightPanelContent({
     return (
       <div className="flex flex-col items-start self-stretch gap-17.5 h-full py-8 overflow-x-hidden">
         <div className="flex flex-col items-start self-stretch gap-4">
-          <p className="text-md text-black">What is a random topic you could ramble on and on about?</p>
+          <p className="text-md text-black">What is a random topic you could ramble on and on about?*</p>
           <ApplicationTextField
-            placeholder="Answer (500 words)"
+            placeholder="Answer (150 words)"
             value={formData.rambleTopic}
             onChange={(value) => onFieldChange("rambleTopic", value)}
+              multiline
+              maxWords={150}
           />
         </div>
         <div className="flex flex-col items-start self-stretch gap-4">
           <p className="text-md text-black">
             Would you rather fight a bear with sharks for arms or not be able to tell the difference between a
-            muffin and a baby? Answer honestly and thoroughly.
+            muffin and a baby? Answer honestly and thoroughly.*
           </p>
           <ApplicationTextField
-            placeholder="Answer (500 words)"
+            placeholder="Answer (150 words)"
             value={formData.bearOrMuffin}
             onChange={(value) => onFieldChange("bearOrMuffin", value)}
+              multiline
+              maxWords={150}
           />
         </div>
         <div className="flex flex-col items-start self-stretch gap-4">
-          <p className="text-md text-black">Tell us about your offline self. Who are you outside of the tech world?</p>
+          <p className="text-md text-black">Tell us about your offline self. Who are you outside of the tech world?*</p>
           <ApplicationTextField
-            placeholder="Answer (500 words)"
+            placeholder="Answer (200 words)"
             value={formData.offlineSelf}
             onChange={(value) => onFieldChange("offlineSelf", value)}
+              multiline
+              maxWords={200}
           />
         </div>
       </div>

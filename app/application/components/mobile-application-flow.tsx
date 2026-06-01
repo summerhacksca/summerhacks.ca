@@ -15,6 +15,10 @@ type MobileApplicationFlowProps = {
   isSubmitting: boolean;
   submitError: string;
   submitSuccess: string;
+  canProceedFromStepOne: boolean;
+  canProceedFromStepTwoLeft: boolean;
+  canProceedFromStepTwoRight: boolean;
+  canProceedFromStepThree: boolean;
   onSubmitApplication: () => void;
 };
 
@@ -26,6 +30,10 @@ export function MobileApplicationFlow({
   isSubmitting,
   submitError,
   submitSuccess,
+  canProceedFromStepOne,
+  canProceedFromStepTwoLeft,
+  canProceedFromStepTwoRight,
+  canProceedFromStepThree,
   onSubmitApplication,
 }: MobileApplicationFlowProps) {
   const [mobilePanel, setMobilePanel] = useState<1 | 2 | 3 | 4>(1);
@@ -87,8 +95,8 @@ export function MobileApplicationFlow({
   };
 
   return (
-    <div className="flex min-h-[calc(100dvh-24px)] w-full flex-col overflow-x-hidden bg-[#fffbf6] p-6 md:hidden">
-      <div className="flex flex-1 flex-col gap-6 overflow-auto overflow-x-hidden">
+    <div className="flex flex-1 min-h-0 w-full flex-col bg-[#fffbf6] p-6 md:hidden">
+      <div className="flex flex-1 flex-col gap-6 overflow-y-auto overflow-x-hidden min-h-0">
         {mobilePanel === 1 ? (
           <RightPanelContent
             step={1}
@@ -137,7 +145,7 @@ export function MobileApplicationFlow({
             direction="right"
             variant="primary"
             type="button"
-            disabled={isSubmitting}
+            disabled={isSubmitting || !canProceedFromStepThree}
             onClick={onSubmitApplication}
           />
         ) : (
@@ -146,8 +154,23 @@ export function MobileApplicationFlow({
             direction="right"
             variant="primary"
             type="button"
-            disabled={isSubmitting}
-            onClick={goForward}
+            disabled={
+              isSubmitting ||
+              (mobilePanel === 1 && !canProceedFromStepOne) ||
+              (mobilePanel === 2 && !canProceedFromStepTwoLeft) ||
+              (mobilePanel === 3 && !canProceedFromStepTwoRight)
+            }
+            onClick={() => {
+              if (
+                (mobilePanel === 1 && !canProceedFromStepOne) ||
+                (mobilePanel === 2 && !canProceedFromStepTwoLeft) ||
+                (mobilePanel === 3 && !canProceedFromStepTwoRight)
+              ) {
+                return;
+              }
+
+              goForward();
+            }}
           />
         )}
       </div>

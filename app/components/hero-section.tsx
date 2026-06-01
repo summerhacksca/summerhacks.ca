@@ -134,7 +134,7 @@ function EmailSignup() {
 
 	return (
 		<div
-			className="bg-(--base\/0,white) content-stretch flex gap-6 h-14 items-center overflow-clip pl-4 pr-0.5 py-0.5 relative rounded-lg shadow-[0px_20px_50px_0px_rgba(0,0,0,0.25)] shrink-0 max-sm:flex-col max-sm:h-auto max-sm:items-start max-sm:gap-3.5 max-sm:p-4 max-sm:w-full max-sm:max-w-82.5"
+			className="bg-(--base\/0,white) content-stretch flex gap-6 h-14 items-center overflow-clip pl-4 pr-4 py-0.5 relative rounded-lg shadow-[0px_20px_50px_0px_rgba(0,0,0,0.25)] shrink-0 max-sm:flex-col max-sm:h-auto max-sm:items-start max-sm:gap-3.5 max-sm:p-4 max-sm:w-full max-sm:max-w-82.5"
 		>
 			<div className="content-stretch flex gap-2 items-center relative shrink-0">
 				<div className="relative shrink-0 size-2.5">
@@ -164,7 +164,7 @@ function EmailSignup() {
 				<button
 					type="button"
 					onClick={() => router.push("/apply")}
-					className="bg-(--primary\/sun\/100,#ffefdd) text-[#B07F46] inline-flex h-full items-center justify-center overflow-clip px-4 rounded-[100px] shrink-0 hover:bg-(--primary\/sun\/200,#fde4c8) transition-colors disabled:opacity-50 cursor-pointer max-sm:h-13.5 max-sm:w-full"
+					className="bg-(--primary\/sun\/100,#ffefdd) text-[#B07F46] inline-flex h-[80%] items-center justify-center overflow-clip px-4 rounded-[100px] shrink-0 hover:bg-(--primary\/sun\/200,#fde4c8) transition-colors disabled:opacity-50 cursor-pointer max-sm:h-13.5 max-sm:w-full"
 				>
 					<div className="flex items-center justify-center gap-2 relative shrink-0">
 						APPLY

@@ -11,6 +11,47 @@ import { LeftPanelContent } from "./components/left-panel-content";
 import { RightPanelContent } from "./components/right-panel-content";
 import type { ApplicationFormData, SlideId } from "./types";
 
+const STEP_ONE_FIELDS: (keyof ApplicationFormData)[] = [
+  "firstNameLegal",
+  "lastNameLegal",
+  "age",
+  "gender",
+  "ethnicity",
+  "institutionName",
+  "year",
+  "linkedin",
+  "resumeLink",
+];
+
+const STEP_TWO_LEFT_FIELDS: (keyof ApplicationFormData)[] = [
+  "proudProject",
+  "chooseOneAnswer",
+  "summerHacksGoal",
+];
+
+const STEP_TWO_RIGHT_FIELDS: (keyof ApplicationFormData)[] = [
+  "rambleTopic",
+  "bearOrMuffin",
+  "offlineSelf",
+];
+
+const STEP_THREE_FIELDS: (keyof ApplicationFormData)[] = [
+  "dietaryRestrictions",
+  "accessibilityNeeds",
+  "tshirtSize",
+];
+
+function isFilled(value: string) {
+  return value.trim().length > 0;
+}
+
+function areFieldsFilled(
+  formData: ApplicationFormData,
+  fields: (keyof ApplicationFormData)[],
+) {
+  return fields.every((field) => isFilled(formData[field]));
+}
+
 export default function ApplicationSlides({
   userEmail,
 }: {
@@ -25,6 +66,14 @@ export default function ApplicationSlides({
   const slide = slides[currentStep - 1];
   const router = useRouter();
 
+  const canProceedFromStepOne = areFieldsFilled(formData, STEP_ONE_FIELDS);
+  const canProceedFromStepTwo =
+    areFieldsFilled(formData, STEP_TWO_LEFT_FIELDS) &&
+    areFieldsFilled(formData, STEP_TWO_RIGHT_FIELDS);
+  const canProceedFromStepThree = areFieldsFilled(formData, STEP_THREE_FIELDS);
+  const canSubmitApplication =
+    canProceedFromStepOne && canProceedFromStepTwo && canProceedFromStepThree;
+
   const handleFieldChange = (
     field: keyof ApplicationFormData,
     value: string,
@@ -38,6 +87,12 @@ export default function ApplicationSlides({
   const submitApplication = async () => {
     setSubmitError("");
     setSubmitSuccess("");
+
+    if (!canSubmitApplication) {
+      setSubmitError("Please fill out every required field before submitting.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -73,6 +128,12 @@ export default function ApplicationSlides({
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (!canSubmitApplication) {
+      setSubmitError("Please fill out every required field before submitting.");
+      return;
+    }
+
     await submitApplication();
   };
 
@@ -149,12 +210,14 @@ export default function ApplicationSlides({
           <div
             className={`flex min-h-0 w-full flex-1 flex-col justify-between bg-[#fffbf6] p-6 md:min-h-full md:basis-0 md:grow md:p-9 md:${currentStep === 3 ? "bg-[#fffbf6]" : "bg-white"}`}
           >
-            <div className="flex h-full flex-1 flex-col items-end justify-between self-stretch gap-8 overflow-hidden md:gap-10">
+            <div className="flex flex-1 flex-col items-end justify-between self-stretch gap-8 min-h-0 md:gap-10">
+              <div className="flex-1 min-h-0 overflow-y-auto w-full">
               <RightPanelContent
                 step={currentStep}
                 formData={formData}
                 onFieldChange={handleFieldChange}
               />
+              </div>
 
               {currentStep === 1 ? (
                 <div className="flex items-center justify-between self-stretch gap-4 max-md:flex-col max-md:items-stretch">
@@ -166,6 +229,7 @@ export default function ApplicationSlides({
                     direction="right"
                     variant="primary"
                     type="button"
+                    disabled={isSubmitting || !canProceedFromStepOne}
                     onClick={() =>
                       setCurrentStep((step) => (step + 1) as SlideId)
                     }
@@ -188,7 +252,7 @@ export default function ApplicationSlides({
                     direction="right"
                     variant="primary"
                     type="button"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || !canProceedFromStepTwo}
                     onClick={() =>
                       setCurrentStep((step) => (step + 1) as SlideId)
                     }
@@ -207,6 +271,10 @@ export default function ApplicationSlides({
           isSubmitting={isSubmitting}
           submitError={submitError}
           submitSuccess={submitSuccess}
+          canProceedFromStepOne={canProceedFromStepOne}
+          canProceedFromStepTwoLeft={areFieldsFilled(formData, STEP_TWO_LEFT_FIELDS)}
+          canProceedFromStepTwoRight={areFieldsFilled(formData, STEP_TWO_RIGHT_FIELDS)}
+          canProceedFromStepThree={canProceedFromStepThree}
           onSubmitApplication={() => {
             void submitApplication();
           }}
