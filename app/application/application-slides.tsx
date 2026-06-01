@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useEffect, useRef, type FormEvent } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -64,8 +64,45 @@ export default function ApplicationSlides({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [submitSuccess, setSubmitSuccess] = useState("");
+  const [savedAt, setSavedAt] = useState<string | null>(null);
   const slide = slides[currentStep - 1];
   const router = useRouter();
+
+  const DRAFT_KEY = "application_draft";
+  const saveTimer = useRef<number | null>(null);
+
+  useEffect(() => {
+    // load draft from localStorage on mount
+    try {
+      const raw = localStorage.getItem(DRAFT_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        setFormData((prev) => ({ ...prev, ...parsed }));
+      }
+    } catch (e) {
+      // ignore parse errors
+    }
+  }, []);
+
+  useEffect(() => {
+    // debounce save to localStorage
+    if (saveTimer.current) {
+      clearTimeout(saveTimer.current as unknown as number);
+    }
+
+    saveTimer.current = window.setTimeout(() => {
+      try {
+        localStorage.setItem(DRAFT_KEY, JSON.stringify(formData));
+        setSavedAt(new Date().toISOString());
+      } catch (e) {
+        // ignore storage failures
+      }
+    }, 1000) as unknown as number;
+
+    return () => {
+      if (saveTimer.current) clearTimeout(saveTimer.current as unknown as number);
+    };
+  }, [formData]);
 
   const canProceedFromStepOne = areFieldsFilled(formData, STEP_ONE_FIELDS);
   const canProceedFromStepTwo =
@@ -115,6 +152,11 @@ export default function ApplicationSlides({
       }
 
       setSubmitSuccess("Application submitted successfully.");
+      // clear draft and navigate
+      try {
+        localStorage.removeItem(DRAFT_KEY);
+      } catch {}
+      setSavedAt(null);
       router.replace("/thank-you");
     } catch (error) {
       setSubmitError(
@@ -205,6 +247,9 @@ export default function ApplicationSlides({
             ) : null}
             {submitSuccess ? (
               <p className="mt-3 text-sm text-green-700">{submitSuccess}</p>
+            ) : null}
+            {savedAt ? (
+              <p className="mt-3 text-sm text-gray-500">Draft saved {new Date(savedAt).toLocaleTimeString()}</p>
             ) : null}
           </div>
 
