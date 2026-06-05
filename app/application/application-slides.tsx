@@ -281,7 +281,7 @@ export default function ApplicationSlides({
 						className={`flex min-h-0 w-full flex-1 flex-col justify-between bg-[#fffbf6] p-6 md:min-h-full md:basis-0 md:grow md:p-9 md:${currentStep === 3 ? "bg-[#fffbf6]" : "bg-white"}`}
 					>
 						<div className="flex flex-1 flex-col items-end justify-between self-stretch gap-8 min-h-0 md:gap-10">
-							<div className="flex-1 min-h-0 overflow-y-auto w-full">
+							<div className="flex flex-col align-middle self-stretch flex-1 min-h-0">
 								<RightPanelContent
 									step={currentStep}
 									formData={formData}
