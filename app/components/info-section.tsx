@@ -71,15 +71,15 @@ function AboutSection() {
 			</div>
 			<div className="font-['Maison Neue',sans-serif] font-normal leading-normal not-italic relative shrink-0 text-[14px] text-[#2a2a2a]">
 				<p className="leading-normal mb-0">
-					Participants will spend a weekend building projects under
-					open skies, surrounded by greenery, camp-like activities,
-					and a close-knit community.
+					Participants will spend a weekend building projects in
+					carefully chosen spaces — filled with natural light, open
+					energy, and a creative atmosphere you won&apos;t find in a
+					university lecture hall.
 				</p>
 				<p className="leading-normal mb-0">&nbsp;</p>
 				<p className="mb-0">
 					<span className="leading-normal">
-						Coming soon. Join our waitlist for early updates and
-						news.
+						Coming to you August 8-9
 					</span>
 				</p>
 			</div>
@@ -94,7 +94,7 @@ function AboutSection() {
 						<ArrowUp size={20} weight="bold" className="block max-w-none size-full" />
 					</div>
 					<p className="font-['Maison Neue',sans-serif] font-medium leading-normal not-italic relative shrink-0 text-[#b07f46] text-[14px] text-center tracking-[-0.28px]">
-						Join the waitlist
+						Apply now!
 					</p>
 				</button>
 			</div>
@@ -138,14 +138,14 @@ function RightPanel() {
 					</div>
 				</div>
 				<p className="font-['Maison Neue',sans-serif] font-normal leading-[normal] not-italic relative  text-[14px] text-white max-w-[324px]">
-					Stepping outside changes how you think. Fresh air slows the
-					noise, sunlight sharpens focus, and ideas feel lighter when
-					they&apos;re not trapped on a screen.
+					Where you build shapes what you build. Natural light, open
+					layouts, and a little life around you change the energy of a
+					room — and the ideas that come out of it.
 				</p>
 			</div>
 
 			<p className="font-['Maison Neue',sans-serif] font-normal leading-[normal] not-italic relative text-[14px] text-white max-w-[372px]">
-				Sometimes, the best way to build better things is to unplug for
+				Sometimes, the best way to build better things is to unplug for 
 				a moment and let the world around you do the rest.
 			</p>
 		</div>

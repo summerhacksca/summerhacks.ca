@@ -214,7 +214,7 @@ function InfoRows({ className = "" }: { className?: string }) {
 
 				<div className="flex flex-col content-end items-center gap-3 ">
 					<a
-						href="https://drive.google.com/file/d/1_vLV-Hf5UUkvSOezyXBvqcM9XqZyFH4_/view?usp=sharing"
+						href="https://drive.google.com/file/d/1ByBBPr7N00PmRnpSTH17vv81T06IAxXy/view?usp=sharing"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="flex h-13 px-4 items-center gap-2.5 bg-[#ffefdd] py-3 rounded-[100px]"
