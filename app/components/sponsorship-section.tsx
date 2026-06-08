@@ -197,7 +197,7 @@ function InfoRows({ className = "" }: { className?: string }) {
 
 				<p className="text-[14px] font-light text-black font-['Maison Neue'] leading-[130%] tracking-[-0.24px] max-w-[359px]">
 					Help us create a space to innovate under open skies. Hosted
-					outdoors with overnight camping, SummerHacks pushes
+					outdoors, SummerHacks pushes
 					creativity beyond traditional walls and encourages students
 					to think differently about the world they are building, and
 					the environment we live in. As our debut event, partner
