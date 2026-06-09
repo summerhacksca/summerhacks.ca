@@ -278,8 +278,9 @@ function TextParagraphs({
 				<span className={textColorClass}>
 					Time moves more slowly. Ideas have space to breathe.
 					Conversation stretches beyond the screen. SummerHacks is a
-					thoughtfully designed hackathon that takes place outdoors,
-					shaped by the rhythm and openness of the season.
+					thoughtfully curated hackathon set in spaces that actually
+					inspire — sun-soaked, open, and built for creativity. Not a
+					fluorescent classroom. Something better.
 				</span>
 			</p>
 			{/* paragraph 2 */}
@@ -290,7 +291,8 @@ function TextParagraphs({
 			>
 				At its core, SummerHacks is about creating something lasting.
 				Not only the projects that are built, but the memory of building
-				them. Outdoors, together, during a fleeting moment of summer.
+				them — in a space that made you feel something. Together, during
+				a fleeting moment of summer.
 			</p>
 			{/* paragraph 3 */}
 			<p className="mb-0">&nbsp;</p>
