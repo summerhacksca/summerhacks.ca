@@ -25,14 +25,11 @@ const STEP_ONE_FIELDS: (keyof ApplicationFormData)[] = [
 
 const STEP_TWO_LEFT_FIELDS: (keyof ApplicationFormData)[] = [
 	"proudProject",
-	"chooseOneAnswer",
 	"summerHacksGoal",
 ];
 
 const STEP_TWO_RIGHT_FIELDS: (keyof ApplicationFormData)[] = [
-	"rambleTopic",
-	"bearOrMuffin",
-	"offlineSelf",
+	"chooseOneAnswer",
 ];
 
 const STEP_THREE_FIELDS: (keyof ApplicationFormData)[] = [

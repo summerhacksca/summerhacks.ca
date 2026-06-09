@@ -151,49 +151,28 @@ export function RightPanelContent({
 		return (
 			<div className="flex flex-col items-start self-stretch gap-17.5 h-full py-8 overflow-x-hidden">
 				<div className="flex flex-col items-start self-stretch gap-4">
-					<p className="text-md text-black">
-						What is a random topic you could ramble on and on
-						about?*
-					</p>
+					<div className="flex flex-col">
+						<p className="text-md font-bold text-black">
+							Choose one of the following to answer:*
+						</p>
+						<ol className="list-decimal pl-5 mt-2 space-y-2 text-md text-black/80">
+							<li>
+								What is a random topic you could ramble on and
+								on about?
+							</li>
+							<li>
+								Tell us about your offline self. Who are you
+								outside of the tech and the things you build?
+							</li>
+						</ol>
+					</div>
 					<ApplicationTextField
-						placeholder="Answer (150 words)"
-						value={formData.rambleTopic}
+						placeholder="Answer (no word limit!)"
+						value={formData.chooseOneAnswer}
 						onChange={(value) =>
-							onFieldChange("rambleTopic", value)
+							onFieldChange("chooseOneAnswer", value)
 						}
 						multiline
-						maxWords={150}
-					/>
-				</div>
-				<div className="flex flex-col items-start self-stretch gap-4">
-					<p className="text-md text-black">
-						Would you rather fight a bear with sharks for arms or
-						not be able to tell the difference between a muffin and
-						a baby? Answer honestly and thoroughly.*
-					</p>
-					<ApplicationTextField
-						placeholder="Answer (150 words)"
-						value={formData.bearOrMuffin}
-						onChange={(value) =>
-							onFieldChange("bearOrMuffin", value)
-						}
-						multiline
-						maxWords={150}
-					/>
-				</div>
-				<div className="flex flex-col items-start self-stretch gap-4">
-					<p className="text-md text-black">
-						Tell us about your offline self. Who are you outside of
-						the tech world?*
-					</p>
-					<ApplicationTextField
-						placeholder="Answer (200 words)"
-						value={formData.offlineSelf}
-						onChange={(value) =>
-							onFieldChange("offlineSelf", value)
-						}
-						multiline
-						maxWords={200}
 					/>
 				</div>
 			</div>
