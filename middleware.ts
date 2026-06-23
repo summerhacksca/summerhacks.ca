@@ -1,7 +1,16 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { APPLICATIONS_CLOSED } from "@/lib/applications";
 
 export async function middleware(request: NextRequest) {
+	/* Redirect all non‑homepage page routes when applications are closed */
+	if (APPLICATIONS_CLOSED) {
+		const { pathname } = request.nextUrl;
+		if (pathname !== "/" && !pathname.startsWith("/api/")) {
+			return NextResponse.redirect(new URL("/", request.url));
+		}
+	}
+
 	let response = NextResponse.next({ request });
 	const supabase = createServerClient(
 		process.env.NEXT_PUBLIC_SUPABASE_URL!,
