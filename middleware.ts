@@ -3,10 +3,17 @@ import { NextResponse, type NextRequest } from "next/server";
 import { APPLICATIONS_CLOSED } from "@/lib/applications";
 
 export async function middleware(request: NextRequest) {
-	/* Redirect all non‑homepage page routes when applications are closed */
+	/* Redirect all non‑homepage page routes when applications are closed.
+	   Skip redirect for static assets (files with a dot extension) and
+	   favicon / robots / sitemap so the page loads properly. */
 	if (APPLICATIONS_CLOSED) {
 		const { pathname } = request.nextUrl;
-		if (pathname !== "/" && !pathname.startsWith("/api/")) {
+		const isPage =
+			pathname !== "/" &&
+			!pathname.startsWith("/api/") &&
+			!/\.[a-zA-Z0-9]+$/.test(pathname) &&
+			!pathname.startsWith("/_next/");
+		if (isPage) {
 			return NextResponse.redirect(new URL("/", request.url));
 		}
 	}
