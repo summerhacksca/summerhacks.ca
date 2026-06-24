@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ArrowUp } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { APPLICATIONS_CLOSED } from "@/lib/applications";
 
 const logo = "/logos/fullwhite-nobg.svg";
 
@@ -110,6 +111,33 @@ function Header() {
 }
 
 function MainContent() {
+	if (APPLICATIONS_CLOSED) {
+		return (
+			<div className="basis-0 content-stretch flex flex-col gap-12 grow items-center justify-center min-h-px min-w-px relative shrink-0 w-full">
+				<div className="content-stretch flex flex-col gap-12 items-center not-italic relative shrink-0 text-(--text\/on-dark,white) text-center w-full">
+					<div className="flex flex-col items-center gap-2 self-stretch">
+						<p className="font-['Maison Neue:Book',sans-serif] leading-[normal] relative shrink-0 text-[16px] text-nowrap text-shadow-[0px_0px_20px_rgba(0,0,0,0.25)]">
+							Summer 2026
+						</p>
+						<div className="flex flex-col font-['Maison Neue:Medium',sans-serif] font-medium justify-end leading-0 min-w-full relative shrink-0 text-[32px] text-shadow-[0px_0px_30px_rgba(0,0,0,0.25)] tracking-[-0.64px] w-min">
+							<p className="leading-none">
+								Applications are now closed.
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div className="bg-(--base\/0,white) content-stretch flex gap-6 h-14 items-center overflow-clip px-4 py-0.5 relative rounded-lg shadow-[0px_20px_50px_0px_rgba(0,0,0,0.25)] shrink-0 max-sm:flex-col max-sm:h-auto max-sm:items-start max-sm:gap-3.5 max-sm:p-4 max-sm:w-full max-sm:max-w-82.5">
+					<div className="content-stretch flex gap-2 items-center relative shrink-0">
+						<p className="font-['Maison Neue:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[16px] text-(--base\/800,#2a2a2a) text-nowrap tracking-[-0.64px]">
+							Thanks to everyone who applied.
+						</p>
+					</div>
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<div className="basis-0 content-stretch flex flex-col gap-12 grow items-center justify-center min-h-px min-w-px relative shrink-0 w-full">
 			<div className="content-stretch flex flex-col gap-12 items-center not-italic relative shrink-0 text-(--text\/on-dark,white) text-center w-full">
@@ -133,9 +161,7 @@ function EmailSignup() {
 	const router = useRouter();
 
 	return (
-		<div
-			className="bg-(--base\/0,white) content-stretch flex gap-6 h-14 items-center overflow-clip pl-4 pr-4 py-0.5 relative rounded-lg shadow-[0px_20px_50px_0px_rgba(0,0,0,0.25)] shrink-0 max-sm:flex-col max-sm:h-auto max-sm:items-start max-sm:gap-3.5 max-sm:p-4 max-sm:w-full max-sm:max-w-82.5"
-		>
+		<div className="bg-(--base\/0,white) content-stretch flex gap-6 h-14 items-center overflow-clip pl-4 pr-4 py-0.5 relative rounded-lg shadow-[0px_20px_50px_0px_rgba(0,0,0,0.25)] shrink-0 max-sm:flex-col max-sm:h-auto max-sm:items-start max-sm:gap-3.5 max-sm:p-4 max-sm:w-full max-sm:max-w-82.5">
 			<div className="content-stretch flex gap-2 items-center relative shrink-0">
 				<div className="relative shrink-0 size-2.5">
 					<div
@@ -170,7 +196,11 @@ function EmailSignup() {
 						APPLY
 						<div className="flex-none rotate-90">
 							<div className="relative size-5">
-								<ArrowUp size={20} weight="bold" className="block max-w-none size-full" />
+								<ArrowUp
+									size={20}
+									weight="bold"
+									className="block max-w-none size-full"
+								/>
 							</div>
 						</div>
 					</div>
@@ -181,8 +211,6 @@ function EmailSignup() {
 }
 
 function ScrollIndicator() {
-    
-
 	return (
 		<div className="content-stretch flex flex-col gap-3 items-center justify-end pb-4 pt-0 px-0 relative shrink-0 w-full">
 			<button
@@ -194,14 +222,18 @@ function ScrollIndicator() {
 				className="backdrop-blur-[2.5px] backdrop-filter bg-[rgba(255,239,218,0.2)] content-stretch flex items-center justify-center overflow-clip relative rounded-[100px] shrink-0 size-13 cursor-pointer hover:bg-[rgba(255,239,218,0.3)] transition-colors"
 			>
 				<div className="flex items-center justify-center relative shrink-0">
-							<div className="flex-none rotate-180">
-								<div
-									className="relative size-5"
-									style={{ filter: "brightness(0) invert(1)" }}
-								>
-									<ArrowUp size={20} weight="bold" className="block max-w-none size-full" />
-								</div>
-							</div>
+					<div className="flex-none rotate-180">
+						<div
+							className="relative size-5"
+							style={{ filter: "brightness(0) invert(1)" }}
+						>
+							<ArrowUp
+								size={20}
+								weight="bold"
+								className="block max-w-none size-full"
+							/>
+						</div>
+					</div>
 				</div>
 			</button>
 			<p className="font-['Maison Neue:Book',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#ffefda] text-[14px] text-center text-nowrap tracking-[-0.28px]">

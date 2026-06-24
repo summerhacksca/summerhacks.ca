@@ -22,9 +22,6 @@ export type ApplicationFormData = {
 	proudProject: string;
 	chooseOneAnswer: string;
 	summerHacksGoal: string;
-	rambleTopic: string;
-	bearOrMuffin: string;
-	offlineSelf: string;
 	dietaryRestrictions: string;
 	accessibilityNeeds: string;
 	tshirtSize: string;

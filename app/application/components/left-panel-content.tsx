@@ -99,7 +99,7 @@ export function LeftPanelContent({
 						</p>
 					</div>
 					<ApplicationTextField
-						placeholder="Answer (500 words)"
+						placeholder="Answer (no word limit!)"
 						value={formData.proudProject}
 						onChange={(value) =>
 							onFieldChange("proudProject", value)
@@ -110,45 +110,17 @@ export function LeftPanelContent({
 				<div className="flex flex-col items-start self-stretch gap-4">
 					<div className="flex flex-col">
 						<p className="text-md font-bold text-black">
-							Choose one of the following to answer:*
-						</p>
-						<ol type="1">
-							<li>
-								1. What is an issue you come across in your day
-								to day life, and how would you solve it?
-							</li>
-							<li>
-								2. How would you define &quot;creativity&quot; in the
-								present day with tools like generative AI? Do
-								you think AI diminishes the value of human art,
-								or does it enable more people to express
-								themselves freely?
-							</li>
-						</ol>
-					</div>
-					<ApplicationTextField
-						placeholder="Answer (500 words)"
-						value={formData.chooseOneAnswer}
-						onChange={(value) =>
-							onFieldChange("chooseOneAnswer", value)
-						}
-						multiline
-					/>
-				</div>
-				<div className="flex flex-col items-start self-stretch gap-4">
-					<div className="flex flex-col">
-						<p className="text-md font-bold text-black">
-							What do you hope to get out of SummerHacks?*
+							What would an ideal time at SummerHacks look like
+							for you?*
 						</p>
 					</div>
 					<ApplicationTextField
-						placeholder="Answer (150 words)"
+						placeholder="Answer (no word limit!)"
 						value={formData.summerHacksGoal}
 						onChange={(value) =>
 							onFieldChange("summerHacksGoal", value)
 						}
 						multiline
-						maxWords={150}
 					/>
 				</div>
 			</div>
@@ -211,7 +183,8 @@ export function LeftPanelContent({
 							SummerHacks?*
 						</p>
 						<p className="text-sm text-black/60">
-							At least one member of your team must be in-person on Sunday for judging.
+							At least one member of your team must be in-person
+							on Sunday for judging.
 						</p>
 					</div>
 					<div className="flex w-full">
@@ -220,7 +193,10 @@ export function LeftPanelContent({
 							placeholder="Select yes or no"
 							value={formData.travelToDowntownToronto}
 							onValueChange={(value) =>
-								onFieldChange("travelToDowntownToronto", value ?? "")
+								onFieldChange(
+									"travelToDowntownToronto",
+									value ?? "",
+								)
 							}
 						/>
 					</div>
