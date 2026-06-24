@@ -137,6 +137,15 @@ export default function ApplyHero() {
 			});
 
 			if (signUpResult.error) {
+				// If the account already exists, switch to login mode silently
+				// rather than revealing that the email is registered.
+				if (signUpResult.error.message.toLowerCase().includes("user already registered")) {
+					setModalMode("login");
+					setPassword("");
+					setPasswordConfirmation("");
+					setAuthError("An account with this email already exists. Please log in.");
+					return;
+				}
 				throw signUpResult.error;
 			}
 

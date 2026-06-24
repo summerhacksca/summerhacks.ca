@@ -1,39 +1,4 @@
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
-
-const USERS_PAGE_SIZE = 1000;
-
-async function findUserByEmail(
-	supabaseAdmin: SupabaseClient<any, any, any, any, any>,
-	normalizedEmail: string,
-) {
-	let page = 1;
-
-	while (true) {
-		const { data, error } = await supabaseAdmin.auth.admin.listUsers({
-			page,
-			perPage: USERS_PAGE_SIZE,
-		});
-
-		if (error) {
-			return { error };
-		}
-
-		const user = data.users.find(
-			(candidate) => candidate.email?.toLowerCase() === normalizedEmail,
-		);
-
-		if (user) {
-			return { user };
-		}
-
-		if (data.users.length < USERS_PAGE_SIZE) {
-			return { user: null };
-		}
-
-		page += 1;
-	}
-}
 
 export async function POST(request: NextRequest) {
 	try {
@@ -52,28 +17,12 @@ export async function POST(request: NextRequest) {
 			);
 		}
 
-		const normalizedEmail = email.toLowerCase().trim();
-		const supabaseAdmin = createClient(
-			process.env.NEXT_PUBLIC_SUPABASE_URL!,
-			process.env.SUPABASE_SERVICE_ROLE_KEY!,
-		);
-
-		const { user, error } = await findUserByEmail(supabaseAdmin, normalizedEmail);
-
-		if (error) {
-			console.error("Supabase auth lookup error:", error);
-			return NextResponse.json(
-				{ error: "Failed to check account status" },
-				{ status: 500 },
-			);
-		}
-
-		return NextResponse.json({
-			exists: Boolean(user),
-			flow: user ? "login" : "signup",
-		});
+		// Always return "signup" — the client switches to login mode if Supabase
+		// returns a "User already registered" error during sign-up. This prevents
+		// unauthenticated enumeration of registered email addresses.
+		return NextResponse.json({ flow: "signup" });
 	} catch (error) {
-		console.error("Error checking email existence:", error);
+		console.error("Error in email check:", error);
 		return NextResponse.json({ error: "Internal server error" }, { status: 500 });
 	}
 }
