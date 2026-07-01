@@ -116,13 +116,18 @@ function MainContent() {
 			<div className="basis-0 content-stretch flex flex-col gap-12 grow items-center justify-center min-h-px min-w-px relative shrink-0 w-full">
 				<div className="content-stretch flex flex-col gap-12 items-center not-italic relative shrink-0 text-(--text\/on-dark,white) text-center w-full">
 					<div className="flex flex-col items-center gap-2 self-stretch">
-						<p className="font-['Maison Neue:Book',sans-serif] leading-[normal] relative shrink-0 text-[16px] text-nowrap text-shadow-[0px_0px_20px_rgba(0,0,0,0.25)]">
-							Summer 2026
-						</p>
-						<div className="flex flex-col font-['Maison Neue:Medium',sans-serif] font-medium justify-end leading-0 min-w-full relative shrink-0 text-[32px] text-shadow-[0px_0px_30px_rgba(0,0,0,0.25)] tracking-[-0.64px] w-min">
+						<div className="flex flex-col font-['Maison Neue:Medium',sans-serif] font-medium justify-end leading-0 min-w-full relative shrink-0 text-[16px] text-shadow-[0px_0px_30px_rgba(0,0,0,0.25)] tracking-[-0.64px] w-min">
 							<p className="leading-none">
-								Applications are now closed.
+								Build under open skies.
 							</p>
+						</div>
+						<div className="flex items-center gap-2 font-['Maison Neue:Medium',sans-serif] font-medium leading-[normal] relative shrink-0 text-[28px] text-nowrap text-shadow-[0px_0px_30px_rgba(0,0,0,0.25)] tracking-[-0.64px]">
+							<span>presented by</span>
+							<img
+								alt="TECHNATION Career Ready Program"
+								src="/logos/technation-white.svg"
+								className="h-12 w-auto object-contain"
+							/>
 						</div>
 					</div>
 				</div>

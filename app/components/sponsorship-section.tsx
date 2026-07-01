@@ -17,6 +17,8 @@ const tccff = "logos/tccff.svg";
 const georgeshao = "logos/georgeshao.svg";
 const hudzah = "logos/hudzah.svg";
 const josephma = "logos/josephma.svg";
+const reve = "logos/reve-brown.svg"
+const technation = "logos/technation-brown.svg"
 
 // graphics
 const basketBrown = "graphics/basket-brown.svg";
@@ -43,7 +45,7 @@ function Logo({ src, alt }: { src: string; alt: string }) {
 			<img
 				alt={alt}
 				src={src}
-				className="max-w-none size-full object-contain min-h-10 max-h-10"
+				className="max-w-none size-full object-contain min-h-6 max-h-7"
 			/>
 		</div>
 	);
@@ -51,20 +53,20 @@ function Logo({ src, alt }: { src: string; alt: string }) {
 
 function Logos() {
 	return (
-		<div className="flex flex-col items-center justify-center self-stretch flex-1 min-w-0 gap-9 md:gap-14">
-			{/* <div className="flex items-center align-middle self-stretch">
+		<div className="flex flex-col items-center justify-center self-stretch flex-1 min-w-0 gap-8 md:gap-12">
+			<div className="flex items-center align-middle self-stretch">
 				<img
-					alt="CodeRabbit logo"
-					src={codeRabbit}
+					alt="Technation logo"
+					src={technation}
 					className="max-w-none size-full object-contain min-h-10 max-h-20"
 				/>
-			</div> */}
+			</div>
 			<div className="flex px-4 items-center w-full gap-7">
 				<div className="flex-1 min-w-0">
 					<Logo src={shopify} alt="Shopify logo" />
 				</div>
 				<div className="flex-1 min-w-0">
-					<Logo src={mundane} alt="S2Dev logo" />
+					<Logo src={mundane} alt="Mundane logo" />
 				</div>
 			</div>
 			<div className="flex px-4 items-center w-full gap-7">
@@ -72,37 +74,45 @@ function Logos() {
 					<Logo src={akatos} alt="Akatos logo" />
 				</div>
 				<div className="flex-1 min-w-0">
-					<Logo src={nom} alt="Nom logo" />
+					<Logo src={reve} alt="Reve logo" />
 				</div>
+				
 			</div>
 			<div className="flex px-4 items-center w-full gap-7">
 				<div className="flex-1 min-w-0">
 					<Logo src={gitTrophy} alt="GitTrophy logo" />
 				</div>
 				<div className="flex-1 min-w-0">
-					<Logo src={s2dev} alt="S2Dev logo" />
+					<Logo src={nom} alt="Nom logo" />
 				</div>
+				
 			</div>
 			<div className="flex px-4 items-center w-full gap-7">
 				<div className="flex-1 min-w-0">
 					<Logo src={wics} alt="WICS logo" />
 				</div>
 				<div className="flex-1 min-w-0">
-					<Logo src={tccff} alt="TCCFF logo" />
+					<Logo src={s2dev} alt="S2Dev logo" />
 				</div>
+				
 			</div>
 			<div className="flex px-4 items-center w-full gap-7">
 				<div className="flex-1 min-w-0">
-					<Logo src={georgeshao} alt="George Shao logo" />
+					<Logo src={tccff} alt="TCCFF logo" />
 				</div>
 				<div className="flex-1 min-w-0">
-					<Logo src={hudzah} alt="Hudzah logo" />
+					<Logo src={georgeshao} alt="George Shao logo" />
 				</div>
+				
 			</div>
 			<div className="flex px-4 items-center w-full gap-7">
 				<div className="flex-1 min-w-0">
 					<Logo src={josephma} alt="Joseph Ma logo" />
 				</div>
+				<div className="flex-1 min-w-0">
+					<Logo src={hudzah} alt="Hudzah logo" />
+				</div>
+				
 			</div>
 		</div>
 	);
@@ -214,7 +224,7 @@ function InfoRows({ className = "" }: { className?: string }) {
 
 				<div className="flex flex-col content-end items-center gap-3 ">
 					<a
-						href="https://drive.google.com/file/d/1ByBBPr7N00PmRnpSTH17vv81T06IAxXy/view?usp=sharing"
+						href="https://drive.google.com/file/d/1tqRMNIJtgQ1iD6iiLqaj6ManmFMXTZ9L/view?usp=sharing"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="flex h-13 px-4 items-center gap-2.5 bg-[#ffefdd] py-3 rounded-[100px]"
